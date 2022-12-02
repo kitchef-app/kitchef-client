@@ -1,18 +1,23 @@
 import { View, Image, StatusBar } from "react-native";
 import { useEffect } from "react";
 import { COLORS } from "../constants/theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SplashScreen({ navigation }) {
-  const isLogin = false;
   useEffect(() => {
     setTimeout(() => {
-      if (!isLogin) {
-        navigation.navigate("Onboarding");
-      } else {
-        navigation.navigate("Home");
-      }
+      getData();
     }, 2000);
   }, []);
+
+  const getData = async () => {
+    const access_token = await AsyncStorage.getItem("access_token");
+    if (!access_token) {
+      navigation.replace("Onboarding");
+    } else {
+      navigation.replace("Home");
+    }
+  };
 
   return (
     <>

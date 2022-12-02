@@ -3,20 +3,23 @@ import NotificationScreen from "../screen/NotificationScreen";
 import CartScreen from "../screen/CartScreen";
 import Icon from "react-native-vector-icons/Ionicons";
 import AccountNavigator from "../navigator/AccountNavigator";
-import { COLORS } from "../constants/theme";
+import { COLORS, SIZES } from "../constants/theme";
 import HomeNavigator from "./HomeNavigator";
+import LoginScreen from "../screen/LoginScreen";
+import { View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
-export default function BottomTabNavigator() {
+export default function BottomTabNavigator({ navigation }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        tabBarHideOnKeyboard: true,
+        keyboardHidesTabBar: true,
         headerShown: false,
         tabBarIcon: ({ color, size, focused }) => {
           let iconName;
           color = COLORS.primary;
-
           if (route.name === "HomeNavigator") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "NotificationTab") {
@@ -45,6 +48,7 @@ export default function BottomTabNavigator() {
         }}
       />
       <Tab.Screen name="CartTab" component={CartScreen} />
+
       <Tab.Screen
         name="AccountNavigator"
         component={AccountNavigator}

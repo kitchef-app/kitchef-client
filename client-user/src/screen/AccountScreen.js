@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,8 +8,25 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { COLORS } from "../constants/theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AccountScreen({ navigation }) {
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const access_token = await AsyncStorage.getItem("access_token");
+    if (!access_token) {
+      return navigation.replace("Login");
+    }
+  };
+
+  const removeData = async () => {
+    await AsyncStorage.removeItem("access_token");
+    navigation.replace("Home");
+  };
+
   return (
     <View
       style={{
@@ -27,6 +45,9 @@ export default function AccountScreen({ navigation }) {
         style={styles.loginBtn}
       >
         <Text style={styles.loginText}>Pesanan Saya</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => removeData()} style={styles.loginBtn}>
+        <Text style={styles.loginText}>Keluar</Text>
       </TouchableOpacity>
     </View>
   );
