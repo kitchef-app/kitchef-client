@@ -1,7 +1,14 @@
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import { COLORS } from "../constants/theme";
 
-export default function HomeScreen({ navigation }) {
+export default function AccountScreen({ navigation }) {
   return (
     <View
       style={{
@@ -11,19 +18,16 @@ export default function HomeScreen({ navigation }) {
         backgroundColor: COLORS.backgroundWhite,
       }}
     >
+      <Image
+        source={require("../assets/logo/logo_full_vertical_32_white.png")}
+      />
+      <Text>Ini account screen</Text>
       <TouchableOpacity
-        onPress={() => navigation.navigate("DetailRecipe")}
+        onPress={() => navigation.navigate("Order")}
         style={styles.loginBtn}
       >
-        <Text style={styles.loginText}>Recipe 1 Item</Text>
+        <Text style={styles.loginText}>Pesanan Saya</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("ListRecipe")}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>List Recipe Category based</Text>
-      </TouchableOpacity>
-      <Text>Ini home screen</Text>
     </View>
   );
 }
