@@ -1,7 +1,7 @@
 import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS } from "../constants/theme";
 
-export default function HomeScreen({ navigation }) {
+export default function ListRecipe({ navigation }) {
   return (
     <View
       style={{
@@ -15,19 +15,12 @@ export default function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate("DetailRecipe")}
         style={styles.loginBtn}
       >
-        <Text style={styles.loginText}>Recipe 1 Item</Text>
+        <Text style={styles.loginText}>Go To Detail REsep</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("ListRecipe")}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>List Recipe Category based</Text>
-      </TouchableOpacity>
-      <Text>Ini home screen</Text>
+      <Text>Ini LIST RECIPE screen</Text>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

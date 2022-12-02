@@ -4,17 +4,19 @@ import {
   View,
   Image,
   TextInput,
+  Button,
   TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
 import { COLORS } from "../constants/theme";
 
-export default function LoginScreen({ navigation }) {
+export default function RegisterScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
+        <Text>INI LOGIN</Text>
         <TextInput
           style={styles.TextInput}
           placeholder="Email."
@@ -33,18 +35,15 @@ export default function LoginScreen({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>LOGIN</Text>
+      <TouchableOpacity style={styles.loginBtn}>
+        <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.loginBtn}
-        onPress={() => navigation.navigate("Register")}
+        onPress={() => navigation.navigate("Login")}
       >
-        <Text style={styles.loginText}>Register</Text>
+        <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
     </View>
   );

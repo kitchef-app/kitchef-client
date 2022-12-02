@@ -53,7 +53,7 @@ export default function PreferencesScreen({ navigation }) {
         }}
         title="Simpan"
         onPress={() => {
-          navigation.navigate("HomeScreen");
+          navigation.navigate("Home");
         }}
       />
     </View>

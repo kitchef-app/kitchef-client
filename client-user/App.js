@@ -1,17 +1,20 @@
-import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import StackNavigator from "./src/navigator/StackNavigator";
+import { StyleSheet } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { ApolloProvider } from "@apollo/client";
-import { SafeAreaView } from "react-native-safe-area-context";
+import AuthStackNavigator from "./src/navigator/AuthStackNavigator";
+import { COLORS } from "./src/constants/theme";
 
 export default function App() {
   return (
     // <ApolloProvider>
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer>
-        <StackNavigator />
-      </NavigationContainer>
-    </SafeAreaView>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <SafeAreaView style={styles.container}>
+          <AuthStackNavigator />
+        </SafeAreaView>
+      </SafeAreaProvider>
+    </NavigationContainer>
     // </ApolloProvider>
   );
 }
@@ -19,7 +22,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FF7629",
+    backgroundColor: COLORS.backgroundWhite,
     justifyContent: "center",
   },
 });

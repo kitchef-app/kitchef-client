@@ -103,7 +103,7 @@ export default function OnboardingScreen({ navigation }) {
         renderSkipButton={() => buttonLabel("Lewati")}
         renderDoneButton={() => buttonLabel("Selesai")}
         onDone={() => {
-          navigation.navigate("PreferencesScreen");
+          navigation.navigate("Preferences");
         }}
       />
     </>

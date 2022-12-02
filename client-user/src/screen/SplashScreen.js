@@ -3,9 +3,14 @@ import { useEffect } from "react";
 import { COLORS } from "../constants/theme";
 
 export default function SplashScreen({ navigation }) {
+  const isLogin = false;
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("OnboardingScreen");
+      if (!isLogin) {
+        navigation.navigate("Onboarding");
+      } else {
+        navigation.navigate("Home");
+      }
     }, 2000);
   }, []);
 
