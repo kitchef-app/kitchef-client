@@ -1,29 +1,59 @@
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Pressable,
+  TextInput,
+  ScrollView,
+} from "react-native";
+import CardCategory from "../components/CardCategory";
+import CardLandingRecipe from "../components/CardLandingRecipe";
 import { COLORS } from "../constants/theme";
 
 export default function HomeScreen({ navigation }) {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: COLORS.backgroundWhite,
-      }}
-    >
-      <TouchableOpacity
-        onPress={() => navigation.navigate("DetailRecipe")}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Recipe 1 Item</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("ListRecipe")}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>List Recipe Category based</Text>
-      </TouchableOpacity>
-      <Text>Ini home screen</Text>
+    <View className="flex-1">
+      <View className="bg-[#FF7629] h-40 rounded-lg">
+        <Text className="font-extrabold text-xl ml-4 mt-8 text-white">
+          Mau masak apa hari ini?
+        </Text>
+
+        <TextInput
+          className="bg-gray-200 border border-gray-400 h-[40] text-gray-500 rounded-lg text-left mx-4 mb-2 pl-5 mt-4"
+          placeholder="Cari resep makanan ..."
+        />
+      </View>
+      <View>
+        <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
+          Resep masakan pilihan untukmu
+        </Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View className="flex-row">
+            <CardLandingRecipe />
+            <CardLandingRecipe />
+            <CardLandingRecipe />
+            <CardLandingRecipe />
+            <CardLandingRecipe />
+            <CardLandingRecipe />
+          </View>
+        </ScrollView>
+      </View>
+      <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
+        Aneka Category Masakan
+      </Text>
+      <ScrollView className="mb-6">
+        <View style={styles.category}>
+          <CardCategory />
+          <CardCategory />
+          <CardCategory />
+          <CardCategory />
+          <CardCategory />
+          <CardCategory />
+          <CardCategory />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -31,13 +61,18 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    backgroundColor: "red",
+  },
+  category: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginLeft: 4,
+    marginRight: 4,
     justifyContent: "center",
   },
-
   image: {
-    marginBottom: 40,
+    width: 360,
+    height: 170,
   },
 
   inputView: {
