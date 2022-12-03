@@ -3,14 +3,17 @@ import { COLORS } from "../constants/theme";
 import YoutubePlayer from "react-native-youtube-iframe";
 import CardDetailRecipe from "../components/CardDetailRecipe";
 import { ScrollView } from "react-native-gesture-handler";
+import CardCooking from "../components/CardCooking";
+import CardListAllItem from "../components/CardListAllItem";
 
 export default function DetailRecipe({ navigation }) {
+  
   return (
     <ScrollView>
       <View className="flex-1">
-        {/* <View>
+        <View className="w-full">
           <YoutubePlayer height={300} videoId={"iee2TATGMyI"}></YoutubePlayer>
-        </View> */}
+        </View>
         <View className="mt-[-46] ml-4">
           <Text className="text-2xl font-extrabold">Nasi Goreng</Text>
         </View>
@@ -44,19 +47,26 @@ export default function DetailRecipe({ navigation }) {
         <View className="mt-8">
           <Text className="text-xl ml-4 font-bold">Cara Memasak</Text>
         </View>
-        <ScrollView horizontal>
-          <View className="flex-row">
-            <View className="bg-gray-500 h-[180] w-[160] ml-4 mt-4 rounded-lg">
-              <Text className="text-xl font-medium mt-[9] ml-2"> STEP 1 </Text>
-              <Text className="ml-3 mt-4 mr-3">
-                Ayam digoreng dan goreng goreng ayam dan ayam ayam kampus goreng
-                goreng
-              </Text>
-            </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View className="flex-row mr-4 ">
+            <CardCooking />
+            <CardCooking />
+            <CardCooking />
+            <CardCooking />
+            <CardCooking />
+            <CardCooking />
           </View>
         </ScrollView>
         <View className="mt-8">
-          <Text className="text-xl ml-4 font-bold">Cara Memasak</Text>
+          <Text className="text-xl ml-4 font-bold">
+            Beli bahan dan peralatan sekarang
+          </Text>
+        </View>
+        <View className="flex-col mb-2">
+          <CardListAllItem />
+          <CardListAllItem />
+          <CardListAllItem />
+          <CardListAllItem />
         </View>
       </View>
     </ScrollView>
