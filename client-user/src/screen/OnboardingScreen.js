@@ -27,6 +27,7 @@ const slides = [
 ];
 
 export default function OnboardingScreen({ navigation }) {
+  const isSelectedPreferences = true;
   const buttonLabel = (label) => {
     return (
       <View
@@ -103,7 +104,11 @@ export default function OnboardingScreen({ navigation }) {
         renderSkipButton={() => buttonLabel("Lewati")}
         renderDoneButton={() => buttonLabel("Selesai")}
         onDone={() => {
-          navigation.navigate("Preferences");
+          if (isSelectedPreferences) {
+            navigation.navigate("Home");
+          } else {
+            navigation.navigate("Preferences");
+          }
         }}
       />
     </>

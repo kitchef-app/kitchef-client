@@ -2,16 +2,41 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
   TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
 import { COLORS } from "../constants/theme";
+import { POST_LOGIN } from "../queries/users";
+import { useMutation } from "@apollo/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [loginUser, { loading, error, data }] = useMutation(POST_LOGIN);
+
+  const submitLogin = () => {
+    loginUser({
+      variables: {
+        userLogin: {
+          email,
+          password,
+        },
+      },
+    })
+      .then(async (res) => {
+        if (res?.data?.loginUser?.access_token) {
+          const access_token = res?.data?.loginUser?.access_token;
+          await AsyncStorage.setItem("access_token", access_token);
+          return navigation.replace("Home");
+        } else {
+        }
+      })
+      .catch((err) => console.log(err, "ini err"));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.inputView}>
@@ -33,10 +58,7 @@ export default function LoginScreen({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={styles.loginBtn}
-      >
+      <TouchableOpacity style={styles.loginBtn} onPress={() => submitLogin()}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
 

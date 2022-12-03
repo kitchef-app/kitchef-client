@@ -4,19 +4,48 @@ import {
   View,
   Image,
   TextInput,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
 import { COLORS } from "../constants/theme";
+import { useMutation } from "@apollo/client";
+import { POST_REGISTER } from "../queries/users";
 
-export default function RegisterScreen({ navigation }) {
+export default function LoginScreen({ navigation }) {
+  const [fullName, setFullName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [location, setLocation] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+
+  const [registerUser, { loading, error, data }] = useMutation(POST_REGISTER);
+
+  const locationSplit = location.split(", ");
+  const latitude = locationSplit[1];
+  const longitude = locationSplit[0];
+
   return (
     <View style={styles.container}>
+      <Text>-6.268507218164185, 106.7808981976766</Text>
       <View style={styles.inputView}>
-        <Text>INI LOGIN</Text>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Full name."
+          placeholderTextColor="#003f5c"
+          onChangeText={(fullName) => setFullName(fullName)}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Username."
+          placeholderTextColor="#003f5c"
+          onChangeText={(username) => setUsername(username)}
+        />
+      </View>
+      <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
           placeholder="Email."
@@ -35,15 +64,58 @@ export default function RegisterScreen({ navigation }) {
         />
       </View>
 
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>Register</Text>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Address."
+          placeholderTextColor="#003f5c"
+          onChangeText={(address) => setAddress(address)}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Location."
+          placeholderTextColor="#003f5c"
+          onChangeText={(location) => setLocation(location)}
+        />
+      </View>
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="PhoneNumb."
+          placeholderTextColor="#003f5c"
+          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+        />
+      </View>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Home")}
+        style={styles.loginBtn}
+      >
+        <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.loginBtn}
-        onPress={() => navigation.navigate("Login")}
+        onPress={() =>
+          registerUser({
+            variables: {
+              userInput: {
+                address,
+                email,
+                fullName,
+                latitude,
+                longitude,
+                password,
+                phoneNumber,
+                username,
+              },
+            },
+          })
+        }
       >
-        <Text style={styles.loginText}>Login</Text>
+        <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>
     </View>
   );

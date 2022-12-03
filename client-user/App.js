@@ -4,18 +4,19 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { ApolloProvider } from "@apollo/client";
 import AuthStackNavigator from "./src/navigator/AuthStackNavigator";
 import { COLORS } from "./src/constants/theme";
+import client from "./src/config/apollo";
 
 export default function App() {
   return (
-    // <ApolloProvider>
-    <NavigationContainer>
-      <SafeAreaProvider>
-        <SafeAreaView style={styles.container}>
-          <AuthStackNavigator />
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </NavigationContainer>
-    // </ApolloProvider>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <SafeAreaProvider>
+          <SafeAreaView style={styles.container}>
+            <AuthStackNavigator />
+          </SafeAreaView>
+        </SafeAreaProvider>
+      </NavigationContainer>
+    </ApolloProvider>
   );
 }
 
