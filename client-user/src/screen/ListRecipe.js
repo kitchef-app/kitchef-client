@@ -1,24 +1,49 @@
-import { View, Image, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import { COLORS } from "../constants/theme";
+import Icon from "react-native-vector-icons/Ionicons";
+import CardRecipe from "../components/CardRecipe";
 
 export default function ListRecipe({ navigation }) {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: COLORS.backgroundWhite,
-      }}
-    >
-      <TouchableOpacity
-        onPress={() => navigation.navigate("DetailRecipe")}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>Go To Detail REsep</Text>
-      </TouchableOpacity>
-      <Text>Ini LIST RECIPE screen</Text>
-    </View>
+    // <View
+    //   style={{
+    //     flex: 1,
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //     backgroundColor: COLORS.backgroundWhite,
+    //   }}
+    // >
+    //   <TouchableOpacity
+    //     onPress={() => navigation.navigate("DetailRecipe")}
+    //     style={styles.loginBtn}
+    //   >
+    //     <Text style={styles.loginText}>Go To Detail REsep</Text>
+    //   </TouchableOpacity>
+    //   <Text>Ini LIST RECIPE screen</Text>
+    // </View>
+    <ScrollView className="mb-4">
+      <View className="flex-1 bg-gray-100">
+        <View className="flex-row flex-wrap gap-6 mt-2 flex justify-center">
+          <Pressable onPress={() => navigation.navigate("DetailRecipe")}>
+            <View>
+              <CardRecipe />
+            </View>
+          </Pressable>
+
+          <View>
+            <CardRecipe />
+          </View>
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({

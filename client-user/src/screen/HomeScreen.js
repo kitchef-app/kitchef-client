@@ -31,7 +31,9 @@ export default function HomeScreen({ navigation }) {
         </Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View className="flex-row">
-            <CardLandingRecipe />
+            <Pressable onPress={() => navigation.navigate("ListRecipe")}>
+              <CardLandingRecipe />
+            </Pressable>
             <CardLandingRecipe />
             <CardLandingRecipe />
             <CardLandingRecipe />
