@@ -7,6 +7,7 @@ import { COLORS, SIZES } from "../constants/theme";
 import HomeNavigator from "./HomeNavigator";
 import LoginScreen from "../screen/LoginScreen";
 import { View } from "react-native";
+import CartNavigator from "./CartNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,7 +25,7 @@ export default function BottomTabNavigator({ navigation }) {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "NotificationTab") {
             iconName = focused ? "notifications" : "notifications-outline";
-          } else if (route.name === "CartTab") {
+          } else if (route.name === "CartNavigator") {
             iconName = focused ? "cart" : "cart-outline";
           } else if (route.name === "AccountNavigator") {
             iconName = focused ? "person" : "person-outline";
@@ -47,7 +48,13 @@ export default function BottomTabNavigator({ navigation }) {
           tabBarLabel: "Notifikasi",
         }}
       />
-      <Tab.Screen name="CartTab" component={CartScreen} />
+      <Tab.Screen
+        name="CartNavigator"
+        component={CartNavigator}
+        options={{
+          tabBarLabel: "Keranjang",
+        }}
+      />
 
       <Tab.Screen
         name="AccountNavigator"
