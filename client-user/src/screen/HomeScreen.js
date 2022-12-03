@@ -12,19 +12,29 @@ import {
 import CardCategory from "../components/CardCategory";
 import CardLandingRecipe from "../components/CardLandingRecipe";
 import { COLORS } from "../constants/theme";
+import Icon from "react-native-vector-icons/Ionicons";
 
 export default function HomeScreen({ navigation }) {
   return (
     <View className="flex-1">
-      <View className="bg-[#FF7629] h-40 rounded-lg">
+      <View className="bg-[#FF7629] h-40">
         <Text className="font-extrabold text-xl ml-4 mt-8 text-white">
           Mau masak apa hari ini?
         </Text>
-
-        <TextInput
-          className="bg-gray-200 border border-gray-400 h-[40] text-gray-500 rounded-lg text-left mx-4 mb-2 pl-5 mt-4"
-          placeholder="Cari resep makanan ..."
-        />
+        <View className="flex-row">
+          <Pressable onPress={() => navigation.navigate("SearchScreen")}>
+            <View className="bg-gray-200 border border-gray-400 h-[40] text-gray-500 rounded-lg text-left mx-4 mb-2 pl-5 mt-4 w-[300]">
+              <View className="my-auto">
+                <Text className="font-thin">Cari resep makanan ...</Text>
+              </View>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("NotificationScreen")}>
+            <View className="mt-[19] mb-2">
+              <Icon name="notifications-outline" size={32} color="white" />
+            </View>
+          </Pressable>
+        </View>
       </View>
       <View>
         <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
