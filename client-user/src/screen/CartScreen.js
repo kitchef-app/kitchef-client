@@ -18,8 +18,6 @@ import { useMutation } from "@apollo/client";
 import { WebView } from "react-native-webview";
 import { POST_INVOICE } from "../queries/payment";
 
-
-
 export default function CartScreen({ navigation }) {
   // useEffect(() => {
   //   getData();
@@ -31,20 +29,6 @@ export default function CartScreen({ navigation }) {
   //     return navigation.replace("Login");
   //   }
   // };
-
-  // <View
-  //   style={{
-  //     flex: 1,
-  //     justifyContent: "center",
-  //     alignItems: "center",
-  //     backgroundColor: COLORS.backgroundWhite,
-  //   }}
-  // >
-  //   <Image
-  //     source={require("../assets/logo/logo_full_vertical_32_white.png")}
-  //   />
-  //   <Text>Ini cart screen</Text>
-  // </View>
 
   const dataDummy = {
     total: 600,
@@ -169,6 +153,24 @@ export default function CartScreen({ navigation }) {
             </Pressable>
           </View>
         </View>
+      </View>
+
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: COLORS.backgroundWhite,
+        }}
+      >
+        <Text>Ini cart screen</Text>
+        <Text>Test Payment</Text>
+        <TouchableOpacity
+          style={styles.loginBtn}
+          onPress={() => submitPayment()}
+        >
+          <Text>Bayar</Text>
+        </TouchableOpacity>
       </View>
 
       <View
