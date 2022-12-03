@@ -8,6 +8,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
+
 import CardCategory from "../components/CardCategory";
 import CardLandingRecipe from "../components/CardLandingRecipe";
 import { COLORS } from "../constants/theme";
@@ -29,9 +30,15 @@ export default function HomeScreen({ navigation }) {
         <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
           Resep masakan pilihan untukmu
         </Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          className="mr-4"
+        >
           <View className="flex-row">
-            <CardLandingRecipe />
+            <Pressable onPress={() => navigation.navigate("ListRecipe")}>
+              <CardLandingRecipe />
+            </Pressable>
             <CardLandingRecipe />
             <CardLandingRecipe />
             <CardLandingRecipe />
