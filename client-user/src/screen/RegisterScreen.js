@@ -14,15 +14,22 @@ import { useMutation } from "@apollo/client";
 import { POST_REGISTER } from "../queries/users";
 import MapView, { Marker } from "react-native-maps";
 import Geocoder from "react-native-geocoding"
+import MapViewDirections from 'react-native-maps-directions';
+
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
 export default function LoginScreen({ navigation }) {
+  const origin = {
+    latitude: -6.260826,
+    longitude: 106.7815368
+  }
   const [mapRegion, setmapRegion] = useState({
     latitude: -6.260826,
     longitude: 106.7815368
   });
+  const [distance, setDistance] = useState("")
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -138,6 +145,18 @@ export default function LoginScreen({ navigation }) {
          <Marker
             coordinate={mapRegion}
             style={styles.marker}
+          />
+           <MapViewDirections
+            origin={{...origin}}
+            destination={{...mapRegion}}
+            onReady={result => {
+              console.log(`Distance: ${result.distance} km`)
+              console.log(`Duration: ${result.duration} min.`)
+              setDistance(result.distance)
+            }}
+            apikey={GOOGLE_MAPS_APIKEY}
+            strokeWidth={3}
+            strokeColor="#0ea5e9"
           />
         </MapView>
       
