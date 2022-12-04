@@ -13,6 +13,7 @@ import CardCategory from "../components/CardCategory";
 import CardLandingRecipe from "../components/CardLandingRecipe";
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
+import CardPromo from "../components/CardPromo";
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -36,39 +37,64 @@ export default function HomeScreen({ navigation }) {
           </Pressable>
         </View>
       </View>
-      <View>
-        <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
-          Resep masakan pilihan untukmu
-        </Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="mr-4"
-        >
-          <View className="flex-row">
-            <Pressable onPress={() => navigation.navigate("ListRecipe")}>
+      <ScrollView>
+        <View>
+          <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
+            Resep masakan pilihan untukmu
+          </Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mr-4 mt-2"
+          >
+            <View className="flex-row">
+              <Pressable onPress={() => navigation.navigate("DetailRecipe")}>
+                <CardLandingRecipe />
+              </Pressable>
               <CardLandingRecipe />
-            </Pressable>
-            <CardLandingRecipe />
-            <CardLandingRecipe />
-            <CardLandingRecipe />
-            <CardLandingRecipe />
-            <CardLandingRecipe />
-          </View>
-        </ScrollView>
-      </View>
-      <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
-        Aneka Category Masakan
-      </Text>
-      <ScrollView className="mb-6">
-        <View style={styles.category}>
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
+              <CardLandingRecipe />
+              <CardLandingRecipe />
+              <CardLandingRecipe />
+              <CardLandingRecipe />
+            </View>
+          </ScrollView>
+        </View>
+        <View className="flex-col">
+          <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
+            Event & Promosi
+          </Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            className="mt-4 mr-4 ml-4"
+          >
+            <View className="flex-1">
+              <View className="flex-row">
+                <CardPromo />
+                <CardPromo />
+                <CardPromo />
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+        <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
+          Aneka Category Masakan
+        </Text>
+
+        <View className="flex-1">
+          <Pressable onPress={() => navigation.navigate("ListRecipe")}>
+            <View className="flex-wrap flex-row ml-[4] mr-[4] mt-4 mb-4">
+              <CardCategory />
+              <CardCategory />
+              <CardCategory />
+              <CardCategory />
+              <CardCategory />
+              <CardCategory />
+              <CardCategory />
+              <CardCategory />
+              <CardCategory />
+            </View>
+          </Pressable>
         </View>
       </ScrollView>
     </View>
