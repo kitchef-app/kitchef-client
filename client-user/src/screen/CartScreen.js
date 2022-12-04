@@ -117,13 +117,13 @@ export default function CartScreen({ navigation }) {
           <CardListChart />
           <CardListChart />
           <CardListChart />
-          <View className="flex-row bg-white h-[150] mt-4 ml-4 mr-4 rounded-sm">
+          <View className="flex-row bg-white h-[150] mt-4 ml-2 mr-2 rounded-sm">
             <View className="flex-col my-auto">
               <View className="flex-row">
                 <Text className="ml-4 mr-3 text-lg font-semibold text-black">
                   Subtotal
                 </Text>
-                <Text className="ml-[160] mr-3 text-lg font-semibold text-black">
+                <Text className="ml-[175] mr-3 text-lg font-semibold text-black">
                   Rp. 999.999
                 </Text>
               </View>
@@ -131,7 +131,7 @@ export default function CartScreen({ navigation }) {
                 <Text className="ml-4 mt-2 mr-3 text-lg font-semibold text-black">
                   Ongkos Kirim
                 </Text>
-                <Text className="ml-[120] mt-2 mr-3 text-lg font-semibold text-black">
+                <Text className="ml-[135] mt-2 mr-3 text-lg font-semibold text-black">
                   Rp. 999.999
                 </Text>
               </View>
@@ -142,7 +142,7 @@ export default function CartScreen({ navigation }) {
                 <Text className="ml-4 mt-4 mr-3 text-lg font-semibold text-black">
                   Total
                 </Text>
-                <Text className="ml-[186] mt-2 mr-3 text-lg font-semibold text-black">
+                <Text className="ml-[200] mt-2 mr-3 text-lg font-semibold text-black">
                   Rp. 999.999
                 </Text>
               </View>

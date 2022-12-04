@@ -3,7 +3,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export default function CardListChart() {
   return (
-    <View className="flex-row bg-white h-[120] mt-4 ml-4 mr-4 rounded-sm">
+    <View className="flex-row bg-white h-[120] mt-4 ml-2 mr-2 rounded-sm">
       <Image
         className="w-[95] h-[100] my-auto ml-4 rounded-lg"
         source={{
