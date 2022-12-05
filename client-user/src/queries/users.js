@@ -18,11 +18,22 @@ export const POST_LOGIN = gql`
 `;
 
 export const GET_USER = gql`
-  query GetInvoiceUser($id: ID) {
+  query GetUserById($id: Int) {
     getUserById(_id: $id) {
       username
       phoneNumber
+      fullName
       email
+    }
+  }
+`;
+
+export const GET_ORDER_LIST = gql`
+  query GetInvoiceUser($userId: Int) {
+    getInvoiceUser(UserId: $userId) {
+      isDelivered
+      createdAt
+      id
     }
   }
 `;
