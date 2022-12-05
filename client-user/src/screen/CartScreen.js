@@ -108,7 +108,7 @@ export default function CartScreen({ navigation }) {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView vertical showsVerticalScrollIndicator={false}>
         <View clasName="flex-1">
           <Text className="mx-auto text-xl font-semibold mt-4">Keranjang</Text>
           <CardListChart />

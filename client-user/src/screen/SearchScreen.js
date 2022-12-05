@@ -1,4 +1,4 @@
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import CardSearch from "../components/CardSearch";
 
 export default function SearchScreen({ navigation }) {
@@ -14,15 +14,17 @@ export default function SearchScreen({ navigation }) {
           placeholder="Cari resep makanan ..."
         />
       </View>
-      <ScrollView>
+      <ScrollView vertical showsVerticalScrollIndicator={false}>
         <View className="mb-2">
-          <CardSearch />
-          <CardSearch />
-          <CardSearch />
-          <CardSearch />
-          <CardSearch />
-          <CardSearch />
-          <CardSearch />
+          <Pressable onPress={() => navigation.navigate("DetailRecipe")}>
+            <CardSearch />
+            <CardSearch />
+            <CardSearch />
+            <CardSearch />
+            <CardSearch />
+            <CardSearch />
+            <CardSearch />
+          </Pressable>
         </View>
       </ScrollView>
     </View>

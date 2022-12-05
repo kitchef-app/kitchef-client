@@ -73,7 +73,7 @@ export default function HomeScreen({ navigation }) {
                 </Pressable>
               </View>
             </View>
-            <ScrollView>
+            <ScrollView vertical showsVerticalScrollIndicator={false}>
               <View>
                 <Text className="font-bold text-xl ml-4 mt-6 text-[#333333]">
                   Resep Masakan Pilihan Untukmu
