@@ -37,17 +37,17 @@ export default function StackNavigator() {
           },
           headerBackVisible: false,
         }}
-      />
-      <Stack.Screen
-        name="Tracking"
-        component={Tracking}
-        options={{
-          title: "Lacak Pemesanan",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      />
+        />
+        <Stack.Screen
+          name="Tracking"
+          component={Tracking}
+          options={{
+            title: "Lacak Pemesanan",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
     </Stack.Navigator>
   );
 }
