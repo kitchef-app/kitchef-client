@@ -5,6 +5,7 @@ import { COLORS, SIZES } from "../constants/theme";
 import HomeNavigator from "./HomeNavigator";
 import CartNavigator from "./CartNavigator";
 import ChatScreen from "../screen/ChatScreen";
+import NotificationScreen from "../screen/NotificationScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,8 +21,8 @@ export default function BottomTabNavigator({ navigation }) {
           color = COLORS.primary;
           if (route.name === "HomeNavigator") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "ChatTab") {
-            iconName = focused ? "chatbox" : "chatbox-ellipses-outline";
+          } else if (route.name === "Notification") {
+            iconName = focused ? "notifications" : "notifications-outline";
           } else if (route.name === "CartNavigator") {
             iconName = focused ? "cart" : "cart-outline";
           } else if (route.name === "AccountNavigator") {
@@ -39,10 +40,10 @@ export default function BottomTabNavigator({ navigation }) {
         }}
       />
       <Tab.Screen
-        name="ChatTab"
-        component={ChatScreen}
+        name="Notification"
+        component={NotificationScreen}
         options={{
-          tabBarLabel: "Pesan",
+          tabBarLabel: "Notifikasi",
         }}
       />
       <Tab.Screen

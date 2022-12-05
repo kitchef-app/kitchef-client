@@ -17,8 +17,10 @@ import CardRecipe from "../components/CardRecipe";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_DISHES, GET_CATEGORY } from "../queries/recipe";
 import Loading from "../components/Loading";
+import * as Animatable from "react-native-animatable";
 
 export default function HomeScreen({ navigation }) {
+  const [mainAnimation, setMainAnimation] = useState("slideInDown");
   const [preferences, setPreferences] = useState([]);
   const { loading, error, data: category } = useQuery(GET_CATEGORY);
   const { data: dishes } = useQuery(GET_ALL_DISHES);
@@ -36,8 +38,6 @@ export default function HomeScreen({ navigation }) {
     getData();
   }, []);
 
-  console.log(preferences, "ini pereferences");
-
   return (
     <>
       {loading && <Loading />}
@@ -54,21 +54,14 @@ export default function HomeScreen({ navigation }) {
               <Text className="font-bold text-xl ml-4 mt-2 text-white">
                 Mau masak apa hari ini?
               </Text>
-              <View className="flex-row">
+              <View className="w-full">
                 <Pressable onPress={() => navigation.navigate("SearchScreen")}>
-                  <View className="bg-white h-[40] rounded-lg text-left mx-4 mb-2 pl-3 mt-3 w-[320]">
+                  <View className="bg-white h-[40] rounded-lg text-left mx-4 mb-2 pl-3 mt-3">
                     <View className="my-auto">
                       <Text className="font-regular text-gray-500">
                         Cari resep masakan
                       </Text>
                     </View>
-                  </View>
-                </Pressable>
-                <Pressable
-                  onPress={() => navigation.navigate("NotificationScreen")}
-                >
-                  <View className="mt-[15] mb-2">
-                    <Icon name="notifications" size={30} color="white" />
                   </View>
                 </Pressable>
               </View>
@@ -84,38 +77,24 @@ export default function HomeScreen({ navigation }) {
                   className="mt-2"
                 >
                   <View className="flex-row ml-3">
-                    {dishes?.getDishes
-                      ?.filter((dish, index) => {
-                        // console.log(dish);
-                        console.log(preferences);
-                        if (preferences && preferences.length > 0) {
-                          console.log(dish.id);
-                          if (preferences.includes(dish.id)) {
+                    {!loading &&
+                      dishes?.getDishes
+                        ?.filter((dish, index) => {
+                          if (preferences && preferences.length > 0) {
+                            if (preferences.includes(dish.id)) {
+                              return dish;
+                            }
+                          } else {
                             return dish;
-                            // return (
-                            //   <CardRecipe
-                            //     dishes={dish}
-                            //     navigation={navigation}
-                            //     key={index}
-                            //   />
-                            // );
                           }
-                        } else {
-                          return dish;
-                        }
-                        // preferences.forEach((el, i) => {
-                        //   console.log(el);
-                        //   if (dishes.CategoryId == el)
-
-                        // });
-                      })
-                      .map((dish, index) => (
-                        <CardRecipe
-                          dishes={dish}
-                          navigation={navigation}
-                          key={index}
-                        />
-                      ))}
+                        })
+                        .map((dish, index) => (
+                          <CardRecipe
+                            dishes={dish}
+                            navigation={navigation}
+                            key={index}
+                          />
+                        ))}
                   </View>
                 </ScrollView>
               </View>
@@ -143,7 +122,7 @@ export default function HomeScreen({ navigation }) {
 
               <View className="flex-1 ml-4 mr-4">
                 <View className="flex-wrap flex-row mt-2 mb-4">
-                  {category.getCategory?.map((category, index) => (
+                  {category?.getCategory?.map((category, index) => (
                     <CardCategory
                       category={category}
                       navigation={navigation}
