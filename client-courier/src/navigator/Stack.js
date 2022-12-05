@@ -3,6 +3,7 @@ import Home from "../screens/Home";
 import Login from "../screens/Login";
 import SplashScreen from "../screens/Splash";
 import Tracking from "../screens/Tracking";
+import ChatComponent from "../screens/ChatComponent";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,11 @@ export default function StackNavigator() {
         headerStyle: { backgroundColor: "#FF7629" },
       }}
     >
+      <Stack.Screen
+        name="ChatComponent"
+        component={ChatComponent}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}

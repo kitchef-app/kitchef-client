@@ -5,10 +5,11 @@ import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 import MapViewDirections from 'react-native-maps-directions';
+import { GOOGLE_MAPS_APIKEY } from "@env"
 
 
 export default function Tracking ({ navigation }) {
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
+  // const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
   const [region, setRegion] = useState({})
 
   // fetch data user location
@@ -27,11 +28,10 @@ export default function Tracking ({ navigation }) {
               timeInterval: 10000,
               distanceInterval: 10,
             },
-            (location_update) => {
-              // console.log("update location!", location_update.coords, new Date());
+            (update) => {
               setRegion({
-                latitude: location_update.coords.latitude,
-                longitude: location_update.coords.longitude,
+                latitude: update.coords.latitude,
+                longitude: update.coords.longitude,
               });
               console.log(region);
             }
@@ -58,14 +58,20 @@ export default function Tracking ({ navigation }) {
     >
      <Marker
         coordinate={region}
+        pinColor={"black"}
+        title="Customer"
+      />
+     <Marker
+        coordinate={{latitude: -6.297441633874579, longitude: 106.71282256060646}}
+        title="Your Location"
       />
       <MapViewDirections
         origin={{...region}}
         destination={{latitude: -6.297441633874579, longitude: 106.71282256060646}}
-        onReady={result => {
-              console.log(`Distance: ${result.distance} km`)
-              console.log(`Duration: ${result.duration} min.`)
-        }}
+        // onReady={result => {
+        //       console.log(`Distance: ${result.distance} km`)
+        //       console.log(`Duration: ${result.duration} min.`)
+        // }}
         apikey={GOOGLE_MAPS_APIKEY}
         strokeWidth={3}
         strokeColor="#0ea5e9"
@@ -73,11 +79,17 @@ export default function Tracking ({ navigation }) {
     </MapView>
   </View>
     <View className="mb-20 w-80">
+    <TouchableOpacity
+    style={styles.btn}
+      onPress={() => navigation.navigate("Home")}
+    >
+    <Text style={styles.btnText}>Selesai</Text>
+    </TouchableOpacity>
       <TouchableOpacity
-      style={styles.btn}
+      style={styles.btnReversed}
         onPress={() => navigation.navigate("Home")}
       >
-      <Text style={styles.btnText}>Selesai</Text>
+      <Text style={styles.btnTextReversed}>Chat with Customer</Text>
       </TouchableOpacity>
     </View>
   </View>
@@ -94,7 +106,8 @@ const styles = StyleSheet.create({
   },
   mapContainer: {
     width: "100%",
-    height: 550
+    height: 550,
+    marginBottom: 5
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -104,10 +117,23 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 5,
+  },
+  btnReversed: {
+    backgroundColor: "#fff",
+    borderRadius: 20,
+    padding: 10,
+    alignItems: "center",
+    marginTop: 5,
+    borderColor: "tomato",
+    borderWidth: 1,
   },
   btnText: {
     color: "#fff",
+    fontWeight: "600"
+  },
+  btnTextReversed: {
+    color: "tomato",
     fontWeight: "600"
   }
 });
