@@ -13,16 +13,28 @@ export default function HomeNavigator() {
       <Home.Screen
         name="HomeScreen"
         component={HomeScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, headerBackTitleVisible: false }}
       />
-      <Home.Screen name="ListRecipe" component={ListRecipe} />
-      <Home.Screen name="DetailRecipe" component={DetailRecipe} />
+      <Home.Screen
+        name="ListRecipe"
+        component={ListRecipe}
+        options={{ headerBackTitleVisible: false }}
+      />
+      <Home.Screen
+        name="DetailRecipe"
+        component={DetailRecipe}
+        options={{ headerBackTitleVisible: false }}
+      />
       <Home.Screen
         options={{ headerShown: false }}
         name="SearchScreen"
         component={SearchScreen}
       />
-      <Home.Screen name="NotificationScreen" component={NotificationScreen} />
+      <Home.Screen
+        name="NotificationScreen"
+        component={NotificationScreen}
+        options={{ headerBackTitleVisible: false }}
+      />
     </Home.Navigator>
   );
 }

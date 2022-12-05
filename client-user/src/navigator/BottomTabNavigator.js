@@ -1,12 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import NotificationScreen from "../screen/NotificationScreen";
-import CartScreen from "../screen/CartScreen";
 import Icon from "react-native-vector-icons/Ionicons";
 import AccountNavigator from "../navigator/AccountNavigator";
 import { COLORS, SIZES } from "../constants/theme";
 import HomeNavigator from "./HomeNavigator";
-import LoginScreen from "../screen/LoginScreen";
-import { View } from "react-native";
 import CartNavigator from "./CartNavigator";
 import ChatScreen from "../screen/ChatScreen";
 

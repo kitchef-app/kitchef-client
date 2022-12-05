@@ -13,21 +13,24 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
 
 export default function AccountScreen({ navigation }) {
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const getData = async () => {
+    const access_token = await AsyncStorage.getItem("access_token");
+    if (!access_token) {
+      return navigation.replace("Login");
+    } else {
+      return navigation.replace("Account");
+    }
+  };
 
-  // const getData = async () => {
-  //   const access_token = await AsyncStorage.getItem("access_token");
-  //   if (!access_token) {
-  //     return navigation.replace("Login");
-  //   }
-  // };
+  const removeData = async () => {
+    await AsyncStorage.removeItem("access_token");
+    await AsyncStorage.removeItem("preferences");
+    navigation.replace("Home");
+  };
 
-  // const removeData = async () => {
-  //   await AsyncStorage.removeItem("access_token");
-  //   navigation.replace("Home");
-  // };
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     // <View
@@ -104,10 +107,13 @@ export default function AccountScreen({ navigation }) {
           </View>
         </View>
         <View className="bg-white h-[40] ml-2 mr-2 mt-[1] rounded-sm">
-          <View className="flex-row my-auto ml-4">
+          <TouchableOpacity
+            className="flex-row my-auto ml-4"
+            onPress={() => removeData()}
+          >
             <Icon name="log-out-outline" size={18} />
             <Text className="ml-4 text-lg my-auto">Keluar</Text>
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
