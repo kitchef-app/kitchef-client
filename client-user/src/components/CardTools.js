@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Image, Pressable, Text, View } from "react-native";
+import { Button, Image, Pressable, Text, View } from "react-native";
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/Ionicons";
 
-export default function CardDetailRecipe({ ingredients }) {
+export default function CardTools({ tools }) {
   const [isModalVisible, setModalVisible] = useState(false);
 
   const toggleModal = () => {
@@ -14,7 +14,7 @@ export default function CardDetailRecipe({ ingredients }) {
       <View className="w-56 flex-row items-center">
         <Icon name="ellipse" size={8} color="#f1a375" />
         <Text className="my-auto ml-2 text-medium text-[#5c5c5c]">
-          {ingredients?.name}
+          {tools?.name}
         </Text>
       </View>
       <Pressable onPress={toggleModal} className="py-2 h-full rounded-md">

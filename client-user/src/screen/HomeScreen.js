@@ -1,126 +1,161 @@
 import {
   View,
-  Image,
   Text,
-  TouchableOpacity,
-  StyleSheet,
   Pressable,
-  TextInput,
+  FlatList,
+  StatusBar,
   ScrollView,
 } from "react-native";
-
+import { useEffect, useState } from "react";
 import CardCategory from "../components/CardCategory";
 import CardLandingRecipe from "../components/CardLandingRecipe";
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
+import CardPromo from "../components/CardPromo";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import CardRecipe from "../components/CardRecipe";
+import { useQuery } from "@apollo/client";
+import { GET_ALL_DISHES, GET_CATEGORY } from "../queries/recipe";
+import Loading from "../components/Loading";
 
 export default function HomeScreen({ navigation }) {
+  const [preferences, setPreferences] = useState([]);
+  const { loading, error, data: category } = useQuery(GET_CATEGORY);
+  const { data: dishes } = useQuery(GET_ALL_DISHES);
+
+  const getData = async () => {
+    const preferences = await AsyncStorage.getItem("preferences");
+    if (!preferences) {
+      return setPreferences([]);
+    } else {
+      return setPreferences(preferences);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(preferences, "ini pereferences");
+
   return (
-    <View className="flex-1">
-      <View className="bg-[#FF7629] h-40">
-        <Text className="font-extrabold text-xl ml-4 mt-8 text-white">
-          Mau masak apa hari ini?
-        </Text>
-        <View className="flex-row">
-          <Pressable onPress={() => navigation.navigate("SearchScreen")}>
-            <View className="bg-gray-200 border border-gray-400 h-[40] text-gray-500 rounded-lg text-left mx-4 mb-2 pl-5 mt-4 w-[300]">
-              <View className="my-auto">
-                <Text className="font-thin">Cari resep makanan ...</Text>
+    <>
+      {loading && <Loading />}
+      {!loading && preferences && (
+        <>
+          <StatusBar
+            style="dark"
+            backgroundColor="#FF7629"
+            barStyle="light-content"
+            animated={true}
+          />
+          <View className="flex-1" backgroundColor={COLORS.backgroundWhite}>
+            <View className="bg-[#FF7629] h-[110]">
+              <Text className="font-bold text-xl ml-4 mt-2 text-white">
+                Mau masak apa hari ini?
+              </Text>
+              <View className="flex-row">
+                <Pressable onPress={() => navigation.navigate("SearchScreen")}>
+                  <View className="bg-white h-[40] rounded-lg text-left mx-4 mb-2 pl-3 mt-3 w-[320]">
+                    <View className="my-auto">
+                      <Text className="font-regular text-gray-500">
+                        Cari resep masakan
+                      </Text>
+                    </View>
+                  </View>
+                </Pressable>
+                <Pressable
+                  onPress={() => navigation.navigate("NotificationScreen")}
+                >
+                  <View className="mt-[15] mb-2">
+                    <Icon name="notifications" size={30} color="white" />
+                  </View>
+                </Pressable>
               </View>
             </View>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate("NotificationScreen")}>
-            <View className="mt-[19] mb-2">
-              <Icon name="notifications-outline" size={32} color="white" />
-            </View>
-          </Pressable>
-        </View>
-      </View>
-      <View>
-        <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
-          Resep masakan pilihan untukmu
-        </Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="mr-4"
-        >
-          <View className="flex-row">
-            <Pressable onPress={() => navigation.navigate("ListRecipe")}>
-              <CardLandingRecipe />
-            </Pressable>
-            <CardLandingRecipe />
-            <CardLandingRecipe />
-            <CardLandingRecipe />
-            <CardLandingRecipe />
-            <CardLandingRecipe />
+            <ScrollView vertical showsVerticalScrollIndicator={false}>
+              <View>
+                <Text className="font-bold text-xl ml-4 mt-6 text-[#333333]">
+                  Resep Masakan Pilihan Untukmu
+                </Text>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="mt-2"
+                >
+                  <View className="flex-row ml-3">
+                    {dishes?.getDishes
+                      ?.filter((dish, index) => {
+                        // console.log(dish);
+                        console.log(preferences);
+                        if (preferences && preferences.length > 0) {
+                          console.log(dish.id);
+                          if (preferences.includes(dish.id)) {
+                            return dish;
+                            // return (
+                            //   <CardRecipe
+                            //     dishes={dish}
+                            //     navigation={navigation}
+                            //     key={index}
+                            //   />
+                            // );
+                          }
+                        } else {
+                          return dish;
+                        }
+                        // preferences.forEach((el, i) => {
+                        //   console.log(el);
+                        //   if (dishes.CategoryId == el)
+
+                        // });
+                      })
+                      .map((dish, index) => (
+                        <CardRecipe
+                          dishes={dish}
+                          navigation={navigation}
+                          key={index}
+                        />
+                      ))}
+                  </View>
+                </ScrollView>
+              </View>
+              <View className="flex-col">
+                <Text className="font-bold text-lg ml-4 mt-8 text-[#333333]">
+                  Promo
+                </Text>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="mt-2 ml-4"
+                >
+                  <View className="flex-1">
+                    <View className="flex-row">
+                      <CardPromo />
+                      <CardPromo />
+                      <CardPromo />
+                    </View>
+                  </View>
+                </ScrollView>
+              </View>
+              <Text className="font-bold text-lg ml-4 mt-8 text-[#333333]">
+                Aneka Kategori Masakan
+              </Text>
+
+              <View className="flex-1 ml-4 mr-4">
+                <View className="flex-wrap flex-row mt-2 mb-4">
+                  {category.getCategory?.map((category, index) => (
+                    <CardCategory
+                      category={category}
+                      navigation={navigation}
+                      key={index}
+                    />
+                  ))}
+                </View>
+              </View>
+            </ScrollView>
           </View>
-        </ScrollView>
-      </View>
-      <Text className="font-extrabold text-lg ml-4 mt-8 text-[#333333]">
-        Aneka Category Masakan
-      </Text>
-      <ScrollView className="mb-6">
-        <View style={styles.category}>
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-          <CardCategory />
-        </View>
-      </ScrollView>
-    </View>
+        </>
+      )}
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "red",
-  },
-  category: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginLeft: 4,
-    marginRight: 4,
-    justifyContent: "center",
-  },
-  image: {
-    width: 360,
-    height: 170,
-  },
-
-  inputView: {
-    backgroundColor: "#FFC0CB",
-    borderRadius: 30,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
-
-    alignItems: "center",
-  },
-
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
-  },
-
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
-
-  loginBtn: {
-    width: "80%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#FF1493",
-  },
-});
