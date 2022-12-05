@@ -24,6 +24,10 @@ export const GET_USER = gql`
       phoneNumber
       fullName
       email
+      location {
+      type
+      coordinates
+    }
     }
   }
 `;
