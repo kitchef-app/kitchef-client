@@ -40,6 +40,7 @@ export default function DetailRecipe({ navigation, route }) {
             <YoutubePlayer
               height={300}
               videoId={data?.getDishesDetail?.videoUrl.slice(32)}
+              webViewStyle={{ opacity: 0.99 }}
             ></YoutubePlayer>
           </View>
           <View className="mt-[-40] ml-4">

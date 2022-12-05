@@ -157,7 +157,7 @@ export default function CartScreen({ navigation }) {
             <Text className="text-xl font-semibold">Rp. 999.999</Text>
           </View>
           <View>
-            <Pressable>
+            <Pressable onPress={() => submitPayment()}>
               <View className="bg-gray-200 h-[40] w-[130] rounded-sm ml-[125]">
                 <View className="my-auto">
                   <Text className="mx-auto font-semibold text-xl">Bayar</Text>

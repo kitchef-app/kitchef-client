@@ -84,19 +84,38 @@ export default function HomeScreen({ navigation }) {
                   className="mt-2"
                 >
                   <View className="flex-row ml-3">
-                    {dishes?.getDishes?.map((dishes, index) => {
-                      preferences.forEach((el, i) => {
-                        console.log(el);
-                        if (dishes.CategoryId == el)
-                          return (
-                            <CardRecipe
-                              dishes={dishes}
-                              navigation={navigation}
-                              key={index}
-                            />
-                          );
-                      });
-                    })}
+                    {dishes?.getDishes
+                      ?.filter((dish, index) => {
+                        // console.log(dish);
+                        console.log(preferences);
+                        if (preferences && preferences.length > 0) {
+                          console.log(dish.id);
+                          if (preferences.includes(dish.id)) {
+                            return dish;
+                            // return (
+                            //   <CardRecipe
+                            //     dishes={dish}
+                            //     navigation={navigation}
+                            //     key={index}
+                            //   />
+                            // );
+                          }
+                        } else {
+                          return dish;
+                        }
+                        // preferences.forEach((el, i) => {
+                        //   console.log(el);
+                        //   if (dishes.CategoryId == el)
+
+                        // });
+                      })
+                      .map((dish, index) => (
+                        <CardRecipe
+                          dishes={dish}
+                          navigation={navigation}
+                          key={index}
+                        />
+                      ))}
                   </View>
                 </ScrollView>
               </View>

@@ -2,7 +2,7 @@ import { Image, Text, View, Pressable } from "react-native";
 
 export default function CardCategory({ navigation, category }) {
   return (
-    <View className="w-[120] mx-auto rounded-lg mb-6 ">
+    <View className="w-28 mx-auto rounded-lg mb-6">
       <Pressable
         onPress={() =>
           navigation.navigate("ListRecipe", {

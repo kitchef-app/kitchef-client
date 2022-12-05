@@ -28,9 +28,9 @@ export default function AccountScreen({ navigation }) {
     navigation.replace("Home");
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     // <View
