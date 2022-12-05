@@ -53,12 +53,9 @@ export function CardInvoice() {
   });
   useFocusEffect(
     useCallback(() => {
-      console.log("aku ter");
       refetch();
     }, [])
   );
-  console.log(data);
-  console.log("<<<<<<");
   const navigation = useNavigation();
 
   if (loading) return <Text>Loading...</Text>;
@@ -69,7 +66,7 @@ export function CardInvoice() {
       <>
         <Pressable
           onPress={() =>
-            navigation.navigate("Tracking", { InvoiceId: item.id })
+            navigation.navigate("Tracking", { InvoiceId: item.id, UserId: item.UserId })
           }
         >
           <View className="mx-auto bg-gray-200 border-opacity-5 h-[200] w-[360] mt-8 rounded-xl">
