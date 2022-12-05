@@ -25,7 +25,7 @@ export default function DetailRecipe({ navigation, route }) {
     navigation.setOptions({ title: dishName });
   }, []);
 
-  console.log(data);
+  console.log(data?.getDishesDetail?.Products);
 
   return (
     <>
