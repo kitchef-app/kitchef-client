@@ -20,7 +20,7 @@ export default function CardListChart() {
         </View>
       </View>
       <View>
-        <View className="flex-row mx-auto mt-[85] ml-[25]">
+        <View className="flex-row mx-auto mt-[85] ml-[40]">
           <View className="bg-gray-300 h-[25] w-[25] rounded-sm">
             <Text className="text-2xl font-semibold my-auto mx-auto">-</Text>
           </View>

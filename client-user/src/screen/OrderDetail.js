@@ -17,7 +17,7 @@ export default function OrderDetail({ navigation }) {
     //   />
     //   <Text>Ini order screen</Text>
     // </View>
-    <ScrollView>
+    <ScrollView vertical showsVerticalScrollIndicator={false}>
       <View className="flex-1 mb-4">
         <CardOrderDetail />
         <CardOrderDetail />

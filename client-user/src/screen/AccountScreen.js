@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -11,28 +11,43 @@ import {
 import { COLORS } from "../constants/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
+import { GET_USER } from "../queries/users";
+import { useQuery } from "@apollo/client";
 
 export default function AccountScreen({ navigation }) {
-  // useEffect(() => {
-  //   getData();
-  // }, []);
 
-  // const getData = async () => {
-  //   const access_token = await AsyncStorage.getItem("access_token");
-  //   if (!access_token) {
-  //     return navigation.replace("Login");
-  //   }
-  // };
+  const [users, setUsers] = useState([]);
+  
+  const getData = async () => {
+    const access_token = await AsyncStorage.getItem("access_token");
+    if (!access_token) {
+      return navigation.replace("Login");
+    }
+  };
+  
+  const getID = async () => {
+    const id_user = await AsyncStorage.getItem("id");
+    console.log(id_user);
+  };
+  
+  // const { loading, error, data } = useQuery(GET_USER, {
+  //   variables: { id_user },
+  // });
+  
+  const removeData = async () => {
+    await AsyncStorage.removeItem("access_token");
+    navigation.replace("Home");
+  };
 
-  // const removeData = async () => {
-  //   await AsyncStorage.removeItem("access_token");
-  //   navigation.replace("Home");
-  // };
-
+  useEffect(() => {
+    getData();
+    getID();
+  }, []);
+  
   return (
     // <View
     //   style={{
-    //     flex: 1,
+      //     flex: 1,
     //     justifyContent: "center",
     //     alignItems: "center",
     //     backgroundColor: COLORS.backgroundWhite,
@@ -103,12 +118,14 @@ export default function AccountScreen({ navigation }) {
             <Text className="ml-4 text-lg my-auto">Pengaturan Akun</Text>
           </View>
         </View>
-        <View className="bg-white h-[40] ml-2 mr-2 mt-[1] rounded-sm">
-          <View className="flex-row my-auto ml-4">
-            <Icon name="log-out-outline" size={18} />
-            <Text className="ml-4 text-lg my-auto">Keluar</Text>
+        <Pressable onPress={removeData}>
+          <View className="bg-white h-[40] ml-2 mr-2 mt-[1] rounded-sm">
+            <View className="flex-row my-auto ml-4">
+              <Icon name="log-out-outline" size={18} />
+              <Text className="ml-4 text-lg my-auto">Keluar</Text>
+            </View>
           </View>
-        </View>
+        </Pressable>
       </View>
     </View>
   );
