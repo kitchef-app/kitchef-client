@@ -10,20 +10,20 @@ export default function CardDetailRecipe({ ingredients }) {
     setModalVisible(!isModalVisible);
   };
   return (
-    <View className="flex-row h-[56] mx-4 border mb-2 border-orange-100 bg-orange-100 rounded-lg justify-around">
-      <View className="w-56 flex-row items-center">
+    <View className="flex-row h-[40] mx-4 border mb-2 border-orange-100 bg-orange-100 rounded-lg justify-left">
+      <View className="w-full flex-row items-center ml-4">
         <Icon name="ellipse" size={8} color="#f1a375" />
         <Text className="my-auto ml-2 text-medium text-[#5c5c5c]">
           {ingredients?.name}
         </Text>
       </View>
-      <Pressable onPress={toggleModal} className="py-2 h-full rounded-md">
+      {/* <Pressable onPress={toggleModal} className="py-2 h-full rounded-md">
         <View className=" bg-[#FF7629] w-full my-auto px-6 h-full rounded-lg">
           <Text className="my-auto mx-auto font-medium text-md text-white">
             + Keranjang
           </Text>
         </View>
-      </Pressable>
+      </Pressable> */}
       <Modal isVisible={isModalVisible}>
         <View className="flex">
           <View className="bg-white h-[280] w-full rounded-lg">
