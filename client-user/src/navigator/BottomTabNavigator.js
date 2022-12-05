@@ -1,13 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import NotificationScreen from "../screen/NotificationScreen";
-import CartScreen from "../screen/CartScreen";
 import Icon from "react-native-vector-icons/Ionicons";
 import AccountNavigator from "../navigator/AccountNavigator";
 import { COLORS, SIZES } from "../constants/theme";
 import HomeNavigator from "./HomeNavigator";
-import LoginScreen from "../screen/LoginScreen";
-import { View } from "react-native";
 import CartNavigator from "./CartNavigator";
+import ChatScreen from "../screen/ChatScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +20,8 @@ export default function BottomTabNavigator({ navigation }) {
           color = COLORS.primary;
           if (route.name === "HomeNavigator") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "NotificationTab") {
-            iconName = focused ? "notifications" : "notifications-outline";
+          } else if (route.name === "ChatTab") {
+            iconName = focused ? "chatbox" : "chatbox-ellipses-outline";
           } else if (route.name === "CartNavigator") {
             iconName = focused ? "cart" : "cart-outline";
           } else if (route.name === "AccountNavigator") {
@@ -42,10 +39,10 @@ export default function BottomTabNavigator({ navigation }) {
         }}
       />
       <Tab.Screen
-        name="NotificationTab"
-        component={NotificationScreen}
+        name="ChatTab"
+        component={ChatScreen}
         options={{
-          tabBarLabel: "Notifikasi",
+          tabBarLabel: "Pesan",
         }}
       />
       <Tab.Screen

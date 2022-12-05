@@ -16,11 +16,7 @@ export default function StackNavigator() {
         headerStyle: { backgroundColor: "#FF7629" },
       }}
     >
-      <Stack.Screen
-        name="ChatComponent"
-        component={ChatComponent}
-        options={{ headerShown: false }}
-      />
+    
       <Stack.Screen
         name="SplashScreen"
         component={SplashScreen}

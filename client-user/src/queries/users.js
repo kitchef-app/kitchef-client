@@ -16,3 +16,13 @@ export const POST_LOGIN = gql`
     }
   }
 `;
+
+export const GET_USER = gql`
+  query GetInvoiceUser($id: ID) {
+    getUserById(_id: $id) {
+      username
+      phoneNumber
+      email
+    }
+  }
+`;
