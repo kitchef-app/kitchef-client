@@ -13,27 +13,36 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/Ionicons";
 import { GET_USER } from "../queries/users";
 import { useQuery } from "@apollo/client";
+import Loading from "../components/Loading";
 
 export default function AccountScreen({ navigation }) {
+  const [id, setUser] = useState([]);
 
-  const [users, setUsers] = useState([]);
-  
   const getData = async () => {
     const access_token = await AsyncStorage.getItem("access_token");
     if (!access_token) {
       return navigation.replace("Login");
     }
   };
-  
+
   const getID = async () => {
     const id_user = await AsyncStorage.getItem("id");
-    console.log(id_user);
+    const id = Number(id_user);
+    return setUser(id);
   };
-  
-  // const { loading, error, data } = useQuery(GET_USER, {
-  //   variables: { id_user },
-  // });
-  
+
+  console.log(id, "ini id user");
+  // const id = "2";
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { id },
+  });
+
+  if (loading) {
+    <Loading />;
+  }
+
+  console.log(data, "ini dari acc");
+
   const removeData = async () => {
     await AsyncStorage.removeItem("access_token");
     navigation.replace("Home");
@@ -43,11 +52,11 @@ export default function AccountScreen({ navigation }) {
     getData();
     getID();
   }, []);
-  
+
   return (
     // <View
     //   style={{
-      //     flex: 1,
+    //     flex: 1,
     //     justifyContent: "center",
     //     alignItems: "center",
     //     backgroundColor: COLORS.backgroundWhite,
@@ -71,9 +80,9 @@ export default function AccountScreen({ navigation }) {
       <View className="flex-row bg-white h-[180]">
         <View className="bg-gray-500 h-24 rounded-full w-24 mt-12 ml-4 mr-4"></View>
         <View className="flex-col mt-12">
-          <Text className=" text-lg mt-2">Mas Poer</Text>
-          <Text className="text-lg mt-0">08666666666</Text>
-          <Text className="text-lg mt-0">email@email.com</Text>
+          <Text className=" text-lg mt-2">{data?.getUserById?.username}</Text>
+          <Text className="text-lg mt-0">{data?.getUserById?.phoneNumber}</Text>
+          <Text className="text-lg mt-0">{data?.getUserById?.email}</Text>
         </View>
       </View>
       <View className="flex-col">
