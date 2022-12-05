@@ -36,10 +36,11 @@ export default function LoginScreen({ navigation }) {
   const locationSplit = location.split(", ");
   const latitude = locationSplit[1];
   const longitude = locationSplit[0];
+  const GMAPS_API_KEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
 
   const handleSubmit = () => {
     console.log(location);
-    Geocoder.init(process.env.REACT_APP_GMAPS_API_KEY, {
+    Geocoder.init(GMAPS_API_KEY, {
       language: "id",
     });
     Geocoder.from(location)
@@ -53,11 +54,9 @@ export default function LoginScreen({ navigation }) {
 
   // <Text>-6.268507218164185, 106.7808981976766</Text>
   return (
-    <ScrollView 
-    style={styles.container}
-    contentContainerStyle={{ alignItems: "center", justifyContent: "center",}}>
+    <ScrollView >
+    <View style={styles.container}>
     <Text style={styles.title}>Sign Up</Text>
-    <Text>{JSON.stringify(process.env)}</Text>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -139,17 +138,19 @@ export default function LoginScreen({ navigation }) {
             coordinate={mapRegion}
             style={styles.marker}
           />
-        </MapView>
+      </MapView>
       
       </View>
      
-
+      <View>
       <TouchableOpacity
         onPress={() => navigation.navigate("Home")}
         style={styles.loginBtn}
       >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
+      </View>
+
 
       <TouchableOpacity
         style={styles.loginBtn}
@@ -172,6 +173,7 @@ export default function LoginScreen({ navigation }) {
       >
         <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -180,6 +182,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignItems: "center", 
+    justifyContent: "center",
   },
 
   title: {
