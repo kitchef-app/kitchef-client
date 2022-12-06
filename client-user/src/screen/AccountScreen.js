@@ -77,9 +77,15 @@ export default function AccountScreen({ navigation }) {
     //   </TouchableOpacity>
     // </View>
     <View className="flex-1">
-      <View className="flex-row bg-white h-[180]">
-        <View className="bg-gray-500 h-24 rounded-full w-24 mt-12 ml-4 mr-4"></View>
-        <View className="flex-col mt-12">
+      <View className="flex-row bg-white h-40">
+        <Image
+          className="h-24 rounded-full w-24 mt-6 ml-4 mr-4 my-auto"
+          source={{
+            uri: "https://laku.in/wp-content/uploads/2021/08/bg-3-300x295.jpg",
+          }}
+        />
+
+        <View className="flex-col mt-6 my-auto">
           <Text className=" text-lg mt-2">{data?.getUserById?.username}</Text>
           <Text className="text-lg mt-0">{data?.getUserById?.phoneNumber}</Text>
           <Text className="text-lg mt-0">{data?.getUserById?.email}</Text>
@@ -89,16 +95,15 @@ export default function AccountScreen({ navigation }) {
         <View className="ml-4 mt-6">
           <Text className="text-xl font-bold">Aktivitas Saya</Text>
         </View>
-        <View className="bg-white h-[40] ml-2 mr-2 mt-4 rounded-sm">
-          <Pressable
-            className="flex-row my-auto ml-4"
-            onPress={() => navigation.navigate("Order")}
-          >
-            <Icon name="cart-outline" size={18} />
-            <Text className="ml-4 text-lg my-auto">Pesanan Saya</Text>
-          </Pressable>
-        </View>
-        <View className="bg-white h-[40] ml-2 mr-2 mt-[1] rounded-sm">
+        <Pressable onPress={() => navigation.navigate("Order")}>
+          <View className="bg-white h-max ml-2 mr-2 mt-4 rounded-lg flex-row px-4 py-2 border-2 border-gray-200 shadow-xl">
+            <View className="my-auto">
+              <Icon name="cart-outline" size={18} />
+            </View>
+            <Text className="text-lg ml-4">Pesanan Saya</Text>
+          </View>
+        </Pressable>
+        {/* <View className="bg-white h-[40] ml-2 mr-2 mt-[1] rounded-sm">
           <View className="flex-row my-auto ml-4">
             <Icon name="pricetags-outline" size={18} />
             <Text className="ml-4 text-lg my-auto">Voucher Saya</Text>
@@ -109,13 +114,25 @@ export default function AccountScreen({ navigation }) {
             <Icon name="star-outline" size={18} />
             <Text className="ml-4 text-lg my-auto">Penilaian Saya</Text>
           </View>
+        </View> */}
+        <View className="bg-white h-max ml-2 mr-2 mt-0 rounded-lg flex-row px-4 py-2 border-2 border-gray-200 shadow-xl">
+          <View className="my-auto">
+            <Icon name="pricetags-outline" size={18} />
+          </View>
+          <Text className="text-lg ml-4">Voucher Saya</Text>
+        </View>
+        <View className="bg-white h-max ml-2 mr-2 mt-0 rounded-lg flex-row px-4 py-2 border-2 border-gray-200 shadow-xl">
+          <View className="my-auto">
+            <Icon name="star-outline" size={18} />
+          </View>
+          <Text className="text-lg ml-4">Penilaian Saya</Text>
         </View>
       </View>
       <View className="flex-col">
         <View className="ml-4 mt-6">
           <Text className="text-xl font-bold">Pengaturan Lainnya</Text>
         </View>
-        <View className="bg-white h-[40] ml-2 mr-2 mt-4 rounded-sm">
+        {/* <View className="bg-white h-[40] ml-2 mr-2 mt-4 rounded-sm">
           <View className="flex-row my-auto ml-4">
             <Icon name="help-circle-outline" size={18} />
             <Text className="ml-4 text-lg my-auto">Pusat Bantuan</Text>
@@ -135,7 +152,27 @@ export default function AccountScreen({ navigation }) {
             <Icon name="log-out-outline" size={18} />
             <Text className="ml-4 text-lg my-auto">Keluar</Text>
           </TouchableOpacity>
+        </View> */}
+        <View className="bg-white h-max ml-2 mr-2 mt-4 rounded-lg flex-row px-4 py-2 border-2 border-gray-200 shadow-xl">
+          <View className="my-auto">
+            <Icon name="help-circle-outline" size={18} />
+          </View>
+          <Text className="text-lg ml-4">Pusat Bantuan</Text>
         </View>
+        <View className="bg-white h-max ml-2 mr-2 mt-0 rounded-lg flex-row px-4 py-2 border-2 border-gray-200 shadow-xl">
+          <View className="my-auto">
+            <Icon name="people-outline" size={18} />
+          </View>
+          <Text className="text-lg ml-4">Pengaturan Akun </Text>
+        </View>
+        <Pressable onPress={() => removeData()}>
+          <View className="bg-white h-max ml-2 mr-2 mt-0 rounded-lg flex-row px-4 py-2 border-2 border-gray-200 shadow-xl">
+            <View className="my-auto">
+              <Icon name="log-out-outline" size={18} />
+            </View>
+            <Text className="text-lg ml-4">Keluar</Text>
+          </View>
+        </Pressable>
       </View>
     </View>
   );
