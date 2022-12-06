@@ -48,8 +48,8 @@ export default function Tracking({navigation, route}) {
   // fetch data user location
   // ganti region di marker jadi user location
   // ganti data destination di direction jd user location
-  const {InvoiceId} = route.params;
-  // const InvoiceId = 1;
+  // const {InvoiceId} = route.params;
+  const InvoiceId = 1;
   console.log(userId, InvoiceId, "userId + invoiceId");
   console.log(region, "ini regionnn")         
 
@@ -127,7 +127,7 @@ export default function Tracking({navigation, route}) {
         <TouchableOpacity
           style={styles.btnReversed}
           onPress={async () => {
-            // navigation.navigate("ChatScreen");
+            navigation.navigate("ChatScreen");
             return;
           }}>
           <Text style={styles.btnTextReversed}>Chat with Driver</Text>
