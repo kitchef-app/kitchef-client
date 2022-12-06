@@ -46,45 +46,40 @@ export default function CardListChart({ item }) {
   };
 
   return (
-    <View className="flex-row bg-white h-[120] mt-4 ml-2 mr-2 rounded-sm">
+    <View className="flex flex-row justify-between bg-white h-max px-4 py-4 mr-4 ml-4 mt-4 rounded-lg border border-slate-200 shadow-lg  shadow-neutral-100">
       <Image
-        className="w-[95] h-[100] my-auto ml-4 rounded-lg"
+        className="w-[95] h-[100] my-auto px-6 rounded-lg"
         source={{
           uri: item.imageUrl,
         }}
       />
-      <View className="flex-col">
-        <Text className="ml-3 mt-2 mr-3 text-xl font-semibold text-black">
-          {item.name}
-        </Text>
-        <Text className="ml-3 mt-2 mr-3 text-xl text-black">
+      <View className="flex-1 flex-col justify-between px-5">
+        <Text className="text-lg text-black">{item.name}</Text>
+        <Text className="text-lg text-black font-semibold mb-[6]">
           {idr(item?.price).substring(0, idr(item?.price).length - 3)}
         </Text>
         <Pressable onPress={() => deleteCartItem()}>
-          <View className="mt-[23] ml-3 mr-3">
-            <Icon name="trash" size={18} />
+          <View className="">
+            <Icon name="trash" size={20} />
           </View>
         </Pressable>
       </View>
-      <View>
-        <View className="flex-row mx-auto mt-[85] ml-[40]">
-          <View className="bg-white border border-[#FF7629] rounded-lg justify-center">
-            <Pressable onPress={() => decreaseQuantity()}>
-              <View className="mx-1">
-                <Icon name="remove" size={30} color="#FF7629" />
-              </View>
-            </Pressable>
-          </View>
-          <Text className="text-xl font-bold ml-2 mr-2 my-auto">
-            {item.quantity}
-          </Text>
-          <View className="bg-white border border-[#FF7629] rounded-lg justify-center">
-            <Pressable onPress={() => increaseQuantity()}>
-              <View className="mx-1">
-                <Icon name="add" size={30} color="#FF7629" />
-              </View>
-            </Pressable>
-          </View>
+
+      <View className="flex-row px-1 my-auto">
+        <View className=" bg-[#FF7629] h-6 w-6 rounded-lg justify-center">
+          <Pressable onPress={() => decreaseQuantity()}>
+            <View className="mx-auto">
+              <Icon name="remove" size={20} color="white" />
+            </View>
+          </Pressable>
+        </View>
+        <Text className="text-xl font-bold px-3 my-auto">{item.quantity}</Text>
+        <View className=" bg-[#FF7629] h-6 w-6 rounded-lg justify-center">
+          <Pressable onPress={() => increaseQuantity()}>
+            <View className="mx-auto">
+              <Icon name="add" size={20} color="white" />
+            </View>
+          </Pressable>
         </View>
       </View>
     </View>
