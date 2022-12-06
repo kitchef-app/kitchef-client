@@ -11,9 +11,8 @@ export default function CardListAllItem({ navigation, products }) {
   const CartItems = useReactiveVar(cartItemsVar);
   const [isModalVisible, setModalVisible] = useState(false);
   const [quantity, setIsQuantity] = useState(1);
-  const StoreItems = [];
-  let isInCart = CartItems.some((item) => item.id === products?.id); // check if an item in the cart matches our item
-
+  // console.log(CartItems, "<< dari Card list All tems");
+  let isInCart = CartItems.some((item) => item.id === products.id); // check if an item in the cart matches our item
   // useEffect(() => {
   //   if (!isModalVisible) {
   //     setIsQuantity(1);
@@ -42,15 +41,11 @@ export default function CardListAllItem({ navigation, products }) {
       quantity,
       price,
     };
-    StoreItems.push(payload);
     cartItemsVar(
       isInCart
         ? CartItems.filter((item) => item.quantity !== payload.quantity)
-        : [...CartItems, payload]
+        : [...cartItemsVar(), payload]
     );
-
-    // cartItemsVar([...CartItems, payload]);
-    // console.log(cartItemsVar);
     console.log("item ketambah");
   };
 
