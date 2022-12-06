@@ -17,7 +17,10 @@ import {GOOGLE_MAPS_APIKEY} from '@env';
 import { socket } from "../config/socket"
 
 export default function Tracking({navigation, route}) {
-  const [region, setRegion] = useState({});
+  const [region, setRegion] = useState({
+    latitude: 0,
+    longitude: 0
+  });
 
   // fetch data user location
   // ganti region di marker jadi user location
@@ -33,6 +36,9 @@ export default function Tracking({navigation, route}) {
   );
 
   const { InvoiceId, UserId } = route.params;
+  // const InvoiceId = 1
+  // const UserId = 2
+
   // console.log(InvoiceId, UserId);
 
   const { data: user, error: userError, loading: userLoading } = useQuery(GET_USER_DETAIL, { variables: { id: UserId}})
@@ -40,6 +46,7 @@ export default function Tracking({navigation, route}) {
 
   useEffect(() => {
     socket.emit("join-rooms", InvoiceId) 
+    console.log(InvoiceId, "invoiceId");
     return () => {
 
     }
@@ -66,15 +73,15 @@ export default function Tracking({navigation, route}) {
           },
           update => {
             setRegion({
-              latitude: update.coords.latitude,
-              longitude: update.coords.longitude,
+              latitude: +update.coords.latitude,
+              longitude: +update.coords.longitude,
             });
             console.log(region);
             socket.emit("send-location", {
               roomName: InvoiceId,
               location: 
-              {latitude: update.coords.latitude,
-              longitude: update.coords.longitude},
+              {latitude: +update.coords.latitude,
+              longitude: +update.coords.longitude},
              })
           },
         );
