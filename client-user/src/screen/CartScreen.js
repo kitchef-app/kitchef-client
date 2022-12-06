@@ -117,58 +117,39 @@ export default function CartScreen({ navigation }) {
           <CardListChart />
           <CardListChart />
           <CardListChart />
-          <View className="flex-row bg-white h-[150] mt-4 ml-2 mr-2 rounded-sm">
-            <View className="flex-col my-auto">
-              <View className="flex-row">
-                <Text className="ml-4 mr-3 text-lg font-semibold text-black">
-                  Subtotal
-                </Text>
-                <Text className="ml-[175] mr-3 text-lg font-semibold text-black">
-                  Rp. 999.999
-                </Text>
-              </View>
-              <View className="flex-row">
-                <Text className="ml-4 mt-2 mr-3 text-lg font-semibold text-black">
-                  Ongkos Kirim
-                </Text>
-                <Text className="ml-[135] mt-2 mr-3 text-lg font-semibold text-black">
-                  Rp. 999.999
-                </Text>
-              </View>
-              <View>
-                <Text className="border-b-4 ml-4 mr-4"></Text>
-              </View>
-              <View className="flex-row">
-                <Text className="ml-4 mt-4 mr-3 text-lg font-semibold text-black">
-                  Total
-                </Text>
-                <Text className="ml-[200] mt-2 mr-3 text-lg font-semibold text-black">
-                  Rp. 999.999
-                </Text>
-              </View>
+          <View className="flex bg-white h-max mt-4 ml-2 mr-2 rounded-lg py-2 border-2 border-gray-200 shadow-xl">
+            <View className="px-4">
+              <Text className="text-lg font-medium">Rincian Pembayaran</Text>
+            </View>
+            <View className="flex flex-row justify-between px-4 mt-2">
+              <Text className="text-lg">Subtotal</Text>
+              <Text className="text-lg">Rp. 999.999.999</Text>
+            </View>
+            <View className="flex flex-row justify-between px-4 mt-2 mb-2">
+              <Text className="text-lg">Ongkir Kirim</Text>
+              <Text className="text-lg">Rp. 100.000.000</Text>
+            </View>
+            <View className="border mr-4 ml-4 mt-2 border-dashed border-gray-400"></View>
+            <View className="flex flex-row justify-between px-4 mt-4">
+              <Text className="text-lg font-semibold">Total Pembayaran</Text>
+              <Text className="text-lg font-semibold">Rp. 100.000.000</Text>
             </View>
           </View>
         </View>
       </ScrollView>
-      <View className="bg-white h-24 mt-4">
-        <View className="flex-row my-auto ml-4">
-          <View className="flex-col ">
-            <Text className="text-sm font-medium">Total Harga</Text>
-            <Text className="text-xl font-semibold">Rp. 999.999</Text>
-          </View>
-          <View>
-            <Pressable onPress={() => submitPayment()}>
-              <View className="bg-gray-200 h-[40] w-[130] rounded-sm ml-[125]">
-                <View className="my-auto">
-                  <Text className="mx-auto font-semibold text-xl">Bayar</Text>
-                </View>
-              </View>
-            </Pressable>
-          </View>
+      <View className="bg-white h-max flex flex-row justify-between mt-2 px-4 py-6">
+        <View className="flex-wrap">
+          <Text className="text-sm font-medium">Total Harga</Text>
+          <Text className="text-xl font-semibold">Rp. 1.000.000.000</Text>
         </View>
+        <Pressable onPress={() => submitPayment()}>
+          <View className="bg-[#F05A2A] h-max rounded-lg my-auto px-6 py-2">
+            <Text className="font-semibold text-xl text-white">Bayar</Text>
+          </View>
+        </Pressable>
       </View>
 
-      <View
+      {/* <View
         style={{
           flex: 1,
           justifyContent: "center",
@@ -184,7 +165,7 @@ export default function CartScreen({ navigation }) {
         >
           <Text>Bayar</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </>
   );
 }
