@@ -37,7 +37,11 @@ export default function DetailRecipe({ navigation, route }) {
         barStyle="dark-content"
         animated={true}
       />
-      <ScrollView backgroundColor={COLORS.backgroundWhite}>
+      <ScrollView
+        backgroundColor={COLORS.backgroundWhite}
+        vertical
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex-1">
           <View className="w-full">
             <YoutubePlayer
@@ -99,7 +103,7 @@ export default function DetailRecipe({ navigation, route }) {
             </View>
           </ScrollView>
           <View className="mt-8">
-            <Text className="text-lg ml-4 font-bold">
+            <Text className="text-lg ml-4 mb-2 font-bold">
               Beli Bahan dan Perlengkapan
             </Text>
           </View>

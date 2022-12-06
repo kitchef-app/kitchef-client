@@ -1,8 +1,37 @@
+import { useQuery } from "@apollo/client";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import CardOrderDetail from "../components/CardOrderDetail";
 import { COLORS } from "../constants/theme";
+import Icon from "react-native-vector-icons/Ionicons";
+import { GET_DETAIL_INVOICE } from "../queries/invoice";
+import Loading from "../components/Loading";
+import { idr } from "../helpers/idrFormatter";
 
-export default function OrderDetail({ navigation }) {
+export default function OrderDetail({ navigation, route }) {
+  const { invoiceId } = route.params;
+
+  const { loading, error, data } = useQuery(GET_DETAIL_INVOICE, {
+    variables: { invoiceId },
+  });
+
+  if (loading) {
+    <Loading />;
+  }
+
+  if (error) {
+    <Text>error</Text>;
+  }
+
+  let sumSubTotal = data?.getInvoiceProducts?.reduce(
+    (accumulator, currentValue) =>
+      accumulator + currentValue.Product.price * currentValue.total,
+    0
+  );
+
+  let shippingCost = 2500;
+
+  let all_total = sumSubTotal + shippingCost;
+
   return (
     // <View
     //   style={{
@@ -18,43 +47,63 @@ export default function OrderDetail({ navigation }) {
     //   <Text>Ini order screen</Text>
     // </View>
     <>
-      <ScrollView vertical showsVerticalScrollIndicator={false}>
-        <View className="flex-1 mb-4">
-          <CardOrderDetail />
-          <CardOrderDetail />
-          <CardOrderDetail />
-          <CardOrderDetail />
-          <CardOrderDetail />
-          <CardOrderDetail />
-          <View className="flex bg-white h-max mt-4 ml-2 mr-2 rounded-lg py-2 border-2 border-gray-200 shadow-xl">
+      <ScrollView
+        vertical
+        showsVerticalScrollIndicator={false}
+        className="bg-[#FCFCFC]"
+      >
+        <View className="flex-1 mb-2">
+          {data?.getInvoiceProducts?.map((product, index) => (
+            <CardOrderDetail product={product} key={index} />
+          ))}
+          <View className="flex bg-white h-max mt-4 ml-2 mr-2 rounded-lg py-2 border border-slate-200 shadow-lg  shadow-neutral-100 ">
             <View className="px-4">
               <Text className="text-lg font-medium">Rincian Pembayaran</Text>
             </View>
             <View className="flex flex-row justify-between px-4 mt-2">
               <Text className="text-lg">Subtotal</Text>
-              <Text className="text-lg">Rp. 999.999.999</Text>
+              <Text className="text-lg">
+                {idr(sumSubTotal).substring(0, idr(sumSubTotal).length - 3)}
+              </Text>
             </View>
             <View className="flex flex-row justify-between px-4 mt-2 mb-2">
               <Text className="text-lg">Ongkir Kirim</Text>
-              <Text className="text-lg">Rp. 100.000.000</Text>
+              <Text className="text-lg">
+                {" "}
+                {idr(shippingCost).substring(0, idr(shippingCost).length - 3)}
+              </Text>
             </View>
-            <View className="border mr-4 ml-4 mt-2 border-dashed border-gray-400"></View>
+            <View className="border mr-4 ml-4 mt-2 border-dashed border-1 border-slate-300"></View>
             <View className="flex flex-row justify-between px-4 mt-4">
               <Text className="text-lg font-semibold">Total Pembayaran</Text>
-              <Text className="text-lg font-semibold">Rp. 100.000.000</Text>
+              <Text className="text-lg font-semibold">
+                {" "}
+                {idr(all_total).substring(0, idr(all_total).length - 3)}
+              </Text>
             </View>
           </View>
         </View>
       </ScrollView>
-      <Pressable onPress={() => navigation.navigate("Tracking")}>
-        <View className="flex-row bg-[#F05A2A] h-[40] mt-2 ml-2 mr-2 rounded-lg border-2 border-gray-200 shadow-xl">
-          <View className="my-auto mx-auto">
-            <Text className="text-lg font-semibold text-white">
-              Lacak Pesanan
-            </Text>
-          </View>
+      <View className="flex my-auto">
+        <View className="flex flex-row py-1">
+          <Pressable onPress={() => navigation.navigate("ChatScreen")}>
+            <View className="flex-row bg-white h-[40] ml-2 my-auto rounded-lg border-2 border-gray-200 shadow-xl">
+              <View className="my-auto mx-auto px-4">
+                <Icon name="chatbubble-ellipses-outline" size={20} />
+              </View>
+            </View>
+          </Pressable>
+          <Pressable onPress={() => navigation.navigate("Tracking")}>
+            <View className="flex-row bg-[#F05A2A] h-[40] my-auto ml-1 mr-2 rounded-lg border-2 border-gray-200 shadow-xl w-80">
+              <View className="my-auto mx-auto">
+                <Text className="text-lg font-semibold text-white">
+                  Lacak Pesanan
+                </Text>
+              </View>
+            </View>
+          </Pressable>
         </View>
-      </Pressable>
+      </View>
     </>
   );
 }
