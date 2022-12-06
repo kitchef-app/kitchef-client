@@ -4,7 +4,10 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Pressable,
+  Image,
 } from "react-native";
+
 import { useState } from "react";
 import { COLORS } from "../constants/theme";
 import { POST_LOGIN } from "../queries/users";
@@ -41,36 +44,54 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email."
-          placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
-        />
+    <View className="bg-white h-full">
+      <View className="flex-col my-auto">
+        {/* <Image
+          className="mx-auto mb-4"
+          source={require("../assets/logo/Logo_72.png")}
+        ></Image> */}
+        <Text className="text-4xl mx-auto font-extrabold">Log In</Text>
+        <Text className="mx-auto font-extralight mt-[4] mb-6">
+          Please login to continue using our app
+        </Text>
+        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <TextInput
+            className="my-auto pl-4 text-base"
+            placeholder="Email"
+            onChangeText={(email) => setEmail(email)}
+          />
+        </View>
+
+        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <TextInput
+            className="my-auto pl-4 text-base"
+            placeholder="Password"
+            secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
+          />
+        </View>
+
+        <Pressable onPress={() => submitLogin()}>
+          <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+            <Text className="text-white font-medium text-base mx-auto ">
+              Login
+            </Text>
+          </View>
+        </Pressable>
+        <View className="flex-row mx-auto mt-2">
+          <Text className="">Don't have account? </Text>
+          <Pressable onPress={() => navigation.navigate("Register")}>
+            <Text className="text-[#F05A2A] font-semibold">Register here</Text>
+          </Pressable>
+        </View>
       </View>
-
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password."
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-      </View>
-
-      <TouchableOpacity style={styles.loginBtn} onPress={() => submitLogin()}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={() => navigation.navigate("Register")}
-      >
-        <Text style={styles.loginText}>Register</Text>
-      </TouchableOpacity>
+      {/* <Pressable onPress={() => navigation.navigate("Register")}>
+        <View className="mx-auto h-auto p-3 w-40 bg-[#F05A2A] rounded-lg mt-8">
+          <Text className="text-white font-medium text-base mx-auto ">
+            Register
+          </Text>
+        </View>
+      </Pressable> */}
     </View>
   );
 }
@@ -116,6 +137,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#FF1493",
+    backgroundColor: "#F05A2A",
   },
 });

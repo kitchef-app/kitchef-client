@@ -10,7 +10,7 @@ export default function CartNavigator() {
       <Cart.Screen
         name="CartScreen"
         component={CartScreen}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, unmountOnBlur: true }}
       />
       <Cart.Screen
         name="MidtransPaymentScreen"
