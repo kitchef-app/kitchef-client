@@ -1,15 +1,59 @@
 import { Image, Text, View, Pressable, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import { idr } from "../helpers/idrFormatter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
+// import { cartItemsVar } from "../screen/DetailRecipe";
+import { useReactiveVar } from "@apollo/client";
+import { cartItemsVar } from "../cache/cache";
 
 export default function CardListAllItem({ navigation, products }) {
+  const CartItems = useReactiveVar(cartItemsVar);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [quantity, setIsQuantity] = useState(1);
+  const StoreItems = [];
+  let isInCart = CartItems.some((item) => item.id === products?.id); // check if an item in the cart matches our item
+
+  // useEffect(() => {
+  //   if (!isModalVisible) {
+  //     setIsQuantity(1);
+  //   }
+  // },[]);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  const increaseQuantity = () => {
+    setIsQuantity(quantity + 1);
+  };
+
+  const decreaseQuantity = () => {
+    setIsQuantity(quantity - 1);
+    if (quantity === 1) {
+      return setIsQuantity(1);
+    }
+  };
+  const submitProduct = (id, name, imageUrl, quantity, price) => {
+    const payload = {
+      id,
+      name,
+      imageUrl,
+      quantity,
+      price,
+    };
+    StoreItems.push(payload);
+    cartItemsVar(
+      isInCart
+        ? CartItems.filter((item) => item.quantity !== payload.quantity)
+        : [...CartItems, payload]
+    );
+
+    // cartItemsVar([...CartItems, payload]);
+    // console.log(cartItemsVar);
+    console.log("item ketambah");
+  };
+
   return (
     <View className="flex-row bg-white border border-slate-100 h-[120] mb-2 mx-4 rounded-lg">
       <Image
@@ -64,23 +108,39 @@ export default function CardListAllItem({ navigation, products }) {
             </Text>
             <View className="flex-row mx-auto mt-6">
               <View className="bg-white border border-[#FF7629] rounded-lg justify-center">
-                <View className="mx-1">
-                  <Icon name="remove" size={30} color="#FF7629" />
-                </View>
+                <Pressable onPress={() => decreaseQuantity()}>
+                  <View className="mx-1">
+                    <Icon name="remove" size={30} color="#FF7629" />
+                  </View>
+                </Pressable>
               </View>
-              <Text className="text-xl font-bold ml-2 mr-2 my-auto"> 69 </Text>
+              <Text className="text-xl font-bold mx-6 my-auto">{quantity}</Text>
               <View className="bg-white border border-[#FF7629] rounded-lg justify-center">
-                <View className="mx-1">
-                  <Icon name="add" size={30} color="#FF7629" />
-                </View>
+                <Pressable onPress={() => increaseQuantity()}>
+                  <View className="mx-1">
+                    <Icon name="add" size={30} color="#FF7629" />
+                  </View>
+                </Pressable>
               </View>
             </View>
             <Pressable onPress={toggleModal} className="w-full">
-              <View className="bg-[#FF7629] py-3 rounded-full w-full mt-8">
-                <Text className="text-xl font-bold mx-auto my-auto text-white">
-                  Tambah
-                </Text>
-              </View>
+              <Pressable
+                onPress={() =>
+                  submitProduct(
+                    products?.id,
+                    products?.name,
+                    products?.imageUrl,
+                    quantity,
+                    products?.price
+                  )
+                }
+              >
+                <View className="bg-[#FF7629] py-3 rounded-full w-full mt-8">
+                  <Text className="text-xl font-bold mx-auto my-auto text-white">
+                    Tambah
+                  </Text>
+                </View>
+              </Pressable>
             </Pressable>
           </View>
         </View>

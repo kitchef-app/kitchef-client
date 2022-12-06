@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import CardCategory from "../components/CardCategory";
-import CardLandingRecipe from "../components/CardLandingRecipe";
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
 import CardPromo from "../components/CardPromo";
@@ -24,6 +23,8 @@ export default function HomeScreen({ navigation }) {
   const [preferences, setPreferences] = useState([]);
   const { loading, error, data: category } = useQuery(GET_CATEGORY);
   const { data: dishes } = useQuery(GET_ALL_DISHES);
+
+  console.log(category);
 
   const getData = async () => {
     const preferences = await AsyncStorage.getItem("preferences");
@@ -41,7 +42,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <>
       {loading && <Loading />}
-      {!loading && preferences && (
+      {!loading && (
         <>
           <StatusBar
             style="dark"

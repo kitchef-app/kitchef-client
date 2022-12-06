@@ -13,6 +13,7 @@ export const GET_CATEGORY = gql`
 export const GET_PRODUCTS = gql`
   query GetProducts {
     getProducts {
+      id
       stock
       satuan
       price
@@ -37,6 +38,7 @@ export const GET_ALL_DISHES = gql`
 export const GET_DISHES_DETAIL_BY_ID = gql`
   query GetDishesDetail($dishId: ID) {
     getDishesDetail(DishId: $dishId) {
+      id
       name
       CategoryId
       videoUrl
@@ -49,6 +51,7 @@ export const GET_DISHES_DETAIL_BY_ID = gql`
         name
       }
       Products {
+        id
         name
         price
         stock

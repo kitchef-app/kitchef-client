@@ -5,10 +5,12 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export default function CardDetailRecipe({ ingredients }) {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [quantity, isQuantity] = useState(1);
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
   return (
     <View className="flex-row h-[40] mx-4 border mb-2 border-orange-100 bg-orange-100 rounded-lg justify-left">
       <View className="w-full flex-row items-center ml-4">
@@ -41,7 +43,9 @@ export default function CardDetailRecipe({ ingredients }) {
                   -
                 </Text>
               </View>
-              <Text className="text-xl font-bold ml-2 mr-2 my-auto"> 69 </Text>
+              <Text className="text-xl font-bold ml-2 mr-2 my-auto">
+                {quantity}
+              </Text>
               <View className="bg-gray-300 h-[30] w-[30] rounded-lg">
                 <Text className="text-2xl font-extrabold my-auto mx-auto">
                   +
