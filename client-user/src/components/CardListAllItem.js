@@ -50,23 +50,23 @@ export default function CardListAllItem({ navigation, products }) {
   };
 
   return (
-    <View className="flex flex-row justify-between bg-white h-max mb-2 px-4 py-4 ml-5 mr-4 mt-2 rounded-lg border-2 border-gray-200 shadow-xl">
+    <View className="flex flex-row justify-between bg-white h-max mb-2 px-4 py-4 ml-5 mr-4 mt-2 rounded-lg border border-slate-200 shadow-lg  shadow-neutral-100">
       <Image
         className="w-[80] h-[80] my-auto rounded-lg"
         source={{
           uri: products?.imageUrl,
         }}
       />
-      <View className="flex-1 justify-start my-auto px-4">
-        <Text className="text-lg text-[#333]">{products?.name}</Text>
+      <View className="flex-1 flex-col justify-between px-6">
+        <Text className="text-base text-[#333]">{products?.name}</Text>
 
-        <Text className="text-base font-semibold ">
+        <Text className="text-base font-semibold pb-2">
           {idr(products?.price).substring(0, idr(products?.price).length - 3)}
         </Text>
       </View>
-      <View className="flex my-auto justify-between">
+      <View className="flex flex-col justify-between self-end">
         <Pressable onPress={toggleModal} className="rounded-md">
-          <View className=" bg-[#FF7629] w-full my-auto h-max py-2 px-4 rounded-lg">
+          <View className=" bg-[#FF7629] my-auto h-max py-2 px-4 rounded-lg">
             <Text className="my-auto mx-auto font-medium text-md text-white">
               + Keranjang
             </Text>

@@ -29,7 +29,7 @@ export default function ListRecipe({ navigation, route }) {
   return (
     <ScrollView backgroundColor={COLORS.backgroundWhite}>
       <View className="flex-1 mb-2">
-        <View className="flex-row flex-wrap mt-2 ml-4 flex justify-left">
+        <View className="flex-row flex-wrap flex justify-between px-4 py-2">
           {data?.getDishes?.map((dishes, index) => {
             if (dishes.CategoryId == categoryId)
               return (
