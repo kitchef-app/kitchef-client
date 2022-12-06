@@ -6,22 +6,22 @@ import {
   TextInput,
   TouchableOpacity,
   Button,
-  ScrollView
+  ScrollView,
+  Pressable,
 } from "react-native";
 import { useState } from "react";
 import { COLORS } from "../constants/theme";
 import { useMutation } from "@apollo/client";
 import { POST_REGISTER } from "../queries/users";
 import MapView, { Marker } from "react-native-maps";
-import Geocoder from "react-native-geocoding"
+import Geocoder from "react-native-geocoding";
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
 
 export default function LoginScreen({ navigation }) {
   const [mapRegion, setmapRegion] = useState({
     latitude: -6.260826,
-    longitude: 106.7815368
+    longitude: 106.7815368,
   });
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
@@ -46,135 +46,139 @@ export default function LoginScreen({ navigation }) {
     Geocoder.from(location)
       .then((json) => {
         let address = json.results[0].geometry.location;
-        setmapRegion({latitude: address.lat, longitude: address.lng});
+        setmapRegion({ latitude: address.lat, longitude: address.lng });
         console.log(address);
       })
       .catch((error) => console.warn(error));
-  }
+  };
 
   // <Text>-6.268507218164185, 106.7808981976766</Text>
   return (
-    <ScrollView >
-    <View style={styles.container}>
-    <Text style={styles.title}>Sign Up</Text>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Full Name"
-          placeholderTextColor="#78716c"
-          onChangeText={(fullName) => setFullName(fullName)}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Username"
-          placeholderTextColor="#78716c"
-          onChangeText={(username) => setUsername(username)}
-        />
-      </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email"
-          placeholderTextColor="#78716c"
-          onChangeText={(email) => setEmail(email)}
-        />
-      </View>
+    <View className="bg-white h-full">
+      <View className="flex-col my-auto">
+        <ScrollView>
+          <Text className="text-3xl mx-auto font-extrabold">Sign Up</Text>
+          <Text className="mx-auto font-extralight mt-[4] mb-6">
+            Please login to continue using our app
+          </Text>
+          {/* <Text>{JSON.stringify(process.env)}</Text> */}
+          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+            <TextInput
+              className="my-auto pl-4 text-base"
+              placeholder="Full Name"
+              onChangeText={(fullName) => setFullName(fullName)}
+            />
+          </View>
+          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+            <TextInput
+              className="my-auto pl-4 text-base"
+              placeholder="Username"
+              onChangeText={(username) => setUsername(username)}
+            />
+          </View>
+          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+            <TextInput
+              className="my-auto pl-4 text-base"
+              placeholder="Email"
+              onChangeText={(email) => setEmail(email)}
+            />
+          </View>
 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          placeholderTextColor="#78716c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-        />
-      </View>
+          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+            <TextInput
+              className="my-auto pl-4 text-base"
+              placeholder="Password"
+              secureTextEntry={true}
+              onChangeText={(password) => setPassword(password)}
+            />
+          </View>
 
-       <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Phone Number"
-          placeholderTextColor="#78716c"
-          onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
-        />
-      </View>
+          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+            <TextInput
+              className="my-auto pl-4 text-base"
+              placeholder="Phone Number"
+              onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+            />
+          </View>
 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Address"
-          placeholderTextColor="#78716c"
-          onChangeText={(address) => setAddress(address)}
-        />
-      </View>
-      <View>
-      </View>
-        <View style={styles.inputView}>
-          <TextInput
-            style={{...styles.TextInput}}
-            placeholder="Location"
-            placeholderTextColor="#78716c"
-            // onChangeText={(location) => setLocation(location)}
-            onSubmitEditing={handleSubmit}
-            onChangeText={setLocation}
-            value={location}
-          />
-        </View>
-      <View style={{height: 300, width: 300, backgroundColor: "#fff"}}>
-      <MapView
-          style={styles.map}
-          showsUserLocation={true}
-          followUserLocation={true}
-          loadingEnabled={true}
-          region={{
-            ...mapRegion,
-            latitudeDelta: 0.010,
-            longitudeDelta: 0.010,
-          }}
-        >
-         <Marker
-            coordinate={mapRegion}
-            style={styles.marker}
-          />
-      </MapView>
-      
-      </View>
-     
-      <View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Home")}
-        style={styles.loginBtn}
-      >
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-      </View>
+          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+            <TextInput
+              className="my-auto pl-4 text-base"
+              placeholder="Address"
+              onChangeText={(address) => setAddress(address)}
+            />
+          </View>
 
+          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+            <TextInput
+              className="my-auto pl-4 text-base"
+              // style={{ ...styles.TextInput }}
+              placeholder="Location"
+              // onChangeText={(location) => setLocation(location)}
+              onSubmitEditing={handleSubmit}
+              onChangeText={setLocation}
+              value={location}
+            />
+          </View>
+          <View className="w-[300] h-[150] mx-auto mt-3">
+            <MapView
+              style={styles.map}
+              showsUserLocation={true}
+              followUserLocation={true}
+              loadingEnabled={true}
+              region={{
+                ...mapRegion,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01,
+              }}
+            >
+              <Marker coordinate={mapRegion} style={styles.marker} />
+            </MapView>
+          </View>
 
-      <TouchableOpacity
-        style={styles.loginBtn}
-        onPress={() =>
-          registerUser({
-            variables: {
-              userInput: {
-                address,
-                email,
-                fullName,
-                latitude,
-                longitude,
-                password,
-                phoneNumber,
-                username,
-              },
-            },
-          })
-        }
-      >
-        <Text style={styles.loginText}>Register</Text>
-      </TouchableOpacity>
+          {/* <Pressable onPress={() => navigation.navigate("Register")}>
+          <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+            <Text className="text-white font-medium text-base mx-auto ">
+              Login
+            </Text>
+          </View>
+        </Pressable> */}
+
+          <Pressable
+            onPress={() =>
+              registerUser({
+                variables: {
+                  userInput: {
+                    address,
+                    email,
+                    fullName,
+                    latitude,
+                    longitude,
+                    password,
+                    phoneNumber,
+                    username,
+                  },
+                },
+              })
+            }
+          >
+            <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+              <Text className="text-white font-medium text-base mx-auto ">
+                Register
+              </Text>
+            </View>
+            <View className="flex-row mx-auto mt-2">
+              <Text className="">Have a account? </Text>
+              <Pressable onPress={() => navigation.navigate("Login")}>
+                <Text className="text-[#F05A2A] font-semibold">
+                  Sign in here
+                </Text>
+              </Pressable>
+            </View>
+          </Pressable>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 

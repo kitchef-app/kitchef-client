@@ -63,6 +63,9 @@ export default function OrderScreen({ navigation }) {
             key={index}
           />
         ))}
+      {/* <CardOrderList />
+      <CardOrderList />
+      <CardOrderList /> */}
     </View>
   );
 }
