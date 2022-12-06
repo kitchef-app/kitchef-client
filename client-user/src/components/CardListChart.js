@@ -1,28 +1,48 @@
 import { Image, Text, View, Pressable } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { idr } from "../helpers/idrFormatter";
-import { useReactiveVar } from "@apollo/client";
-import { cartItemsVar } from "../cache/cache";
+import { InMemoryCache, useApolloClient, useReactiveVar } from "@apollo/client";
+import { cartItemsVar, CustomInMemoryCache } from "../cache/cache";
+import { GET_CART_ITEMS } from "../queries/cart";
+import client from "../config/apollo";
 
 export default function CardListChart({ item }) {
-  console.log(item);
   const CartItems = useReactiveVar(cartItemsVar);
-  console.log(CartItems[0]?.quantity, "< qty");
-  let isInCart = CartItems.some((inCart) => inCart.id === item?.id); // check if an item in the cart matches our item
 
   const increaseQuantity = () => {
-    cartItemsVar(
-      isInCart
-        ? CartItems.filter((inCart) => console.log(inCart, "filter"))
-        : (CartItems[0].quantity = CartItems[0].quantity + 1)
-    );
+    const newArr = CartItems.map((el, i) => {
+      // console.log(el);
+      if (i + 1 === +item.id) {
+        return {
+          ...CartItems[i],
+          quantity: el.quantity + 1,
+        };
+      } else {
+        return el;
+      }
+    });
+    cartItemsVar(newArr);
+    console.log("masuk ke increased");
+  };
+
+  const deleteCartItem = () => {
+    const filteredCart = CartItems.filter((inCart) => inCart.id !== item.id);
+    cartItemsVar(filteredCart);
   };
 
   const decreaseQuantity = () => {
-    // setIsQuantity(quantity - 1);
-    // if (quantity === 1) {
-    //   return setIsQuantity(1);
-    // }
+    const newArr = CartItems.map((el, i) => {
+      if (i + 1 === +item.id) {
+        return {
+          ...CartItems[i],
+          quantity: el.quantity - 1,
+        };
+      } else {
+        return el;
+      }
+    });
+    cartItemsVar(newArr);
+    console.log("masuk ke decreased");
   };
 
   return (
@@ -40,9 +60,11 @@ export default function CardListChart({ item }) {
         <Text className="ml-3 mt-2 mr-3 text-xl text-black">
           {idr(item?.price).substring(0, idr(item?.price).length - 3)}
         </Text>
-        <View className="mt-[23] ml-3 mr-3">
-          <Icon name="trash" size={18} />
-        </View>
+        <Pressable onPress={() => deleteCartItem()}>
+          <View className="mt-[23] ml-3 mr-3">
+            <Icon name="trash" size={18} />
+          </View>
+        </Pressable>
       </View>
       <View>
         <View className="flex-row mx-auto mt-[85] ml-[40]">

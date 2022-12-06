@@ -1,4 +1,4 @@
-import { View, Image, Text, Pressable } from "react-native";
+import { View, Image, Text, Pressable, ScrollView } from "react-native";
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
 import CardOrderList from "../components/CardOrderList";
@@ -54,18 +54,20 @@ export default function OrderScreen({ navigation }) {
     //   />
     //   <Text>Ini order screen</Text>
     // </View>
-    <View className="flex-1">
-      {data &&
-        data.getInvoiceUser.map((orderList, index) => (
-          <CardOrderList
-            orderList={orderList}
-            navigation={navigation}
-            key={index}
-          />
-        ))}
-      {/* <CardOrderList />
+    <ScrollView>
+      <View className="flex-1">
+        {data &&
+          data?.getInvoiceUser?.map((orderList, index) => (
+            <CardOrderList
+              orderList={orderList}
+              navigation={navigation}
+              key={index}
+            />
+          ))}
+        {/* <CardOrderList />
       <CardOrderList />
       <CardOrderList /> */}
-    </View>
+      </View>
+    </ScrollView>
   );
 }

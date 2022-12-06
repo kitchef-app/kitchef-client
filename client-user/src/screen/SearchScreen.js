@@ -55,6 +55,7 @@ export default function SearchScreen({ navigation }) {
             <View className="bg-white h-[40] rounded-lg text-left mx-4 mb-2 pl-3 mt-3">
               <View className="my-auto">
                 <TextInput
+                  autoFocus={true}
                   ref={inputRef}
                   className="font-regular text-gray-500"
                   onChangeText={(search) => setSearch(search)}

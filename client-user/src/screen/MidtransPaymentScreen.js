@@ -3,6 +3,7 @@ import { COLORS } from "../constants/theme";
 import { WebView } from "react-native-webview";
 import { useMutation } from "@apollo/client";
 import { PUT_CHANGE_STATUS_INVOICE } from "../queries/payment";
+import { cartItemsVar } from "../cache/cache";
 
 export default function MidtransPaymentScreen({ navigation, route }) {
   const {
@@ -16,7 +17,6 @@ export default function MidtransPaymentScreen({ navigation, route }) {
     DriverId,
     invoiceId,
   } = route.params;
-  // console.log(route.params, "Dari midtrans payment screen");
 
   console.log(invoiceId, "Invoice id dari midtranspayment screen");
   const [changeStatusInvoice, { loading, error, data }] = useMutation(
@@ -83,10 +83,11 @@ export default function MidtransPaymentScreen({ navigation, route }) {
         if (event.nativeEvent.data == "Paid") {
           changeStatusInvoice({
             variables: {
-              invoiceId,
+              invoiceId: +invoiceId,
             },
           })
             .then((res) => {
+              cartItemsVar([]);
               navigation.navigate("HomeNavigator");
             })
             .catch((err) =>
