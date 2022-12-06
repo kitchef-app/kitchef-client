@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-export default function CardNotification() {
+export default function CardNotification({ notification, navigation }) {
   return (
     <View className="flex-row bg-white h-auto mt-4 ml-2 mr-2 rounded-sm">
       <View className="flex-col mb-2">
@@ -15,9 +15,7 @@ export default function CardNotification() {
         </View>
 
         <Text className="ml-3 mt-2 mr-3 text-lg text-black">
-          Pesanan kamu dalam perjalanan jauh jauh jauh jauh jauh jauh jauh jauh
-          jauh jauh jauh jauh jauh jauh jauh jauh jauh jauh jauhjauh jauh
-          jauhjauh jauh jauhjauh jauh jauh
+          {notification.messageNotification}
         </Text>
       </View>
     </View>

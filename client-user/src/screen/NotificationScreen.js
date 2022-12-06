@@ -1,36 +1,36 @@
 import { View, Image, Text } from "react-native";
 import { COLORS } from "../constants/theme";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CardNotification from "../components/CardNotification";
 import { ScrollView } from "react-native-gesture-handler";
+import { useQuery } from "@apollo/client";
+import { GET_NOTIFICATION_BY_USER_ID } from "../queries/notification";
+import Loading from "../components/Loading";
 
 export default function NotificationScreen({ navigation }) {
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const [id, setId] = useState([]);
+  console.log(id);
+  const { loading, error, data } = useQuery(GET_NOTIFICATION_BY_USER_ID, {
+    variables: { logsUserId: id },
+  });
 
-  // const getData = async () => {
-  //   const access_token = await AsyncStorage.getItem("access_token");
-  //   if (!access_token) {
-  //     return navigation.replace("Login");
-  //   }
-  // };
+  console.log(data);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const id = await AsyncStorage.getItem("id");
+    setId(+id);
+  };
+
+  if (loading) {
+    <Loading />;
+  }
 
   return (
-    // <View
-    //   style={{
-    //     flex: 1,
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     backgroundColor: COLORS.backgroundWhite,
-    //   }}
-    // >
-    //   <Image
-    //     source={require("../assets/logo/logo_full_vertical_32_white.png")}
-    //   />
-    //   <Text>Ini Notification screen</Text>
-    // </View>
     <View className="flex-1">
       <View>
         <Text className="ml-3 mt-3 mr-3 text-xl font-semibold text-black">
@@ -39,13 +39,17 @@ export default function NotificationScreen({ navigation }) {
       </View>
       <ScrollView className="mb-2">
         <View>
-          <CardNotification />
-          <CardNotification />
-          <CardNotification />
-          <CardNotification />
-          <CardNotification />
-          <CardNotification />
-          <CardNotification />
+          {/* {data.getLogs ? (
+            data?.getLogs?.map((notification, index) => (
+              <CardNotification
+                notification={notification}
+                navigation={navigation}
+                key={index}
+              />
+            ))
+          ) : (
+            <Text>Tidak ada notif</Text>
+          )} */}
         </View>
       </ScrollView>
     </View>

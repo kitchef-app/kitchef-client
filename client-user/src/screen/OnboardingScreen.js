@@ -1,6 +1,8 @@
 import { View, Image, Text, StatusBar } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { COLORS, SIZES } from "../constants/theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
 const slides = [
   {
@@ -27,7 +29,17 @@ const slides = [
 ];
 
 export default function OnboardingScreen({ navigation }) {
-  const isSelectedPreferences = true;
+  const [preferences, setPreferences] = useState([]);
+
+  useEffect(() => {
+    AsyncStorage.getItem("preferences").then((preferences) => {
+      if (preferences) {
+        setPreferences(preferences);
+      } else {
+        setPreferences([]);
+      }
+    });
+  }, []);
   const buttonLabel = (label) => {
     return (
       <View
@@ -104,7 +116,7 @@ export default function OnboardingScreen({ navigation }) {
         renderSkipButton={() => buttonLabel("Lewati")}
         renderDoneButton={() => buttonLabel("Selesai")}
         onDone={() => {
-          if (isSelectedPreferences) {
+          if (preferences[0]) {
             navigation.navigate("Home");
           } else {
             navigation.navigate("Preferences");

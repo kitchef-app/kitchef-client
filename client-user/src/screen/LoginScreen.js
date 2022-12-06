@@ -27,9 +27,12 @@ export default function LoginScreen({ navigation }) {
       },
     })
       .then(async (res) => {
+        console.log(res);
         if (res?.data?.loginUser?.access_token) {
           const access_token = res?.data?.loginUser?.access_token;
+          const id_user = String(res?.data?.loginUser?.id);
           await AsyncStorage.setItem("access_token", access_token);
+          await AsyncStorage.setItem("id", id_user);
           return navigation.replace("Home");
         } else {
         }
