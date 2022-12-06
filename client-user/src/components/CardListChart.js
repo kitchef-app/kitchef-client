@@ -87,7 +87,6 @@ export default function CardListChart({ item }) {
           </View>
         </View>
       </View>
-      <View></View>
     </View>
   );
 }
