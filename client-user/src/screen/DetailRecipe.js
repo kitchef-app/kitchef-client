@@ -10,6 +10,9 @@ import { GET_DISHES_DETAIL_BY_ID } from "../queries/recipe";
 import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import CardTools from "../components/CardTools";
+import { makeVar } from "@apollo/client";
+
+// export const cartItemsVar = makeVar([]);
 
 export default function DetailRecipe({ navigation, route }) {
   const { dishName, dishId } = route.params;
@@ -25,7 +28,7 @@ export default function DetailRecipe({ navigation, route }) {
     navigation.setOptions({ title: dishName });
   }, []);
 
-  console.log(data?.getDishesDetail?.Products);
+  // console.log(cartItemsVar());
 
   return (
     <>
