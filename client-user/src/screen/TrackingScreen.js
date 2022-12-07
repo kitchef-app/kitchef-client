@@ -14,7 +14,7 @@ export default function Tracking({navigation, route}) {
   const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
   const [region, setRegion] = useState({
     latitude: -6.2608,
-    longitude: 106.7815
+    longitude: 106.7815,
   });
   const [userLoc, setUserLoc] = useState({});
   const {InvoiceId, userId, driverId} = route.params;
