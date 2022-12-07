@@ -1,55 +1,142 @@
-import { StyleSheet, Text, View, Button } from "react-native";
-import { FloatingLabelInput } from "react-native-floating-label-input";
-import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Pressable,
+  Image,
+} from "react-native";
 
-export default function Login({ navigation }) {
-  const [cont, setCont] = useState("");
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShow(!show);
-    }, 5000);
-    return () => clearTimeout(timeout);
-  }, [show]);
+import { useState } from "react";
+// import { COLORS } from "../constants/theme";
+import { POST_LOGIN } from "../queries/users";
+import { useMutation } from "@apollo/client";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export default function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loginUser, { loading, error, data }] = useMutation(POST_LOGIN);
+
+  const submitLogin = () => {
+    loginUser({
+      variables: {
+        userLogin: {
+          email,
+          password,
+        },
+      },
+    })
+      .then(async (res) => {
+        console.log(res);
+        if (res?.data?.loginUser?.access_token) {
+          const access_token = res?.data?.loginUser?.access_token;
+          const id_user = String(res?.data?.loginUser?.id);
+          await AsyncStorage.setItem("access_token", access_token);
+          await AsyncStorage.setItem("id", id_user);
+          return navigation.replace("Home");
+        } else {
+        }
+      })
+      .catch((err) => console.log(err, "ini err"));
+  };
 
   return (
-    <>
-      <View className="flex-1">
-        <View className="self-center mt-72">
-          <View className="h-10 w-80 mx-auto">
-            <Text className="text-4xl font-extrabold">Login</Text>
+    <View className="bg-white h-full">
+      <View className="flex-col my-auto">
+        {/* <Image
+          className="mx-auto mb-4"
+          source={require("../assets/logo/Logo_72.png")}
+        ></Image> */}
+        <Text className="text-4xl mx-auto font-extrabold">Log In</Text>
+        <Text className="mx-auto font-extralight mt-[4] mb-6">
+          Please login to continue using our app
+        </Text>
+        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <TextInput
+            className="my-auto pl-4 text-base"
+            placeholder="Email"
+            onChangeText={(email) => setEmail(email)}
+          />
+        </View>
+
+        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <TextInput
+            className="my-auto pl-4 text-base"
+            placeholder="Password"
+            secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
+          />
+        </View>
+
+        <Pressable onPress={() => submitLogin()}>
+          <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+            <Text className="text-white font-medium text-base mx-auto ">
+              Login
+            </Text>
           </View>
-          <View className="h-10 w-80 mx-auto mt-6">
-            <FloatingLabelInput label="Email" value="" keyboardType="text" />
-          </View>
-          <View className="h-10 w-80 mt-8 mx-auto">
-            <FloatingLabelInput
-              label={"Password"}
-              isPassword
-              togglePassword={show}
-              value=""
-              onChangeText={(value) => setCont(value)}
-              customShowPasswordComponent={<Text>Show</Text>}
-              customHidePasswordComponent={<Text>Hide</Text>}
-            />
-          </View>
-          <View className="h-10 w-80 mx-auto mt-12">
-            <Button
-              title="Masuk"
-              onPress={() => navigation.navigate("Home")}
-            ></Button>
-          </View>
+        </Pressable>
+        <View className="flex-row mx-auto mt-2">
+          <Text className="">Don't have account? </Text>
+          <Pressable onPress={() => navigation.navigate("Home")}>
+            <Text className="text-[#F05A2A] font-semibold">Register here</Text>
+          </Pressable>
         </View>
       </View>
-    </>
+      {/* <Pressable onPress={() => navigation.navigate("Register")}>
+        <View className="mx-auto h-auto p-3 w-40 bg-[#F05A2A] rounded-lg mt-8">
+          <Text className="text-white font-medium text-base mx-auto ">
+            Register
+          </Text>
+        </View>
+      </Pressable> */}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: "#FEFEFE",
+    justifyContent: "center",
+  },
+
+  image: {
+    marginBottom: 40,
+  },
+
+  inputView: {
+    backgroundColor: "#FFC0CB",
+    borderRadius: 30,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+
+    alignItems: "center",
+  },
+
+  TextInput: {
+    height: 50,
+    flex: 1,
+    padding: 10,
+    marginLeft: 20,
+  },
+
+  forgot_button: {
+    height: 30,
+    marginBottom: 30,
+  },
+
+  loginBtn: {
+    width: "80%",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#F05A2A",
   },
 });
