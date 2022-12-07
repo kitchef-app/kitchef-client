@@ -35,9 +35,9 @@ export default function Tracking({navigation, route}) {
     // }
   );
 
-  const { InvoiceId, UserId } = route.params;
-  // const InvoiceId = 1
-  // const UserId = 2
+  // const { InvoiceId, UserId } = route.params;
+  const InvoiceId = 1
+  const UserId = 2
 
   // console.log(InvoiceId, UserId);
 
@@ -146,10 +146,10 @@ export default function Tracking({navigation, route}) {
         <TouchableOpacity
           style={styles.btnReversed}
           onPress={async () => {
-            changeStatus({
-              variables: {invoiceDelId: +InvoiceId},
-            });
-            // navigation.navigate("Home");
+            // changeStatus({
+            //   variables: {invoiceDelId: +InvoiceId},
+            // });
+            navigation.navigate("ChatComponent", {});
             return;
           }}>
           <Text style={styles.btnTextReversed}>Chat with Customer</Text>
