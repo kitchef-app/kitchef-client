@@ -10,7 +10,7 @@ import {
 
 import { useState } from "react";
 // import { COLORS } from "../constants/theme";
-import { POST_LOGIN } from "../queries/users";
+import { POST_LOGIN, POST_LOGIN_DRIVER } from "../queries/users";
 import { useMutation } from "@apollo/client";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -18,12 +18,13 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [loginUser, { loading, error, data }] = useMutation(POST_LOGIN);
+  const [loginUser, { loading, error, data }] = useMutation(POST_LOGIN_DRIVER);
 
   const submitLogin = () => {
+    console.log(email, password);
     loginUser({
       variables: {
-        userLogin: {
+        driverLogin: {
           email,
           password,
         },
@@ -31,11 +32,11 @@ export default function LoginScreen({ navigation }) {
     })
       .then(async (res) => {
         console.log(res);
-        if (res?.data?.loginUser?.access_token) {
-          const access_token = res?.data?.loginUser?.access_token;
-          const id_user = String(res?.data?.loginUser?.id);
-          await AsyncStorage.setItem("access_token", access_token);
-          await AsyncStorage.setItem("id", id_user);
+        if (res?.data?.loginDriver?.access_token) {
+          const access_token = res?.data?.loginDriver?.access_token;
+          const id_user = String(res?.data?.loginDriver?.id);
+          // await AsyncStorage.setItem("access_token", access_token);
+          // await AsyncStorage.setItem("id", id_user);
           return navigation.replace("Home");
         } else {
         }
@@ -79,10 +80,10 @@ export default function LoginScreen({ navigation }) {
           </View>
         </Pressable>
         <View className="flex-row mx-auto mt-2">
-          <Text className="">Don't have account? </Text>
-          <Pressable onPress={() => navigation.navigate("Home")}>
+          {/* <Text className="">Don't have account? </Text> */}
+          {/* <Pressable onPress={() => navigation.navigate("Home")}>
             <Text className="text-[#F05A2A] font-semibold">Register here</Text>
-          </Pressable>
+          </Pressable> */}
         </View>
       </View>
       {/* <Pressable onPress={() => navigation.navigate("Register")}>
