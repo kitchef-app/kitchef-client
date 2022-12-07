@@ -26,7 +26,7 @@ export default function HomeNavigator() {
         options={{ headerBackTitleVisible: false }}
       />
       <Home.Screen
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{ headerShown: false }}
         name="SearchScreen"
         component={SearchScreen}
       />
