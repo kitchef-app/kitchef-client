@@ -13,7 +13,10 @@ import { GET_USER } from '../queries/users';
 AsyncStorage
 export default function Tracking({navigation, route}) {
   const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
-  const [region, setRegion] = useState({});
+  const [region, setRegion] = useState({
+    latitude: -6.2608,
+    longitude: 106.7815
+  });
   const [userLoc, setUserLoc] = useState({});
   const [userId, setUserId] = useState([])
   const getData = async () => {
@@ -54,6 +57,7 @@ export default function Tracking({navigation, route}) {
   console.log(region, "ini regionnn")         
 
   useEffect(() => {
+    // socket.on('connect',()=>console.log(socket.connected, "================="))
     socket.emit("join-rooms", InvoiceId) 
     socket.on("send-location", (location) => {
       console.log(location, "location")
@@ -61,6 +65,8 @@ export default function Tracking({navigation, route}) {
         latitude: location.latitude,
         longitude: location.longitude,
       });
+      console.log(region, "region dr useeffect");
+      console.log(userLoc, "userloc dr useeffect");
     })
     
     // return () => {
@@ -92,22 +98,7 @@ export default function Tracking({navigation, route}) {
           showsUserLocation={true}
           followUserLocation={true}
           loadingEnabled={true}>
-        {Object.keys(region).length !== 0 && 
-          <MapViewDirections
-            origin={{...region}}
-            destination={{
-              latitude: userLoc.latitude,
-              longitude: userLoc.longitude,
-            }}
-            // onReady={result => {
-            //       console.log(`Distance: ${result.distance} km`)
-            //       console.log(`Duration: ${result.duration} min.`)
-            // }}
-            apikey={GOOGLE_MAPS_APIKEY}
-            strokeWidth={3}
-            strokeColor="#0ea5e9"
-          />
-        }
+       
           {Object.keys(userLoc).length !== 0 && 
             <Marker 
             coordinate={userLoc} 
