@@ -11,26 +11,44 @@ export const INVOICE_DRIVER = gql`
       isDelivered
       subTotal
       shippingCost
+      createdAt
     }
   }
 `;
 export const GET_USER_DETAIL = gql`
   query Query($id: Int) {
-  getUserById(_id: $id) {
-    _id
-    fullName
-    username
-    password
-    email
-    phoneNumber
-    address
-    location {
-      type
-      coordinates
+    getUserById(_id: $id) {
+      _id
+      fullName
+      username
+      password
+      email
+      phoneNumber
+      address
+      location {
+        type
+        coordinates
+      }
     }
   }
-}  
-`
+`;
+export const GET_USER_ALL = gql`
+  query Query {
+    getUserAll {
+      id
+      fullName
+      username
+      password
+      email
+      phoneNumber
+      address
+      location {
+        type
+        coordinates
+      }
+    }
+  }
+`;
 
 export const CHANGE_STATUS_COMPLETE_DELIVERED = gql`
   mutation Mutation($invoiceDelId: Int) {

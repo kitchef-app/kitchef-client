@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Pressable } from "react-native";
 import { useQuery } from "@apollo/client";
-import { INVOICE_DRIVER } from "../queries/drivers";
+import { GET_USER_ALL, INVOICE_DRIVER } from "../queries/drivers";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback } from "react";
 
@@ -51,53 +51,96 @@ export function CardInvoice() {
     variables: { driverId: 1 },
     // fetchPolicy: "no-cache",
   });
+  const { data: allUser, loading: loadingUser } = useQuery(GET_USER_ALL);
+  // console.log(allUser.getUserAll[0].id);
+  console.log(allUser);
   useFocusEffect(
     useCallback(() => {
       refetch();
     }, [])
   );
+  // console.log(d);
   const navigation = useNavigation();
 
   if (loading) return <Text>Loading...</Text>;
+  if (loadingUser) return <Text>Loading...</Text>;
   if (error) return <Text>Error : {error.message}</Text>;
   // console.log(error);
-  const renderItem = ({ item }) => {
+
+  const renderItem = ({ item, index }) => {
     return (
       <>
         <Pressable
           onPress={() =>
-            navigation.navigate("Tracking", { InvoiceId: item.id, UserId: item.UserId })
+            navigation.navigate("Tracking", {
+              InvoiceId: item.id,
+              UserId: item.UserId,
+            })
           }
         >
-          <View className="mx-auto bg-gray-200 border-opacity-5 h-[200] w-[360] mt-8 rounded-xl">
+          <View className="mx-auto bg-orange-50 border-solid border-2 border-orange-200  w-full mt-5 rounded-md shadow-lg">
             <View className="h-10 w-80 mx-auto">
-              <Text className="text-xl font-semibold mt-4">
-                02 December 2022
+              <Text className="text-xl font-semibold mt-4 text-orange-400">
+                {item.createdAt.slice(0, 10) + "-ORDER-" + item.id}
               </Text>
             </View>
-            <View className="border-t-2 mt-2"></View>
-            <View className="h-10 w-80 mx-auto">
-              <Text className="text-sm mt-4">No. Transaksi</Text>
-            </View>
-            <View className="w-80 mx-auto">
-              <Text className="text-sm">021-EENCCVX-0033</Text>
-            </View>
+            <View className="border-t-1 "></View>
             <View className="w-80 mx-auto mt-[20]">
-              <Text className="text-sm">{item.isDelivered}</Text>
-              <Text className="text-sm">Shipping Cost</Text>
-              <Text className="text-sm">{item.shippingCost}</Text>
+              {allUser?.getUserAll?.map((user, index) => {
+                // console.log(user.id);
+                // console.log(item.UserId);
+                if (String(user.id) === String(item.UserId)) {
+                  // console.log("lontong");
+                  // console.log(user.fullName);
+                  return (
+                    <Text key={index} className="text-sm font-semibold">
+                      {user.fullName}
+                    </Text>
+                  );
+                }
+              })}
+              {/* <Text className="text-sm">{item.shippingCost}</Text> */}
+              {allUser?.getUserAll?.map((user, index) => {
+                // console.log(user.id);
+                // console.log(item.UserId);
+                if (String(user.id) === String(item.UserId)) {
+                  // console.log("lontong");
+                  // console.log(user.fullName);
+                  return (
+                    <Text key={index} className="text-sm">
+                      {user.phoneNumber}
+                    </Text>
+                  );
+                }
+              })}
+
+              {/* <Text className="text-sm">{item.shippingCost}</Text> */}
+              {/* <Text className="text-sm">{item.total}</Text> */}
             </View>
-            <View className="flex flex-row">
-              <View className="flex justify-start mt-[6] mb-2 ml-[20]">
+            <View className="flex flex-col mt-3">
+              <Text className="text-lg font-normal text-black ml-6">
+                Total Pesanan :{" "}
+                <Text className="text-lg font-semibold text-orange-500 ml-6">
+                  Rp {item.total}
+                </Text>
+              </Text>
+
+              <View className="flex justify-start mt-[6] mb-2 ml-[20] flex-row space-x-3 items-center">
+                {/* <Text className="text-sm">Dikirim Ke :</Text> */}
+                <Image
+                  style={{ width: 30, height: 30 }}
+                  source={{
+                    uri: "https://cdn-icons-png.flaticon.com/512/7615/7615749.png",
+                  }}
+                />
                 <Text className="text-sm">Jalan Kecap Abadi Nan Jaya</Text>
               </View>
-
-              <View className="mt-[6] ml-[60]">
-                <Text className="bg-gray-400 text-dark text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
-                  Sedang diantar
-                </Text>
-              </View>
             </View>
+          </View>
+          <View className="w-full flex ">
+            <Text className="bg-orange-400 pt-1 mx-auto items-center w-full text-center h-8 text-dark text-sm text-white font-medium  -translate-y-1">
+              {item.isDelivered}
+            </Text>
           </View>
         </Pressable>
       </>
