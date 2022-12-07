@@ -14,15 +14,24 @@ import { COLORS } from "../constants/theme";
 import { useMutation } from "@apollo/client";
 import { POST_REGISTER } from "../queries/users";
 import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from "react-native-geocoding";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { calculateOngkir } from "../helpers/ongkirCalculator";
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default function LoginScreen({ navigation }) {
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
   const [mapRegion, setmapRegion] = useState({
     latitude: -6.260826,
     longitude: 106.7815368,
   });
+  const hacktivReg = {
+    latitude: -6.260826,
+    longitude: 106.7815368,
+  }
+  const [distance, setDistance] = useState(0)
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -61,7 +70,6 @@ export default function LoginScreen({ navigation }) {
           <Text className="mx-auto font-extralight mt-[4] mb-6">
             Please login to continue using our app
           </Text>
-          {/* <Text>{JSON.stringify(process.env)}</Text> */}
           <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
@@ -132,6 +140,20 @@ export default function LoginScreen({ navigation }) {
                 longitudeDelta: 0.01,
               }}
             >
+                <MapViewDirections
+                origin={mapRegion}
+                destination={hacktivReg}
+                onReady={async (result) => {
+                      console.log(`Distance: ${result.distance} km`)
+                      console.log(`Duration: ${result.duration} min.`)
+                      setDistance(result.distance)
+                      await AsyncStorage.setItem("distance", distance);
+                      await AsyncStorage.setItem("ongkir", calculateOngkir(distance));
+                }}
+                apikey={GOOGLE_MAPS_APIKEY}
+                strokeWidth={3}
+                strokeColor="#0ea5e9"
+              />
               <Marker coordinate={mapRegion} style={styles.marker} />
             </MapView>
           </View>

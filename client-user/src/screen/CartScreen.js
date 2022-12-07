@@ -24,6 +24,8 @@ import { COLORS } from "../constants/theme";
 export default function CartScreen({ navigation }) {
   const { loading, error, data: cart } = useQuery(GET_CART_ITEMS);
   const [id, setId] = useState([]);
+  const [distance, setDistance] = useState([]);
+  const [ongkir, setOngkir] = useState([]);
   const [InvoiceId, setInvoiceId] = useState(0);
   const [addInvoice] = useMutation(POST_INVOICE);
 
@@ -35,7 +37,11 @@ export default function CartScreen({ navigation }) {
 
   const getData = async () => {
     const id = await AsyncStorage.getItem("id");
+    const distance = await AsyncStorage.getItem("distance")
+    const ongkir = await AsyncStorage.getItem("ongkir")
     setId(+id);
+    setDistance(+distance);
+    setOngkir(+ongkir);
   };
 
   const submitPayment = () => {
@@ -138,7 +144,7 @@ export default function CartScreen({ navigation }) {
                   </Text>
                 </View>
                 <View className="flex flex-row justify-between px-4 mt-2 mb-2">
-                  <Text className="text-lg">Ongkir (2 km)</Text>
+                  <Text className="text-lg">Ongkir ({distance} km)</Text>
                   <Text className="text-lg">
                     {idr(shippingCost).substring(
                       0,
