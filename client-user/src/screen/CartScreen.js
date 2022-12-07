@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Pressable,
   StatusBar,
+  Image,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -101,7 +102,7 @@ export default function CartScreen({ navigation }) {
     0
   );
 
-  // let shippingCost = 3000;
+  let shippingCost = 3000;
 
   let gross_amount = sumSubTotal + ongkir;
 
