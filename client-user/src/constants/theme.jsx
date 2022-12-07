@@ -5,7 +5,8 @@ export const COLORS = {
   primary: "#F05A2A",
   black: "#767676",
   inactiveTab: "#94A3B8",
-  backgroundWhite: "#FFF",
+  backgroundWhite: "#f8fafc",
+  slate100: "#f1f5f9",
 };
 
 export const SIZES = {

@@ -3,7 +3,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 
 export default function CardRecipe({ navigation, dishes }) {
   return (
-    <View className="h-[290] w-[165] rounded-lg bg-white-500 border-2 border-slate-100 mt-2 mx-1 mb-1">
+    <View className="h-[290] w-[165] rounded-lg bg-white-500 border-2 border-slate-100 mt-2 mx-1 mb-1 bg-white shadow-md shadow-slate-400">
       <Pressable
         onPress={() =>
           navigation.navigate("DetailRecipe", {

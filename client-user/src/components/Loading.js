@@ -12,7 +12,7 @@ export default function Loading() {
         padding: 40,
       }}
     >
-      {/* <LottieView
+      <LottieView
         source={require("../assets/animation/loader.json")}
         autoPlay
         loop
@@ -20,8 +20,7 @@ export default function Loading() {
           width: 120,
           height: 120,
         }}
-      /> */}
-      <Text>Loading bang, sabar ya</Text>
+      />
     </View>
   );
 }

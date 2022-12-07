@@ -9,7 +9,10 @@ const Home = createStackNavigator();
 
 export default function HomeNavigator() {
   return (
-    <Home.Navigator initialRouteName="HomeScreen">
+    <Home.Navigator
+      initialRouteName="HomeScreen"
+      screenOptions={{ tabBarHideOnKeyboard: true, keyboardHidesTabBar: true }}
+    >
       <Home.Screen
         name="HomeScreen"
         component={HomeScreen}
@@ -18,7 +21,14 @@ export default function HomeNavigator() {
       <Home.Screen
         name="ListRecipe"
         component={ListRecipe}
-        options={{ headerBackTitleVisible: false }}
+        options={{
+          headerStyle: {
+            backgroundColor: "#fff",
+          },
+          headerTitleStyle: {
+            fontWeight: "semibold",
+          },
+        }}
       />
       <Home.Screen
         name="DetailRecipe"
@@ -26,7 +36,11 @@ export default function HomeNavigator() {
         options={{ headerBackTitleVisible: false }}
       />
       <Home.Screen
-        options={{ headerShown: false, animationEnabled: false }}
+        options={{
+          headerShown: false,
+          animationEnabled: false,
+          tabBarHideOnKeyboard: true,
+        }}
         name="SearchScreen"
         component={SearchScreen}
       />

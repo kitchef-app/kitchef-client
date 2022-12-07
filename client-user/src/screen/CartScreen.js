@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
+  StatusBar,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -17,6 +18,7 @@ import Loading from "../components/Loading";
 import { idr } from "../helpers/idrFormatter";
 import { GET_CART_ITEMS } from "../queries/cart";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { COLORS } from "../constants/theme";
 
 export default function CartScreen({ navigation }) {
   const { loading, error, data: cart } = useQuery(GET_CART_ITEMS);
@@ -99,6 +101,11 @@ export default function CartScreen({ navigation }) {
 
   return (
     <>
+      <StatusBar
+        backgroundColor={COLORS.backgroundWhite}
+        barStyle="dark-content"
+        animated={true}
+      />
       {cart.cartItems[0] ? (
         <>
           <ScrollView vertical showsVerticalScrollIndicator={false}>

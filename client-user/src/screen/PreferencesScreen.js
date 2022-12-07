@@ -48,14 +48,15 @@ export default function PreferencesScreen({ navigation }) {
     <View style={styles.container}>
       <Text
         style={{
-          fontSize: SIZES.h2,
+          fontSize: SIZES.h1,
           fontWeight: "bold",
-          paddingTop: 24,
+          paddingTop: 32,
+          lineHeight: 28,
         }}
       >
         Kategori masakan apa yang kamu suka?
       </Text>
-      <Text className="text-slate-400 text-lg pt-10">
+      <Text className="text-slate-400 text-md pt-4">
         Pilih kategori masakan kesukaanmu
       </Text>
       <View className="w-full pt-4">
@@ -78,7 +79,7 @@ export default function PreferencesScreen({ navigation }) {
       </View>
       {!categories[0] ? (
         <Pressable className="w-full pt-6">
-          <View className="h-auto w-full p-3 mt-2 bg-[#bbbbbb] rounded-xl">
+          <View className="h-auto w-full p-3 mt-2 bg-[#bbbbbb] rounded-md">
             <Text className="text-white font-medium text-base mx-auto ">
               Simpan
             </Text>
@@ -86,7 +87,7 @@ export default function PreferencesScreen({ navigation }) {
         </Pressable>
       ) : (
         <Pressable onPress={() => submitPreferences()} className="w-full pt-6">
-          <View className="h-auto w-full p-3 mt-2 bg-[#F05A2A] rounded-xl">
+          <View className="h-auto w-full p-3 mt-2 bg-[#F05A2A] rounded-md">
             <Text className="text-white font-medium text-base mx-auto ">
               Simpan
             </Text>
@@ -100,7 +101,6 @@ export default function PreferencesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "left",
     backgroundColor: "#fff",
     paddingHorizontal: 20,
   },
