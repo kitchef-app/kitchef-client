@@ -102,7 +102,7 @@ export default function CartScreen({ navigation }) {
     0
   );
 
-  // let shippingCost = 3000;
+  let shippingCost = 3000;
 
   let gross_amount = sumSubTotal + ongkir;
 
