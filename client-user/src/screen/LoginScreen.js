@@ -13,6 +13,7 @@ import { COLORS } from "../constants/theme";
 import { POST_LOGIN } from "../queries/users";
 import { useMutation } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { calculateOngkir } from "../helpers/ongkirCalculator";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -34,12 +35,13 @@ export default function LoginScreen({ navigation }) {
         if (res?.data?.loginUser?.access_token) {
           const access_token = res?.data?.loginUser?.access_token;
           const id_user = String(res?.data?.loginUser?.id);
-          const distance = res?.data?.loginUser?.distance;
-          const ongkir = distance ? calculateOngkir(distance):20000
+          // const distance = res?.data?.loginUser?.distance.toString();
+          const distance = 2.7;
+          const ongkir = distance ? calculateOngkir(distance).toString() : "20000"
           await AsyncStorage.setItem("access_token", access_token);
           await AsyncStorage.setItem("id", id_user);
           await AsyncStorage.setItem("distance", distance.toString());
-          await AsyncStorage.setItem("ongkir", ongkir.toString());
+          await AsyncStorage.setItem("ongkir", ongkir);
           return navigation.replace("Home");
         } else {
         }

@@ -5,9 +5,9 @@ import { ApolloProvider } from "@apollo/client";
 import AuthStackNavigator from "./src/navigator/AuthStackNavigator";
 import { COLORS } from "./src/constants/theme";
 import client from "./src/config/apollo";
-import * as Device from "expo-device";
-import * as Notifications from "expo-notifications";
-import { useEffect, useRef, useState } from "react";
+// import * as Device from 'expo-device';
+// import * as Notifications from 'expo-notifications';
+// import { useEffect, useRef, useState } from 'react';
 
 // async function registerForPushNotificationsAsync() {
 //   let token;

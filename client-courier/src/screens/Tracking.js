@@ -15,12 +15,15 @@ import * as Location from 'expo-location';
 import MapViewDirections from 'react-native-maps-directions';
 import {GOOGLE_MAPS_APIKEY} from '@env';
 import { socket } from "../config/socket"
+// import { useNavigation } from '@react-navigation/native';
 
-export default function Tracking({navigation, route}) {
+export default function Tracking({route, navigation}) {
   const [region, setRegion] = useState({
     latitude: 0,
     longitude: 0
   });
+
+  // const navigation = useNavigation();
 
   // fetch data user location
   // ganti region di marker jadi user location
@@ -35,9 +38,11 @@ export default function Tracking({navigation, route}) {
     // }
   );
 
-  // const { InvoiceId, UserId } = route.params;
-  const InvoiceId = 1
-  const UserId = 2
+
+  const { InvoiceId, UserId, DriverId, isDelivered } = route.params;
+  console.log(route.params, "route params dari tracking");
+  // const InvoiceId = 1
+  // const UserId = 2
 
   // console.log(InvoiceId, UserId);
 
@@ -46,7 +51,7 @@ export default function Tracking({navigation, route}) {
 
   useEffect(() => {
     socket.emit("join-rooms", InvoiceId) 
-    console.log(InvoiceId, "invoiceId");
+    // console.log(InvoiceId, "invoiceId");
     return () => {
 
     }
@@ -76,7 +81,6 @@ export default function Tracking({navigation, route}) {
               latitude: +update.coords.latitude,
               longitude: +update.coords.longitude,
             });
-            console.log(region);
             socket.emit("send-location", {
               roomName: InvoiceId,
               location: 
@@ -132,7 +136,9 @@ export default function Tracking({navigation, route}) {
         </MapView>
       </View>
       <View className="mb-20 w-80">
-        <TouchableOpacity
+        {
+          isDelivered === 'Sedang Dikirim' && 
+          <TouchableOpacity
           style={styles.btn}
           onPress={async () => {
             changeStatus({
@@ -142,18 +148,22 @@ export default function Tracking({navigation, route}) {
             return;
           }}>
           <Text style={styles.btnText}>Selesai</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity>}
+
+        { isDelivered !== 'Terkirim' && 
+          <TouchableOpacity
           style={styles.btnReversed}
-          onPress={async () => {
+          onPress={() => {
             // changeStatus({
             //   variables: {invoiceDelId: +InvoiceId},
             // });
-            navigation.navigate("ChatComponent", {});
-            return;
+            return navigation.navigate("ChatComponent", {
+              UserId,
+              DriverId
+            });
           }}>
           <Text style={styles.btnTextReversed}>Chat with Customer</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
     </View>
   );

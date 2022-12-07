@@ -62,7 +62,7 @@ export function CardInvoice(route) {
   }, [])
 
   const { loading, error, data, refetch } = useQuery(INVOICE_DRIVER, {
-    variables: { driverId: 0 },
+    variables: { driverId: 1 },
     // fetchPolicy: "no-cache",
   });
   const { data: allUser, loading: loadingUser } = useQuery(GET_USER_ALL);
@@ -70,10 +70,10 @@ export function CardInvoice(route) {
   // console.log(allUser);
   useFocusEffect(
     useCallback(() => {
-      refetch({ driverId: 1});
-      // refetch({ driverId: id});
-    }, [id])
+      refetch();
+    }, [])
   );
+  // console.log(d);
   const navigation = useNavigation();
 
   if (loading) return <Text>Loading...</Text>;
@@ -90,7 +90,6 @@ export function CardInvoice(route) {
               InvoiceId: item.id,
               UserId: item.UserId,
               DriverId: item.DriverId,
-              isDelivered: item.isDelivered
             })
           }
         >
