@@ -110,6 +110,7 @@ export default function OrderDetail({ navigation, route }) {
           <Pressable
             onPress={() =>
               navigation.navigate("Tracking", {
+                InvoiceId: invoiceId,
                 userId: userId,
                 driverId: driverId,
               })

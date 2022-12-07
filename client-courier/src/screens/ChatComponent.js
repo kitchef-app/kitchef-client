@@ -44,7 +44,7 @@ export default function ChatComponent({route, navigation}) {
   const me = {
     // id: data?.getInvoiceById?.DriverId,
     // id: dId, //dari async storage
-    id: 'driver-1', //dari async storage
+    id: `driver-${DriverId}`, //dari async storage
     name: 'You',
     // email: 'alice@example.com',
     photoUrl: 'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg',
@@ -52,7 +52,7 @@ export default function ChatComponent({route, navigation}) {
     role: 'default',
     custom: {
       // receiverId: UserId.toString(), // KIRIM VIA PARAMS AJAAAA
-      receiverId: '2', // KIRIM VIA PARAMS AJAAAA
+      receiverId: UserId.toString(), // KIRIM VIA PARAMS AJAAAA
       role: 'user'
     }
   };
@@ -60,7 +60,7 @@ export default function ChatComponent({route, navigation}) {
   const other = {
     // id: user?.getUserById?._id,
     // id: UserId, //dpt dari ROUTE PARAMSSS invoice userid
-    id: 'user-1',
+    id: `user-${UserId}`,
     name: 'adam',
     // email: 'Sebastian@example.com',
     photoUrl: 'https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg',

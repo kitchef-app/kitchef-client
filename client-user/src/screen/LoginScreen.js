@@ -44,8 +44,10 @@ export default function LoginScreen({ navigation }) {
           await AsyncStorage.setItem("access_token", access_token);
           await AsyncStorage.setItem("id", id_user);
           await AsyncStorage.setItem("distance", distance.toString());
-          await AsyncStorage.setItem("ongkir", ongkir).toString();
-          return navigation.replace("Home");
+          await AsyncStorage.setItem("ongkir", ongkir.toString());
+          return navigation.replace("Home", {
+            screen: "AccountNavigator"
+          });
         } else {
         }
       })

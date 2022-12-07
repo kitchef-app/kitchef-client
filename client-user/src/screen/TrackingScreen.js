@@ -10,15 +10,6 @@ import { useQuery } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GET_USER } from "../queries/users";
 
-AsyncStorage;
-export default function Tracking({ navigation, route }) {
-  const { userId } = route.params;
-  const { driverId } = route.params;
-
-  console.log(userId, "ddddd");
-  console.log(driverId, "sssssssssssssssss");
-
-AsyncStorage
 export default function Tracking({navigation, route}) {
   const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
   const [region, setRegion] = useState({
@@ -26,21 +17,26 @@ export default function Tracking({navigation, route}) {
     longitude: 106.7815
   });
   const [userLoc, setUserLoc] = useState({});
+  const {InvoiceId, userId, driverId} = route.params;
+  console.log(InvoiceId, userId, driverId, "dari route params");
   // const [userId, setUserId] = useState([])
-  const getData = async () => {
-    const id = await AsyncStorage.getItem("id");
-    return setUserId(id);
-  };
+  // const getData = async () => {
+  //   const id = await AsyncStorage.getItem("id");
+  //   return setUserId(id);
+  // };
   const { data, error, loading } = useQuery(GET_USER, {
     variables: {
-      id: +userId,
+      id: +userId
     },
   });
+  console.log(userId, "=========================");
   // console.log(data, "ini data user detail");
-
-  useEffect(() => {
-    getData();
-  }, []);
+  
+  // useEffect(() => {
+    //   getData();
+    // }, []);
+    
+  console.log(data, "ini data");
 
   useEffect(() => {
     if (data) {
@@ -59,13 +55,12 @@ export default function Tracking({navigation, route}) {
   // fetch data user location
   // ganti region di marker jadi user location
   // ganti data destination di direction jd user location
-  // const {InvoiceId} = route.params;
-  const InvoiceId = 1;
-  console.log(userId, InvoiceId, "userId + invoiceId");
-  console.log(region, "ini regionnn");
+  // const InvoiceId = 1;
+  // console.log(userId, InvoiceId, "userId + invoiceId");
+  // console.log(region, "ini regionnn");
 
   useEffect(() => {
-    socket.emit("join-rooms", InvoiceId);
+    socket.emit("join-rooms", +InvoiceId);
     socket.on("send-location", (location) => {
       console.log(location, "location");
       setRegion({
@@ -86,6 +81,7 @@ export default function Tracking({navigation, route}) {
   }, []);
 
   if (loading) return <Text>Submitting...</Text>;
+ 
 
   return (
     <View style={styles.container}>
@@ -127,22 +123,27 @@ export default function Tracking({navigation, route}) {
               title="Customer"
             />
           )}
+        
           {Object.keys(region).length !== 0 && (
-            <Marker coordinate={region} title="Driver" pinColor={"#fff"} />
+            <Marker coordinate={region} title="Driver" pinColor={"tomato"} />
           )}
         </MapView>
       </View>
-      <View className="mb-20 w-80">
+      {/*<View className="mb-20 w-80">
         <TouchableOpacity
           style={styles.btnReversed}
           onPress={async () => {
-            navigation.navigate("ChatScreen");
+            navigation.navigate("ChatScreen", {
+              // UserId: ,
+              // DriverId: ,
+            });
             return;
           }}
         >
           <Text style={styles.btnTextReversed}>Chat with Driver</Text>
         </TouchableOpacity>
       </View>
+        */}
     </View>
   );
 }
