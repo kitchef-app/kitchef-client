@@ -48,6 +48,16 @@ export default function StackNavigator() {
             },
           }}
         />
+        <Stack.Screen
+          name="ChatComponent"
+          component={ChatComponent}
+          options={{
+            title: "Chat With Customer",
+            headerTitleStyle: {
+              fontWeight: "bold",
+            },
+          }}
+        />
     </Stack.Navigator>
   );
 }
