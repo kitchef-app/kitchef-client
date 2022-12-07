@@ -10,20 +10,16 @@ import { useQuery } from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GET_USER } from "../queries/users";
 
-AsyncStorage;
 export default function Tracking({ navigation, route }) {
   const { userId } = route.params;
   const { driverId } = route.params;
 
   console.log(userId, "ddddd");
   console.log(driverId, "sssssssssssssssss");
-
-AsyncStorage
-export default function Tracking({navigation, route}) {
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI";
   const [region, setRegion] = useState({
     latitude: -6.2608,
-    longitude: 106.7815
+    longitude: 106.7815,
   });
   const [userLoc, setUserLoc] = useState({});
   // const [userId, setUserId] = useState([])
