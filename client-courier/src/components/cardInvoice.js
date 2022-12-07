@@ -8,11 +8,14 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
+// idr
 import { Pressable } from "react-native";
 import { useQuery } from "@apollo/client";
 import { GET_USER_ALL, INVOICE_DRIVER } from "../queries/drivers";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useCallback } from "react";
+// import { idr } from "../../helpers/idrFormatter";
+// idr
 
 // import { GET_ALL_JOB } from "./src/queries/Job";
 // GET_ALL_JOB;
@@ -81,7 +84,10 @@ export function CardInvoice() {
           <View className="mx-auto bg-orange-50 border-solid border-2 border-orange-200  w-full mt-5 rounded-md shadow-lg">
             <View className="h-10 w-80 mx-auto">
               <Text className="text-xl font-semibold mt-4 text-orange-400">
-                {item.createdAt.slice(0, 10) + "-ORDER-" + item.id}
+                {"HCK51-KTCF-ORDR-" + item.id}
+              </Text>
+              <Text className="text-xs font-light mt-0 text-orange-400">
+                {item.createdAt.slice(0, 10)}
               </Text>
             </View>
             <View className="border-t-1 "></View>
@@ -94,7 +100,7 @@ export function CardInvoice() {
                   // console.log(user.fullName);
                   return (
                     <Text key={index} className="text-sm font-semibold">
-                      {user.fullName}
+                      {user.fullName.toUpperCase()}
                     </Text>
                   );
                 }
@@ -133,7 +139,19 @@ export function CardInvoice() {
                     uri: "https://cdn-icons-png.flaticon.com/512/7615/7615749.png",
                   }}
                 />
-                <Text className="text-sm">Jalan Kecap Abadi Nan Jaya</Text>
+                {allUser?.getUserAll?.map((user, index) => {
+                  // console.log(user.id);
+                  // console.log(item.UserId);
+                  if (String(user.id) === String(item.UserId)) {
+                    // console.log("lontong");
+                    // console.log(user.fullName);
+                    return (
+                      <Text key={index} className="text-sm">
+                        {user.address}
+                      </Text>
+                    );
+                  }
+                })}
               </View>
             </View>
           </View>
