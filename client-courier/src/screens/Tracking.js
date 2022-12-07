@@ -18,10 +18,7 @@ import { socket } from "../config/socket"
 // import { useNavigation } from '@react-navigation/native';
 
 export default function Tracking({route, navigation}) {
-  const [region, setRegion] = useState({
-    latitude: 0,
-    longitude: 0
-  });
+  const [region, setRegion] = useState(null);
 
   // const navigation = useNavigation();
 
@@ -50,7 +47,7 @@ export default function Tracking({route, navigation}) {
   // console.log(user?.getUserById?.location?.coordinates[0], "userdetail")
 
   useEffect(() => {
-    socket.emit("join-rooms", InvoiceId) 
+    socket.emit("join-rooms", +InvoiceId) 
     // console.log(InvoiceId, "invoiceId");
     return () => {
 
@@ -77,6 +74,7 @@ export default function Tracking({route, navigation}) {
             distanceInterval: 10,
           },
           update => {
+            console.log(update, "update lokasi");
             setRegion({
               latitude: +update.coords.latitude,
               longitude: +update.coords.longitude,
@@ -98,13 +96,17 @@ export default function Tracking({route, navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.mapContainer}>
+
+       { region &&
         <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
           style={styles.map}
           region={{
             // latitude: 37.78825,
             // longitude: -122.4324,
-            ...region,
+            // ...region,
+            latitude: region.latitude,
+            longitude: region.longitude,
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           }}
@@ -119,7 +121,9 @@ export default function Tracking({route, navigation}) {
             }}
             title="Your Location"
           />
-          <MapViewDirections
+
+         { region && user && 
+           <MapViewDirections
             origin={{...region}}
             destination={{
               latitude: +user?.getUserById?.location?.coordinates[0],
@@ -132,8 +136,8 @@ export default function Tracking({route, navigation}) {
             apikey={GOOGLE_MAPS_APIKEY}
             strokeWidth={3}
             strokeColor="#F05A2A"
-          />
-        </MapView>
+          />}
+        </MapView>}
       </View>
       <View className="mb-20 w-80">
         {
