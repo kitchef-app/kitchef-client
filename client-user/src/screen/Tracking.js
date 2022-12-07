@@ -1,29 +1,36 @@
-import {Button} from '@rneui/themed';
-import {View, Text, TouchableOpacity} from 'react-native';
-import {StyleSheet} from 'react-native';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {useState, useEffect} from 'react';
+import { Button } from "@rneui/themed";
+import { View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet } from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { useState, useEffect } from "react";
 // import * as Location from 'expo-location';
-import MapViewDirections from 'react-native-maps-directions';
-import {GOOGLE_MAPS_APIKEY} from '@env';
-import { socket } from "../config/socket"
+import MapViewDirections from "react-native-maps-directions";
+import { GOOGLE_MAPS_APIKEY } from "@env";
+import { socket } from "../config/socket";
 import { useQuery } from "@apollo/client";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-AsyncStorage
-export default function Tracking({navigation, route}) {
+AsyncStorage;
+export default function Tracking({ navigation, route }) {
+  const { userId } = route.params;
+  const { driverId } = route.params;
+
+  console.log("assadasdasdas");
+
+  console.log(userId, "sssssssss");
+  console.log(driverId, "ddddddd");
+
   const [region, setRegion] = useState({});
-  const [userId, setUserId] = useState([])
-  const getData = async () => {
-    const id = await AsyncStorage.getItem("id")
-    return setUserId(id)
-  }
+  // const [userId, setUserId] = useState([])
+  // const getData = async () => {
+  //   const id = await AsyncStorage.getItem("id")
+  //   return setUserId(id)
+  // }
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData();
+  }, []);
 
-  console.log(userId);
   // location.coordinates[0] === lat
 
   // fetch data user location
@@ -32,19 +39,18 @@ export default function Tracking({navigation, route}) {
   // const {InvoiceId} = route.params;
 
   useEffect(() => {
-    socket.emit("join-rooms", 10) 
+    socket.emit("join-rooms", 10);
     socket.on("send-location", (location) => {
-      console.log(location)
+      console.log(location);
       setRegion({
         latitude: location.latitude,
         longitude: location.longitude,
       });
-    })
+    });
     return () => {
       //on leave room
-    }
-  }, [])
-
+    };
+  }, []);
 
   // useEffect(() => {
   //   (async () => {
@@ -66,7 +72,7 @@ export default function Tracking({navigation, route}) {
   //           console.log(region);
   //           socket.emit("send-location", {
   //             roomName: InvoiceId,
-  //             location: 
+  //             location:
   //             {latitude: update.coords.latitude,
   //             longitude: update.coords.longitude},
   //            })
@@ -93,8 +99,9 @@ export default function Tracking({navigation, route}) {
           }}
           showsUserLocation={true}
           followUserLocation={true}
-          loadingEnabled={true}>
-          <Marker coordinate={region} pinColor={'black'} title="Customer" />
+          loadingEnabled={true}
+        >
+          <Marker coordinate={region} pinColor={"black"} title="Customer" />
           <Marker
             coordinate={{
               latitude: -6.297441633874579,
@@ -103,7 +110,7 @@ export default function Tracking({navigation, route}) {
             title="Your Location"
           />
           <MapViewDirections
-            origin={{...region}}
+            origin={{ ...region }}
             destination={{
               latitude: -6.297441633874579,
               longitude: 106.71282256060646,
@@ -123,22 +130,24 @@ export default function Tracking({navigation, route}) {
           style={styles.btn}
           onPress={async () => {
             changeStatus({
-              variables: {invoiceDelId: +InvoiceId},
+              variables: { invoiceDelId: +InvoiceId },
             });
             // navigation.navigate("Home");
             return;
-          }}>
+          }}
+        >
           <Text style={styles.btnText}>Selesai</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnReversed}
           onPress={async () => {
             changeStatus({
-              variables: {invoiceDelId: +InvoiceId},
+              variables: { invoiceDelId: +InvoiceId },
             });
             // navigation.navigate("Home");
             return;
-          }}>
+          }}
+        >
           <Text style={styles.btnTextReversed}>Chat with Customer</Text>
         </TouchableOpacity>
       </View>
@@ -153,10 +162,10 @@ const styles = StyleSheet.create({
     // width: 400,
     // justifyContent: "flex-end",
     padding: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   mapContainer: {
-    width: '100%',
+    width: "100%",
     height: 550,
     marginBottom: 5,
   },
@@ -164,28 +173,28 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   btn: {
-    backgroundColor: 'tomato',
+    backgroundColor: "tomato",
     borderRadius: 20,
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 5,
   },
   btnReversed: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderRadius: 20,
     padding: 10,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 5,
-    borderColor: 'tomato',
+    borderColor: "tomato",
     borderWidth: 1,
   },
   btnText: {
-    color: '#fff',
-    fontWeight: '600',
+    color: "#fff",
+    fontWeight: "600",
   },
   btnTextReversed: {
-    color: 'tomato',
-    fontWeight: '600',
+    color: "tomato",
+    fontWeight: "600",
   },
 });
 

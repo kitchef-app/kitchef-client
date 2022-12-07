@@ -108,11 +108,6 @@ export default function CartScreen({ navigation }) {
 
   return (
     <>
-      <StatusBar
-        backgroundColor={COLORS.backgroundWhite}
-        barStyle="dark-content"
-        animated={true}
-      />
       {cart.cartItems[0] ? (
         <>
           <ScrollView
@@ -144,9 +139,9 @@ export default function CartScreen({ navigation }) {
                   </Text>
                 </View>
                 <View className="flex flex-row justify-between px-4 mt-2 mb-2">
-                  <Text className="text-lg">Ongkir ({distance} km)</Text>
-                  <Text className="text-lg">
-                    {idr(ongkir).substring(
+                  <Text className="text-base">Ongkir (2 km)</Text>
+                  <Text className="text-base">
+                    {idr(shippingCost).substring(
                       0,
                       idr(ongkir).length - 3
                     )}
