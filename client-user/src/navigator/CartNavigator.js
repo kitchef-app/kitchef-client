@@ -12,7 +12,17 @@ export default function CartNavigator() {
         <Cart.Screen
           name="CartScreen"
           component={CartScreen}
-          options={{ headerShown: false, unmountOnBlur: true }}
+          options={{
+            unmountOnBlur: true,
+            title: "Keranjang",
+            headerTitleAlign: "center",
+            headerBackgroundContainerStyle: {
+              borderBottomColor: "red",
+            },
+            headerStyle: {
+              elevation: 100,
+            },
+          }}
         />
         <Cart.Screen
           name="MidtransPaymentScreen"

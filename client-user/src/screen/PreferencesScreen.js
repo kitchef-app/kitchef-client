@@ -60,14 +60,14 @@ export default function PreferencesScreen({ navigation }) {
         Pilih kategori masakan kesukaanmu
       </Text>
       <View className="w-full pt-4">
-        {options.map((option, index) => (
+        {options?.map((option, index) => (
           <Pressable
             onPress={() => chooseCategory(+option.id)}
             key={index}
             className="h-auto w-full p-3 mt-2 border border-slate-300 rounded-xl flex-row items-center"
           >
             <View className="w-6 h-6 border border-slate-300 rounded-md mr-2">
-              {categories.includes(+option.id) && (
+              {categories?.includes(+option.id) && (
                 <View className="h-6 w-6 bg-[#F05A2A] rounded-md items-center justify-center">
                   <Icon name="checkmark" size={24} color="#fff" />
                 </View>

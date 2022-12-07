@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Pressable,
   StatusBar,
+  Image,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -81,7 +82,7 @@ export default function CartScreen({ navigation }) {
               subTotal: sumSubTotal,
               shippingCost: ongkir,
               cart: newcart,
-              UserId: 1,
+              UserId: id,
               DriverId: 1,
               invoiceId: res.data.addInvoice.id,
             });
@@ -117,12 +118,9 @@ export default function CartScreen({ navigation }) {
           <ScrollView
             vertical
             showsVerticalScrollIndicator={false}
-            className="bg-white"
+            backgroundColor={COLORS.slate100}
           >
             <View clasName="flex-1">
-              <Text className="mx-auto text-xl font-semibold mt-6">
-                Keranjang
-              </Text>
               {cart.cartItems ? (
                 cart.cartItems.map((item, index) => {
                   return <CardListChart item={item} key={index} />;
@@ -143,9 +141,9 @@ export default function CartScreen({ navigation }) {
                   </Text>
                 </View>
                 <View className="flex flex-row justify-between px-4 mt-2 mb-2">
-                  <Text className="text-base">Ongkir (2 km)</Text>
+                  <Text className="text-base">Ongkir ({distance} km)</Text>
                   <Text className="text-base">
-                    {idr(shippingCost).substring(0, idr(ongkir).length - 3)}
+                    {idr(ongkir).substring(0, idr(ongkir).length - 3)}
                   </Text>
                 </View>
                 <View className="border mr-4 ml-4 mt-2 border-dashed border-gray-200"></View>

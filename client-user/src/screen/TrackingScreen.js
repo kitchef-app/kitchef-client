@@ -7,17 +7,16 @@ import MapViewDirections from "react-native-maps-directions";
 // import {GOOGLE_MAPS_APIKEY} from '@env';
 import { socket } from "../config/socket";
 import { useQuery } from "@apollo/client";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GET_USER } from "../queries/users";
 
-export default function Tracking({navigation, route}) {
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
+export default function Tracking({ navigation, route }) {
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI";
   const [region, setRegion] = useState({
     latitude: -6.2608,
     longitude: 106.7815,
   });
   const [userLoc, setUserLoc] = useState({});
-  const {InvoiceId, userId, driverId} = route.params;
+  const { InvoiceId, userId, driverId } = route.params;
   console.log(InvoiceId, userId, driverId, "dari route params");
   // const [userId, setUserId] = useState([])
   // const getData = async () => {
@@ -26,16 +25,16 @@ export default function Tracking({navigation, route}) {
   // };
   const { data, error, loading } = useQuery(GET_USER, {
     variables: {
-      id: +userId
+      id: +userId,
     },
   });
   console.log(userId, "=========================");
   // console.log(data, "ini data user detail");
-  
+
   // useEffect(() => {
-    //   getData();
-    // }, []);
-    
+  //   getData();
+  // }, []);
+
   console.log(data, "ini data");
 
   useEffect(() => {
@@ -81,7 +80,11 @@ export default function Tracking({navigation, route}) {
   }, []);
 
   if (loading) return <Text>Submitting...</Text>;
- 
+
+  const destination = {
+    latitude: userLoc.latitude,
+    longitude: userLoc.longitude,
+  };
 
   return (
     <View style={styles.container}>
@@ -104,8 +107,8 @@ export default function Tracking({navigation, route}) {
             <MapViewDirections
               origin={{ ...region }}
               destination={{
-                latitude: userLoc.latitude,
-                longitude: userLoc.longitude,
+                latitude: parseFloat(userLoc.latitude),
+                longitude: parseFloat(userLoc.longitude),
               }}
               // onReady={result => {
               //       console.log(`Distance: ${result.distance} km`)
@@ -123,7 +126,7 @@ export default function Tracking({navigation, route}) {
               title="Customer"
             />
           )}
-        
+
           {Object.keys(region).length !== 0 && (
             <Marker coordinate={region} title="Driver" pinColor={"tomato"} />
           )}
@@ -154,12 +157,11 @@ const styles = StyleSheet.create({
     // height: 800,
     // width: 400,
     // justifyContent: "flex-end",
-    padding: 20,
     alignItems: "center",
   },
   mapContainer: {
     width: "100%",
-    height: 550,
+    height: "100%",
     marginBottom: 5,
   },
   map: {

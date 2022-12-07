@@ -40,26 +40,6 @@ export default function AuthStackNavigator() {
           component={PreferencesScreen}
         />
         <AuthStack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{
-            headerLeft: () => (
-              <HeaderBackButton
-                onPress={() =>
-                  navigation.navigate("Home", {
-                    screen: "HomeNavigator",
-                  })
-                }
-              />
-            ),
-          }}
-        />
-        <AuthStack.Screen
-          name="Register"
-          component={RegisterScreen}
-          options={{ headerShown: false }}
-        />
-        <AuthStack.Screen
           name="Home"
           component={BottomTabNavigator}
           options={{ headerShown: false }}

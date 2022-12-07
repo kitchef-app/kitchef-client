@@ -6,6 +6,8 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { GET_DETAIL_INVOICE } from "../queries/invoice";
 import Loading from "../components/Loading";
 import { idr } from "../helpers/idrFormatter";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect } from "react";
 
 export default function OrderDetail({ navigation, route }) {
   const { invoiceId } = route.params;
@@ -13,8 +15,14 @@ export default function OrderDetail({ navigation, route }) {
   const { userId } = route.params;
   const { driverId } = route.params;
 
+  console.log("Masuk ke order detail");
+
   const { loading, error, data } = useQuery(GET_DETAIL_INVOICE, {
     variables: { invoiceId },
+  });
+
+  useEffect(() => {
+    navigation.setOptions({ title: `HCK51-KTCF-ORDR-${invoiceId}` });
   });
 
   if (loading) {

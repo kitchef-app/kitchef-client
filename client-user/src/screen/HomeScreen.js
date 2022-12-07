@@ -24,8 +24,6 @@ export default function HomeScreen({ navigation }) {
   const { loading, error, data: category } = useQuery(GET_CATEGORY);
   const { data: dishes } = useQuery(GET_ALL_DISHES);
 
-  console.log(category);
-
   const getData = async () => {
     const preferences = await AsyncStorage.getItem("preferences");
     if (!preferences) {

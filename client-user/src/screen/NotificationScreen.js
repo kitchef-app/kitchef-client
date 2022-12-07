@@ -15,7 +15,7 @@ export default function NotificationScreen({ navigation }) {
     variables: { logsUserId: id },
   });
 
-  console.log(data);
+  // console.log(data);
 
   if (loading) {
     <Loading />;

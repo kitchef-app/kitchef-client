@@ -50,7 +50,7 @@ export default function OnboardingScreen({ navigation }) {
         <Text
           style={{
             color: COLORS.primary,
-            fontWeight: "600",
+            fontWeight: "bold",
             fontSize: SIZES.h3,
           }}
         >

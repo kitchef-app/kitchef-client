@@ -6,6 +6,7 @@ import { PUT_CHANGE_STATUS_INVOICE } from "../queries/payment";
 import { cartItemsVar } from "../cache/cache";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../components/Loading";
 
 export default function MidtransPaymentScreen({ navigation, route }) {
   const {
@@ -31,10 +32,14 @@ export default function MidtransPaymentScreen({ navigation, route }) {
     setId(+id);
   };
 
-  console.log(invoiceId, "Invoice id dari midtranspayment screen");
+  // console.log(invoiceId, "Invoice id dari midtranspayment screen");
   const [changeStatusInvoice, { loading, error, data }] = useMutation(
     PUT_CHANGE_STATUS_INVOICE
   );
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const uri = `
   <html>
@@ -102,7 +107,15 @@ export default function MidtransPaymentScreen({ navigation, route }) {
           })
             .then((res) => {
               cartItemsVar([]);
-              navigation.navigate("HomeNavigator");
+              navigation.jumpTo("AccountNavigator", {
+                screen: "OrderDetail",
+                params: {
+                  invoiceId: +invoiceId,
+                  userId: +id,
+                  driverId: DriverId,
+                  status: "Sudah Dibayar",
+                },
+              });
             })
             .catch((err) =>
               console.log(err, "ini err dari change status invoice")

@@ -14,15 +14,16 @@ import { COLORS } from "../constants/theme";
 import { useMutation } from "@apollo/client";
 import { POST_REGISTER } from "../queries/users";
 import MapView, { Marker } from "react-native-maps";
-import MapViewDirections from 'react-native-maps-directions';
+import MapViewDirections from "react-native-maps-directions";
 import Geocoder from "react-native-geocoding";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { calculateOngkir } from "../helpers/ongkirCalculator";
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default function LoginScreen({ navigation }) {
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI";
   const [mapRegion, setmapRegion] = useState({
     latitude: -6.260826,
     longitude: 106.7815368,
@@ -30,8 +31,8 @@ export default function LoginScreen({ navigation }) {
   const hacktivReg = {
     latitude: -6.260826,
     longitude: 106.7815368,
-  }
-  const [distance, setDistance] = useState(0)
+  };
+  const [distance, setDistance] = useState(0);
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -50,8 +51,8 @@ export default function LoginScreen({ navigation }) {
   // const latitude = address.lat
   // const longitude = address.lng
   // console.log(latitude, longitude, "latlongg");
- 
-  const GMAPS_API_KEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
+
+  const GMAPS_API_KEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI";
 
   const handleSubmit = () => {
     console.log(location);
@@ -63,8 +64,8 @@ export default function LoginScreen({ navigation }) {
         let address = json.results[0].geometry.location;
         setmapRegion({ latitude: address.lat, longitude: address.lng });
         console.log(address);
-        setLatitude(address.lat)
-        setLongitude(address.lng)
+        setLatitude(address.lat);
+        setLongitude(address.lng);
         console.log(latitude, longitude, "latlongg");
       })
       .catch((error) => console.warn(error));
@@ -149,16 +150,22 @@ export default function LoginScreen({ navigation }) {
                 longitudeDelta: 0.01,
               }}
             >
-                <MapViewDirections
+              <MapViewDirections
                 origin={mapRegion}
                 destination={hacktivReg}
                 onReady={async (result) => {
-                      console.log(`Distance: ${result.distance} km`)
-                      console.log(`Duration: ${result.duration} min.`)
-                      // setDistance(result.distance)
-                      await AsyncStorage.setItem("distance", result.distance.toString());
-                      await AsyncStorage.setItem("ongkir", calculateOngkir(result.distance).toString());
-                      // console.log(result.distance.toString(), calculateOngkir(result.distance).toString());
+                  console.log(`Distance: ${result.distance} km`);
+                  console.log(`Duration: ${result.duration} min.`);
+                  // setDistance(result.distance)
+                  await AsyncStorage.setItem(
+                    "distance",
+                    result.distance.toString()
+                  );
+                  await AsyncStorage.setItem(
+                    "ongkir",
+                    calculateOngkir(result.distance).toString()
+                  );
+                  // console.log(result.distance.toString(), calculateOngkir(result.distance).toString());
                 }}
                 apikey={GOOGLE_MAPS_APIKEY}
                 strokeWidth={3}
@@ -177,9 +184,8 @@ export default function LoginScreen({ navigation }) {
         </Pressable> */}
 
           <Pressable
-            onPress={() =>
-              {
-                registerUser({
+            onPress={() => {
+              registerUser({
                 variables: {
                   userInput: {
                     address,
@@ -192,8 +198,8 @@ export default function LoginScreen({ navigation }) {
                     username,
                   },
                 },
-              })}
-            }
+              });
+            }}
           >
             <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
               <Text className="text-white font-medium text-base mx-auto ">
@@ -219,7 +225,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center", 
+    alignItems: "center",
     justifyContent: "center",
   },
 

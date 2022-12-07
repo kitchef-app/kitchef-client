@@ -8,6 +8,7 @@ import ChatScreen from "../screen/ChatScreen";
 import NotificationScreen from "../screen/NotificationScreen";
 import { StyleSheet, View } from "react-native";
 import { Dimensions } from "react-native";
+
 const { width, height } = Dimensions.get("screen");
 
 const Tab = createBottomTabNavigator();
@@ -17,7 +18,7 @@ export default function BottomTabNavigator({ navigation }) {
     <View
       style={{
         width,
-        height: height - 50,
+        height: height - 30,
       }}
     >
       <Tab.Navigator
@@ -78,6 +79,7 @@ export default function BottomTabNavigator({ navigation }) {
           options={{
             tabBarLabel: "Akun",
           }}
+          navigation={navigation}
         />
       </Tab.Navigator>
     </View>
@@ -92,6 +94,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     heightTop: 2,
     heightBottom: 4,
+    bottom: 0,
     right: 0,
     left: 0,
     height: 64,

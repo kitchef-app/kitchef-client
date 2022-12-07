@@ -6,6 +6,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 // import { cartItemsVar } from "../screen/DetailRecipe";
 import { useReactiveVar } from "@apollo/client";
 import { cartItemsVar } from "../cache/cache";
+import toast from "../helpers/toast";
 
 export default function CardListAllItem({ navigation, products }) {
   const CartItems = useReactiveVar(cartItemsVar);
@@ -46,7 +47,11 @@ export default function CardListAllItem({ navigation, products }) {
         ? CartItems.filter((item) => item.quantity !== payload.quantity)
         : [...cartItemsVar(), payload]
     );
-    console.log("item ketambah");
+    setModalVisible(false);
+    toast.success({
+      message: "Berhasil menambah ke keranjang",
+      duration: 14000,
+    });
   };
 
   return (
