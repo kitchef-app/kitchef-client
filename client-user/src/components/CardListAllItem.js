@@ -11,9 +11,8 @@ export default function CardListAllItem({ navigation, products }) {
   const CartItems = useReactiveVar(cartItemsVar);
   const [isModalVisible, setModalVisible] = useState(false);
   const [quantity, setIsQuantity] = useState(1);
-  const StoreItems = [];
-  let isInCart = CartItems.some((item) => item.id === products?.id); // check if an item in the cart matches our item
-
+  // console.log(CartItems, "<< dari Card list All tems");
+  let isInCart = CartItems.some((item) => item.id === products.id); // check if an item in the cart matches our item
   // useEffect(() => {
   //   if (!isModalVisible) {
   //     setIsQuantity(1);
@@ -42,42 +41,37 @@ export default function CardListAllItem({ navigation, products }) {
       quantity,
       price,
     };
-    StoreItems.push(payload);
     cartItemsVar(
       isInCart
         ? CartItems.filter((item) => item.quantity !== payload.quantity)
-        : [...CartItems, payload]
+        : [...cartItemsVar(), payload]
     );
-
-    // cartItemsVar([...CartItems, payload]);
-    // console.log(cartItemsVar);
     console.log("item ketambah");
   };
 
   return (
-    <View className="flex-row bg-white border border-slate-100 h-[120] mb-2 mx-4 rounded-lg">
+    <View className="flex flex-row justify-between bg-white h-max mb-2 px-4 py-4 ml-5 mr-4 mt-2 rounded-lg border border-slate-200 shadow-lg  shadow-neutral-100">
       <Image
-        className="w-[80] h-[80] my-auto ml-5 rounded-lg"
+        className="w-[80] h-[80] my-auto rounded-lg"
         source={{
           uri: products?.imageUrl,
         }}
       />
-      <View className="flex flex-col justify-between py-4">
-        <Text className="px-4 text-lg font-base text-[#333]">
-          {products?.name}
+      <View className="flex-1 flex-col justify-between px-6">
+        <Text className="text-base text-[#333]">{products?.name}</Text>
+
+        <Text className="text-base font-semibold pb-2">
+          {idr(products?.price).substring(0, idr(products?.price).length - 3)}
         </Text>
-        <View className="mx-4 w-[260] flex-row justify-between items-end">
-          <Text className="ml-1 text-xl text-slate-800 font-semibold ">
-            {idr(products?.price).substring(0, idr(products?.price).length - 3)}
-          </Text>
-          <Pressable onPress={toggleModal} className="rounded-md">
-            <View className=" bg-[#FF7629] w-full my-auto h-10 px-4 rounded-lg">
-              <Text className="my-auto mx-auto font-medium text-md text-white">
-                + Keranjang
-              </Text>
-            </View>
-          </Pressable>
-        </View>
+      </View>
+      <View className="flex flex-col justify-between self-end">
+        <Pressable onPress={toggleModal} className="rounded-md">
+          <View className=" bg-[#FF7629] my-auto h-max py-2 px-4 rounded-lg">
+            <Text className="my-auto mx-auto font-medium text-md text-white">
+              + Keranjang
+            </Text>
+          </View>
+        </Pressable>
       </View>
 
       <Modal

@@ -5,3 +5,9 @@ export const GET_CART_ITEMS = gql`
     cartItems @client
   }
 `;
+
+// export const UPDATE_CART_ITEMS_QUANTITY = gql`
+//   query CurrentQuantity($quantity: Int) {
+//     cartItems @client
+//   }
+// `;

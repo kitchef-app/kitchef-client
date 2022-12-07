@@ -39,8 +39,8 @@ export default function NotificationScreen({ navigation }) {
       </View>
       <ScrollView className="mb-2">
         <View>
-          {/* {data.getLogs ? (
-            data?.getLogs?.map((notification, index) => (
+          {data?.getLogsByUserId ? (
+            data?.getLogsByUserId?.map((notification, index) => (
               <CardNotification
                 notification={notification}
                 navigation={navigation}
@@ -49,7 +49,7 @@ export default function NotificationScreen({ navigation }) {
             ))
           ) : (
             <Text>Tidak ada notif</Text>
-          )} */}
+          )}
         </View>
       </ScrollView>
     </View>

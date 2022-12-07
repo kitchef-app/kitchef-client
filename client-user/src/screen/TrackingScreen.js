@@ -25,35 +25,44 @@ export default function Tracking({navigation, route}) {
       id: +userId
     }
   })
+  // console.log(data, "ini data user detail");
 
   useEffect(() => {
     getData()
   }, [])
 
-  // useEffect(() => {
-  //   setUserLoc({
-  //     latitude: data.getUserById.location.coordinates[0],
-  //     longitude: data.getUserById.location.coordinates[1]
-  //   })
-  // }, [data])
+  useEffect(() => {
+    if (data) {
+      setUserLoc({
+        latitude: +data?.getUserById?.location?.coordinates[0],
+        longitude: +data?.getUserById?.location?.coordinates[1]
+        // latitude: 37.78825,
+        // longitude: -122.4324
+      })
+    }
+    // console.log(data?.getUserById, "ini data user detail");
+  }, [data])
 
-  console.log(userId);
   // location.coordinates[0] === lat
-
+  
   // fetch data user location
   // ganti region di marker jadi user location
   // ganti data destination di direction jd user location
-  const {InvoiceId} = route.params;
+  // const {InvoiceId} = route.params;
+  const InvoiceId = 1;
+  console.log(userId, InvoiceId, "userId + invoiceId");
+  console.log(region, "ini regionnn")         
 
   useEffect(() => {
     socket.emit("join-rooms", InvoiceId) 
     socket.on("send-location", (location) => {
-      console.log(location)
+      console.log(location, "location")
       setRegion({
         latitude: location.latitude,
         longitude: location.longitude,
       });
     })
+    
     // return () => {
     //   //on leave room
     // }
@@ -102,13 +111,14 @@ export default function Tracking({navigation, route}) {
           {Object.keys(userLoc).length !== 0 && 
             <Marker 
             coordinate={userLoc} 
-            pinColor={'black'} 
+            pinColor={"#474744"} 
             title="Customer" />
           }
           {Object.keys(region).length !== 0 && 
             <Marker
               coordinate={region}
               title="Driver"
+              pinColor={"#fff"} 
             />
           }
         </MapView>
@@ -117,7 +127,7 @@ export default function Tracking({navigation, route}) {
         <TouchableOpacity
           style={styles.btnReversed}
           onPress={async () => {
-            // navigation.navigate("ChatScreen");
+            navigation.navigate("ChatScreen");
             return;
           }}>
           <Text style={styles.btnTextReversed}>Chat with Driver</Text>
