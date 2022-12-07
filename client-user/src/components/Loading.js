@@ -1,4 +1,5 @@
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, Text } from "react-native";
+import LottieView from "lottie-react-native";
 
 export default function Loading() {
   return (
@@ -7,10 +8,19 @@ export default function Loading() {
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-around",
-        padding: 10,
+        alignItems: "center",
+        padding: 40,
       }}
     >
-      <ActivityIndicator size="large" color="#0086FF" />
+      <LottieView
+        source={require("../assets/animation/loader.json")}
+        autoPlay
+        loop
+        style={{
+          width: 120,
+          height: 120,
+        }}
+      />
     </View>
   );
 }

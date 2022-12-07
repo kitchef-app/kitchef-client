@@ -110,7 +110,7 @@ export default function DetailRecipe({ navigation, route }) {
             <View className=" border mx-4 py-2 rounded-lg border-orange-300 bg-orange-50 mt-2">
               <View className="flex-row">
                 <View className="my-auto mx-4">
-                  <Icon name="location-outline" size={20} color="orange"/>
+                  <Icon name="location-outline" size={20} color="orange" />
                 </View>
                 <Text className="text-lg font-bold">Kitchef Store</Text>
               </View>

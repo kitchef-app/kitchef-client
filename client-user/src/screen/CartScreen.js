@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
-  Image,
+  StatusBar,
 } from "react-native";
 import { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -18,7 +18,6 @@ import Loading from "../components/Loading";
 import { idr } from "../helpers/idrFormatter";
 import { GET_CART_ITEMS } from "../queries/cart";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StatusBar } from "expo-status-bar";
 import { COLORS } from "../constants/theme";
 
 export default function CartScreen({ navigation }) {
@@ -37,8 +36,8 @@ export default function CartScreen({ navigation }) {
 
   const getData = async () => {
     const id = await AsyncStorage.getItem("id");
-    const distance = await AsyncStorage.getItem("distance")
-    const ongkir = await AsyncStorage.getItem("ongkir")
+    const distance = await AsyncStorage.getItem("distance");
+    const ongkir = await AsyncStorage.getItem("ongkir");
     setId(+id);
     setDistance(+distance);
     setOngkir(+ongkir);
@@ -108,6 +107,11 @@ export default function CartScreen({ navigation }) {
 
   return (
     <>
+      <StatusBar
+        backgroundColor={COLORS.backgroundWhite}
+        barStyle="dark-content"
+        animated={true}
+      />
       {cart.cartItems[0] ? (
         <>
           <ScrollView
@@ -141,10 +145,7 @@ export default function CartScreen({ navigation }) {
                 <View className="flex flex-row justify-between px-4 mt-2 mb-2">
                   <Text className="text-base">Ongkir (2 km)</Text>
                   <Text className="text-base">
-                    {idr(shippingCost).substring(
-                      0,
-                      idr(ongkir).length - 3
-                    )}
+                    {idr(shippingCost).substring(0, idr(ongkir).length - 3)}
                   </Text>
                 </View>
                 <View className="border mr-4 ml-4 mt-2 border-dashed border-gray-200"></View>
