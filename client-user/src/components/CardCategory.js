@@ -12,12 +12,14 @@ export default function CardCategory({ navigation, category }) {
         }
       >
         <Image
-          className="w-full h-[100] rounded-lg"
+          className="w-full h-[100] rounded-md"
           source={{
             uri: category.imageUrl,
           }}
         />
-        <Text className="text-left mt-2 font-bold ">{category.name}</Text>
+        <Text className="text-left mt-1 font-medium text-md text-gray-900">
+          {category.name}
+        </Text>
       </Pressable>
     </View>
   );

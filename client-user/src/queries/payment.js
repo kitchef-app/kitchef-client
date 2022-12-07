@@ -23,7 +23,7 @@ export const POST_INVOICE = gql`
 `;
 
 export const PUT_CHANGE_STATUS_INVOICE = gql`
-  mutation ChangeStatusInvoice($invoiceId: Int) {
-    changeStatusInvoice(InvoiceId: $invoiceId)
+  mutation ChangeStatusInvoice($userId: Int, $invoiceId: Int) {
+    changeStatusInvoice(UserId: $userId, InvoiceId: $invoiceId)
   }
 `;

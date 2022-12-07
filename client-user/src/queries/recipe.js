@@ -31,6 +31,9 @@ export const GET_ALL_DISHES = gql`
       name
       CategoryId
       imageUrl
+      Category {
+        name
+      }
     }
   }
 `;

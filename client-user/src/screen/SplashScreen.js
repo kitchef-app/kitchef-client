@@ -21,7 +21,7 @@ export default function SplashScreen({ navigation }) {
 
   return (
     <>
-      <StatusBar style="light" backgroundColor="#FF7629" />
+      <StatusBar style="light" backgroundColor={COLORS.primary} />
       <View
         style={{
           flex: 1,
@@ -31,7 +31,7 @@ export default function SplashScreen({ navigation }) {
         }}
       >
         <Image
-          source={require("../assets/logo/logo_full_vertical_32_white.png")}
+          source={require("../assets/logo/logo_full_vertical_160_white.png")}
         />
       </View>
     </>

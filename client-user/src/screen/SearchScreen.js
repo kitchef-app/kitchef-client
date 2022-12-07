@@ -46,8 +46,8 @@ export default function SearchScreen({ navigation }) {
 
   return (
     <View className="flex-1">
-      <View className="bg-[#FF7629] h-[110]">
-        <Text className="font-bold text-xl ml-4 mt-2 text-white">
+      <View className="bg-[#F05A2A] h-[130]">
+        <Text className="font-bold text-2xl ml-4 mt-2 pt-4 text-white">
           Mau masak apa hari ini?
         </Text>
         <View className="w-full">

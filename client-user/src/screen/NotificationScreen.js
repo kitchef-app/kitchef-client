@@ -1,4 +1,4 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, StatusBar } from "react-native";
 import { COLORS } from "../constants/theme";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,6 +17,10 @@ export default function NotificationScreen({ navigation }) {
 
   console.log(data);
 
+  if (loading) {
+    <Loading />;
+  }
+
   useEffect(() => {
     getData();
   }, []);
@@ -29,29 +33,35 @@ export default function NotificationScreen({ navigation }) {
   if (loading) {
     <Loading />;
   }
-
   return (
-    <View className="flex-1">
-      <View>
-        <Text className="ml-3 mt-3 mr-3 text-xl font-semibold text-black">
-          TERBARU
-        </Text>
-      </View>
-      <ScrollView className="mb-2">
+    <>
+      <StatusBar
+        backgroundColor={COLORS.backgroundWhite}
+        barStyle="dark-content"
+        animated={true}
+      />
+      <View className="flex-1">
         <View>
-          {data?.getLogsByUserId ? (
-            data?.getLogsByUserId?.map((notification, index) => (
-              <CardNotification
-                notification={notification}
-                navigation={navigation}
-                key={index}
-              />
-            ))
-          ) : (
-            <Text>Tidak ada notif</Text>
-          )}
+          <Text className="ml-3 mt-3 mr-3 text-xl font-semibold text-black">
+            TERBARU
+          </Text>
         </View>
-      </ScrollView>
-    </View>
+        <ScrollView className="mb-2">
+          <View>
+            {data?.getLogsByUserId ? (
+              data?.getLogsByUserId?.map((notification, index) => (
+                <CardNotification
+                  notification={notification}
+                  navigation={navigation}
+                  key={index}
+                />
+              ))
+            ) : (
+              <Text>Tidak ada notif</Text>
+            )}
+          </View>
+        </ScrollView>
+      </View>
+    </>
   );
 }
