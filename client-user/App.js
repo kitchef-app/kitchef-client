@@ -41,9 +41,9 @@ import client from "./src/config/apollo";
 // }
 
 export default function App() {
-  const [notification, setNotification] = useState(false);
-  const responseListener = useRef();
-  const notificationListener = useRef();
+  // const [notification, setNotification] = useState(false);
+  // const responseListener = useRef();
+  // const notificationListener = useRef();
 
   // useEffect(() => {
   //   registerForPushNotificationsAsync().then(token => {

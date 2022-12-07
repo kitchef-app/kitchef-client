@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,6 @@ import Loading from "../components/Loading";
 // push notif
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
 // push notif
@@ -35,7 +34,7 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
+    // console.log(token);
   } else {
     alert('Must use physical device for Push Notifications');
   }
@@ -64,9 +63,13 @@ export default function AccountScreen({ navigation }) {
 
   // push notif
   useEffect(() => {
+    getData();
+    getID()
+    .then((id) => {
     registerForPushNotificationsAsync()
     .then((token) => {
-      // console.log(token, "token");
+      console.log(token, "ini token ========================");
+      console.log(id, "ini ID HABIS TOKEN");
       // hit endpoint utk update user utk simpen expopushnotif (token)
       axios({
         method: 'patch',
@@ -74,9 +77,11 @@ export default function AccountScreen({ navigation }) {
         data: {
           token
         }
-      });
+      }).then(data => console.log('berhasil ngepatch'));
       // setExpoPushToken(token) // kayaknya gak perlu
     });
+    })
+   
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -104,7 +109,9 @@ export default function AccountScreen({ navigation }) {
   const getID = async () => {
     const id_user = await AsyncStorage.getItem("id");
     const id = Number(id_user);
-    return setUser(id);
+    setUser(id)
+    console.log(id, "ini id dari async storage");
+    return id;
   };
 
   console.log(id, "ini id user");
@@ -117,7 +124,7 @@ export default function AccountScreen({ navigation }) {
     <Loading />;
   }
 
-  console.log(data, "ini dari acc");
+  // console.log(data, "ini dari acc");
 
   const removeData = async () => {
     await AsyncStorage.removeItem("access_token");
@@ -126,10 +133,10 @@ export default function AccountScreen({ navigation }) {
     navigation.replace("Home");
   };
 
-  useEffect(() => {
-    getData();
-    getID();
-  }, []);
+  // useEffect(() => {
+  //   getData();
+  //   getID();
+  // }, []);
 
   return (
     // <View

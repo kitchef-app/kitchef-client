@@ -52,7 +52,7 @@ export default function StackNavigator() {
           name="ChatComponent"
           component={ChatComponent}
           options={{
-            title: "Chat With Customer",
+            title: "Customer",
             headerTitleStyle: {
               fontWeight: "bold",
             },

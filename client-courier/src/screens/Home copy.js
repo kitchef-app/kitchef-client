@@ -10,7 +10,6 @@ import { useEffect, useState, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-
 // push notif
 async function registerForPushNotificationsAsync() {
   let token;
@@ -112,8 +111,7 @@ export default function Home({ navigation }) {
             alignItems: "center",
           }}
         ></View>
-
-        <CardInvoice/>
+        <CardInvoice DriverId={id}/>
       </View>
       {/* <ScrollView>
         <View className="flex-1">

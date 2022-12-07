@@ -12,7 +12,7 @@ import { useState } from "react";
 // import { COLORS } from "../constants/theme";
 import { POST_LOGIN, POST_LOGIN_DRIVER } from "../queries/users";
 import { useMutation } from "@apollo/client";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -35,8 +35,8 @@ export default function LoginScreen({ navigation }) {
         if (res?.data?.loginDriver?.access_token) {
           const access_token = res?.data?.loginDriver?.access_token;
           const id_user = String(res?.data?.loginDriver?.id);
-          // await AsyncStorage.setItem("access_token", access_token);
-          // await AsyncStorage.setItem("id", id_user);
+          await AsyncStorage.setItem("access_token", access_token);
+          await AsyncStorage.setItem("id", id_user);
           return navigation.replace("Home");
         } else {
         }
@@ -55,7 +55,7 @@ export default function LoginScreen({ navigation }) {
         <Text className="mx-auto font-extralight mt-[4] mb-6">
           Please login to continue using our app
         </Text>
-        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+        <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-3 border border-gray-400">
           <TextInput
             className="my-auto pl-4 text-base"
             placeholder="Email"
@@ -63,7 +63,7 @@ export default function LoginScreen({ navigation }) {
           />
         </View>
 
-        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+        <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-3 border border-gray-400">
           <TextInput
             className="my-auto pl-4 text-base"
             placeholder="Password"
@@ -73,7 +73,7 @@ export default function LoginScreen({ navigation }) {
         </View>
 
         <Pressable onPress={() => submitLogin()}>
-          <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+          <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-md">
             <Text className="text-white font-medium text-base mx-auto ">
               Login
             </Text>
