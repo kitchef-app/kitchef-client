@@ -9,6 +9,9 @@ import { idr } from "../helpers/idrFormatter";
 
 export default function OrderDetail({ navigation, route }) {
   const { invoiceId } = route.params;
+  const { status } = route.params;
+  const { userId } = route.params;
+  const { driverId } = route.params;
 
   const { loading, error, data } = useQuery(GET_DETAIL_INVOICE, {
     variables: { invoiceId },
@@ -61,22 +64,26 @@ export default function OrderDetail({ navigation, route }) {
               <Text className="text-lg font-medium">Rincian Pembayaran</Text>
             </View>
             <View className="flex flex-row justify-between px-4 mt-2">
-              <Text className="text-lg">Subtotal</Text>
-              <Text className="text-lg">
+              <Text className="text-base">Status Pembayaran</Text>
+              <Text className="text-base">{status}</Text>
+            </View>
+            <View className="flex flex-row justify-between px-4 mt-2">
+              <Text className="text-base">Subtotal</Text>
+              <Text className="text-base">
                 {idr(sumSubTotal).substring(0, idr(sumSubTotal).length - 3)}
               </Text>
             </View>
             <View className="flex flex-row justify-between px-4 mt-2 mb-2">
-              <Text className="text-lg">Ongkir Kirim</Text>
-              <Text className="text-lg">
+              <Text className="text-base">Ongkir Kirim</Text>
+              <Text className="text-base">
                 {" "}
                 {idr(shippingCost).substring(0, idr(shippingCost).length - 3)}
               </Text>
             </View>
             <View className="border mr-4 ml-4 mt-2 border-dashed border-1 border-slate-300"></View>
             <View className="flex flex-row justify-between px-4 mt-4">
-              <Text className="text-lg font-semibold">Total Pembayaran</Text>
-              <Text className="text-lg font-semibold">
+              <Text className="text-base font-semibold">Total Pembayaran</Text>
+              <Text className="text-base font-semibold">
                 {" "}
                 {idr(all_total).substring(0, idr(all_total).length - 3)}
               </Text>
@@ -84,17 +91,31 @@ export default function OrderDetail({ navigation, route }) {
           </View>
         </View>
       </ScrollView>
-      <View className="flex my-auto">
-        <View className="flex flex-row py-1">
-          <Pressable onPress={() => navigation.navigate("ChatScreen")}>
-            <View className="flex-row bg-white h-[40] ml-2 my-auto rounded-lg border-2 border-gray-200 shadow-xl">
+      <View className="flex my-auto bg-white">
+        <View className="flex flex-row py-3">
+          <Pressable
+            onPress={() =>
+              navigation.navigate("ChatScreen", {
+                userId: userId,
+                driverId: driverId,
+              })
+            }
+          >
+            <View className="flex-row bg-white h-[40] ml-2 my-auto rounded-lg border border-slate-200 shadow-lg  shadow-neutral-100">
               <View className="my-auto mx-auto px-4">
                 <Icon name="chatbubble-ellipses-outline" size={20} />
               </View>
             </View>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("Tracking")}>
-            <View className="flex-row bg-[#F05A2A] h-[40] my-auto ml-1 mr-2 rounded-lg border-2 border-gray-200 shadow-xl w-80">
+          <Pressable
+            onPress={() =>
+              navigation.navigate("Tracking", {
+                userId: userId,
+                driverId: driverId,
+              })
+            }
+          >
+            <View className="flex-row bg-[#F05A2A] h-[40] my-auto ml-1 mr-2 rounded-lg w-80">
               <View className="my-auto mx-auto">
                 <Text className="text-lg font-semibold text-white">
                   Lacak Pesanan
