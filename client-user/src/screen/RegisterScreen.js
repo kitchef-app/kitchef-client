@@ -14,28 +14,43 @@ import { COLORS } from "../constants/theme";
 import { useMutation } from "@apollo/client";
 import { POST_REGISTER } from "../queries/users";
 import MapView, { Marker } from "react-native-maps";
+import MapViewDirections from 'react-native-maps-directions';
 import Geocoder from "react-native-geocoding";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { calculateOngkir } from "../helpers/ongkirCalculator";
 
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default function LoginScreen({ navigation }) {
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
   const [mapRegion, setmapRegion] = useState({
     latitude: -6.260826,
     longitude: 106.7815368,
   });
+  const hacktivReg = {
+    latitude: -6.260826,
+    longitude: 106.7815368,
+  }
+  const [distance, setDistance] = useState(0)
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const [registerUser, { loading, error, data }] = useMutation(POST_REGISTER);
 
-  const locationSplit = location.split(", ");
-  const latitude = locationSplit[1];
-  const longitude = locationSplit[0];
+  // const locationSplit = location.split(", ");
+  // const latitude = locationSplit[1];
+  // const longitude = locationSplit[0];
+  // const latitude = address.lat
+  // const longitude = address.lng
+  // console.log(latitude, longitude, "latlongg");
+ 
   const GMAPS_API_KEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
 
   const handleSubmit = () => {
@@ -48,6 +63,9 @@ export default function LoginScreen({ navigation }) {
         let address = json.results[0].geometry.location;
         setmapRegion({ latitude: address.lat, longitude: address.lng });
         console.log(address);
+        setLatitude(address.lat)
+        setLongitude(address.lng)
+        console.log(latitude, longitude, "latlongg");
       })
       .catch((error) => console.warn(error));
   };
@@ -61,7 +79,6 @@ export default function LoginScreen({ navigation }) {
           <Text className="mx-auto font-extralight mt-[4] mb-6">
             Please login to continue using our app
           </Text>
-          {/* <Text>{JSON.stringify(process.env)}</Text> */}
           <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
@@ -132,6 +149,21 @@ export default function LoginScreen({ navigation }) {
                 longitudeDelta: 0.01,
               }}
             >
+                <MapViewDirections
+                origin={mapRegion}
+                destination={hacktivReg}
+                onReady={async (result) => {
+                      console.log(`Distance: ${result.distance} km`)
+                      console.log(`Duration: ${result.duration} min.`)
+                      // setDistance(result.distance)
+                      await AsyncStorage.setItem("distance", result.distance.toString());
+                      await AsyncStorage.setItem("ongkir", calculateOngkir(result.distance).toString());
+                      // console.log(result.distance.toString(), calculateOngkir(result.distance).toString());
+                }}
+                apikey={GOOGLE_MAPS_APIKEY}
+                strokeWidth={3}
+                strokeColor="#0ea5e9"
+              />
               <Marker coordinate={mapRegion} style={styles.marker} />
             </MapView>
           </View>
@@ -146,20 +178,21 @@ export default function LoginScreen({ navigation }) {
 
           <Pressable
             onPress={() =>
-              registerUser({
+              {
+                registerUser({
                 variables: {
                   userInput: {
                     address,
                     email,
                     fullName,
-                    latitude,
-                    longitude,
+                    latitude: latitude.toString(),
+                    longitude: longitude.toString(),
                     password,
                     phoneNumber,
                     username,
                   },
                 },
-              })
+              })}
             }
           >
             <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
