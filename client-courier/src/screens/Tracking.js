@@ -39,7 +39,7 @@ export default function Tracking({route, navigation}) {
   );
 
 
-  const { InvoiceId, UserId, DriverId } = route.params;
+  const { InvoiceId, UserId, DriverId, isDelivered } = route.params;
   console.log(route.params, "route params dari tracking");
   // const InvoiceId = 1
   // const UserId = 2
@@ -136,7 +136,9 @@ export default function Tracking({route, navigation}) {
         </MapView>
       </View>
       <View className="mb-20 w-80">
-        <TouchableOpacity
+        {
+          isDelivered === 'Sedang Dikirim' && 
+          <TouchableOpacity
           style={styles.btn}
           onPress={async () => {
             changeStatus({
@@ -146,8 +148,10 @@ export default function Tracking({route, navigation}) {
             return;
           }}>
           <Text style={styles.btnText}>Selesai</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableOpacity>}
+
+        { isDelivered !== 'Terkirim' && 
+          <TouchableOpacity
           style={styles.btnReversed}
           onPress={() => {
             // changeStatus({
@@ -159,7 +163,7 @@ export default function Tracking({route, navigation}) {
             });
           }}>
           <Text style={styles.btnTextReversed}>Chat with Customer</Text>
-        </TouchableOpacity>
+        </TouchableOpacity>}
       </View>
     </View>
   );

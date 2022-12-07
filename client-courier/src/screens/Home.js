@@ -54,6 +54,7 @@ export default function Home({ navigation }) {
     const id_user = await AsyncStorage.getItem("id");
     const id = Number(id_user);
     setId(id)
+    return id
   }
 // push notif
   useEffect(() => {
