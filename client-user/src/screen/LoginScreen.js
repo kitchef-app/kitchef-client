@@ -34,8 +34,12 @@ export default function LoginScreen({ navigation }) {
         if (res?.data?.loginUser?.access_token) {
           const access_token = res?.data?.loginUser?.access_token;
           const id_user = String(res?.data?.loginUser?.id);
+          const distance = res?.data?.loginUser?.distance;
+          const ongkir = distance ? calculateOngkir(distance):20000
           await AsyncStorage.setItem("access_token", access_token);
           await AsyncStorage.setItem("id", id_user);
+          await AsyncStorage.setItem("distance", distance.toString());
+          await AsyncStorage.setItem("ongkir", ongkir.toString());
           return navigation.replace("Home");
         } else {
         }

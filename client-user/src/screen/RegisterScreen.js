@@ -37,14 +37,20 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [address, setAddress] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   const [registerUser, { loading, error, data }] = useMutation(POST_REGISTER);
 
-  const locationSplit = location.split(", ");
-  const latitude = locationSplit[1];
-  const longitude = locationSplit[0];
+  // const locationSplit = location.split(", ");
+  // const latitude = locationSplit[1];
+  // const longitude = locationSplit[0];
+  // const latitude = address.lat
+  // const longitude = address.lng
+  // console.log(latitude, longitude, "latlongg");
+ 
   const GMAPS_API_KEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
 
   const handleSubmit = () => {
@@ -57,6 +63,9 @@ export default function LoginScreen({ navigation }) {
         let address = json.results[0].geometry.location;
         setmapRegion({ latitude: address.lat, longitude: address.lng });
         console.log(address);
+        setLatitude(address.lat)
+        setLongitude(address.lng)
+        console.log(latitude, longitude, "latlongg");
       })
       .catch((error) => console.warn(error));
   };
@@ -146,9 +155,10 @@ export default function LoginScreen({ navigation }) {
                 onReady={async (result) => {
                       console.log(`Distance: ${result.distance} km`)
                       console.log(`Duration: ${result.duration} min.`)
-                      setDistance(result.distance)
-                      await AsyncStorage.setItem("distance", distance);
-                      await AsyncStorage.setItem("ongkir", calculateOngkir(distance));
+                      // setDistance(result.distance)
+                      await AsyncStorage.setItem("distance", result.distance.toString());
+                      await AsyncStorage.setItem("ongkir", calculateOngkir(result.distance).toString());
+                      // console.log(result.distance.toString(), calculateOngkir(result.distance).toString());
                 }}
                 apikey={GOOGLE_MAPS_APIKEY}
                 strokeWidth={3}
@@ -168,20 +178,21 @@ export default function LoginScreen({ navigation }) {
 
           <Pressable
             onPress={() =>
-              registerUser({
+              {
+                registerUser({
                 variables: {
                   userInput: {
                     address,
                     email,
                     fullName,
-                    latitude,
-                    longitude,
+                    latitude: latitude.toString(),
+                    longitude: longitude.toString(),
                     password,
                     phoneNumber,
                     username,
                   },
                 },
-              })
+              })}
             }
           >
             <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
