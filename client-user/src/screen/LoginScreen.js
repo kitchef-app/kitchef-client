@@ -36,12 +36,15 @@ export default function LoginScreen({ navigation }) {
           const access_token = res?.data?.loginUser?.access_token;
           const id_user = String(res?.data?.loginUser?.id);
           // const distance = res?.data?.loginUser?.distance.toString();
+          // const distance = 2.7;
+          // const ongkir = distance ? calculateOngkir(distance).toString() : "20000"
+          // const distance = res?.data?.loginUser?.distance;
           const distance = 2.7;
-          const ongkir = distance ? calculateOngkir(distance).toString() : "20000"
+          const ongkir = calculateOngkir(distance)
           await AsyncStorage.setItem("access_token", access_token);
           await AsyncStorage.setItem("id", id_user);
           await AsyncStorage.setItem("distance", distance.toString());
-          await AsyncStorage.setItem("ongkir", ongkir);
+          await AsyncStorage.setItem("ongkir", ongkir).toString();
           return navigation.replace("Home");
         } else {
         }
