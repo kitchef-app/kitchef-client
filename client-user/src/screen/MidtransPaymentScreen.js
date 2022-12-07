@@ -4,6 +4,8 @@ import { WebView } from "react-native-webview";
 import { useMutation } from "@apollo/client";
 import { PUT_CHANGE_STATUS_INVOICE } from "../queries/payment";
 import { cartItemsVar } from "../cache/cache";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function MidtransPaymentScreen({ navigation, route }) {
   const {
@@ -17,6 +19,17 @@ export default function MidtransPaymentScreen({ navigation, route }) {
     DriverId,
     invoiceId,
   } = route.params;
+
+  const [id, setId] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const id = await AsyncStorage.getItem("id");
+    setId(+id);
+  };
 
   console.log(invoiceId, "Invoice id dari midtranspayment screen");
   const [changeStatusInvoice, { loading, error, data }] = useMutation(
@@ -84,6 +97,7 @@ export default function MidtransPaymentScreen({ navigation, route }) {
           changeStatusInvoice({
             variables: {
               invoiceId: +invoiceId,
+              userId: +id,
             },
           })
             .then((res) => {

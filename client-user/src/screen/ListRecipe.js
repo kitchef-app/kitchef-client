@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
+  StatusBar,
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -27,65 +28,28 @@ export default function ListRecipe({ navigation, route }) {
   }, []);
 
   return (
-    <ScrollView backgroundColor={COLORS.backgroundWhite}>
-      <View className="flex-1 mb-2">
-        <View className="flex-row flex-wrap flex justify-between px-4 py-2">
-          {data?.getDishes?.map((dishes, index) => {
-            if (dishes.CategoryId == categoryId)
-              return (
-                <CardRecipe
-                  dishes={dishes}
-                  navigation={navigation}
-                  key={index}
-                />
-              );
-          })}
+    <>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="#fff"
+        animated={true}
+      />
+      <ScrollView className="bg-slate-50">
+        <View className="flex-1 mb-2">
+          <View className="flex-row flex-wrap mt-2 ml-4 flex justify-left">
+            {data?.getDishes?.map((dishes, index) => {
+              if (dishes.CategoryId == categoryId)
+                return (
+                  <CardRecipe
+                    dishes={dishes}
+                    navigation={navigation}
+                    key={index}
+                  />
+                );
+            })}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  image: {
-    marginBottom: 40,
-  },
-
-  inputView: {
-    backgroundColor: "#FFC0CB",
-    borderRadius: 30,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
-
-    alignItems: "center",
-  },
-
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
-  },
-
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
-
-  loginBtn: {
-    width: "80%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#FF1493",
-  },
-});

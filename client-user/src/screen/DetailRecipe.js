@@ -11,6 +11,7 @@ import { useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import CardTools from "../components/CardTools";
 import { makeVar } from "@apollo/client";
+import Icon from "react-native-vector-icons/Ionicons";
 
 // export const cartItemsVar = makeVar([]);
 
@@ -102,12 +103,27 @@ export default function DetailRecipe({ navigation, route }) {
               ))}
             </View>
           </ScrollView>
-          <View className="mt-8">
+          <View className="flex-col mt-8">
             <Text className="text-lg ml-4 mb-2 font-bold">
               Beli Bahan dan Perlengkapan
             </Text>
+            <View className=" border mx-4 py-2 rounded-lg border-orange-300 bg-orange-50 mt-2">
+              <View className="flex-row">
+                <View className="my-auto mx-4">
+                  <Icon name="location-outline" size={20} color="orange" />
+                </View>
+                <Text className="text-lg font-bold">Kitchef Store</Text>
+              </View>
+              <View className="py-2">
+                <Text className="text-sm mx-4 break-words">
+                  Jl. Arteri Pd. Indah No.7, RT.5/RW.9, Kby. Lama Sel., Kec.
+                  Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta
+                  12240
+                </Text>
+              </View>
+            </View>
           </View>
-          <View className="flex-col mb-2">
+          <View className="flex-col mb-2 mt-2">
             {data?.getDishesDetail?.Products.map((products, index) => (
               <CardListAllItem
                 products={products}

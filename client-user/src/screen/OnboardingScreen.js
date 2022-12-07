@@ -7,24 +7,24 @@ import { useEffect, useState } from "react";
 const slides = [
   {
     id: 1,
-    title: "Cari Resep Keinginanmu",
+    title: "Temukan Resep Keinginanmu",
     description:
-      "Kami menyediakan begitu banyak resep masakan disini. Lihat cara masaknya dan masak sekarang.",
-    image: require("../../assets/favicon.png"),
+      "Tersedia ribuan resep di Kitchef dan tonton video tutorial memasak resep pilihanmu",
+    image: require("../assets/logo/onboarding-01.png"),
   },
   {
     id: 2,
-    title: "Pelajari Cara Bikinnya",
+    title: "Pesan Bahan Masakan",
     description:
-      "Kami menyediakan begitu banyak resep masakan disini. Lihat cara masaknya dan masak sekarang.",
-    image: require("../../assets/favicon.png"),
+      "Pilih bahan masakan yang kamu butuhkan sesuai resep masakan pilihanmu",
+    image: require("../assets/logo/onboarding-02.png"),
   },
   {
     id: 3,
-    title: "Beli Langsung Bahan Masakan",
+    title: "Lacak Pesananmu",
     description:
-      "Kami menyediakan begitu banyak resep masakan disini. Lihat cara masaknya dan masak sekarang.",
-    image: require("../assets/logo/logo_full_vertical_32_orange.png"),
+      "Pelacakan pesanan secara langsung akan terus mengabarimu tentang progres pesananmu",
+    image: require("../assets/logo/onboarding-03.png"),
   },
 ];
 
@@ -49,10 +49,9 @@ export default function OnboardingScreen({ navigation }) {
       >
         <Text
           style={{
-            color: COLORS.black,
-            fontWeight: "600",
-            fontSize: SIZES.h4,
             color: COLORS.primary,
+            fontWeight: "600",
+            fontSize: SIZES.h3,
           }}
         >
           {label}
@@ -62,11 +61,9 @@ export default function OnboardingScreen({ navigation }) {
   };
   return (
     <>
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor={COLORS.backgroundWhite}
-      />
+      <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
       <AppIntroSlider
+        backgroundColor="#FFF"
         data={slides}
         renderItem={({ item }) => {
           return (
@@ -74,8 +71,8 @@ export default function OnboardingScreen({ navigation }) {
               style={{
                 flex: 1,
                 alignItems: "center",
-                padding: 15,
-                paddingTop: 100,
+                padding: 25,
+                paddingTop: 75,
               }}
             >
               <Image
@@ -89,8 +86,9 @@ export default function OnboardingScreen({ navigation }) {
               <Text
                 style={{
                   fontWeight: "bold",
-                  color: COLORS.black,
-                  fontSize: SIZES.h1,
+                  color: COLORS.primary,
+                  fontSize: 22,
+                  marginTop: -15,
                 }}
               >
                 {item.title}
@@ -98,8 +96,10 @@ export default function OnboardingScreen({ navigation }) {
               <Text
                 style={{
                   textAlign: "center",
-                  paddingTop: 5,
+                  paddingTop: 12,
                   color: COLORS.black,
+                  fontSize: 15,
+                  lineHeight: 22,
                 }}
               >
                 {item.description}
@@ -117,9 +117,9 @@ export default function OnboardingScreen({ navigation }) {
         renderDoneButton={() => buttonLabel("Selesai")}
         onDone={() => {
           if (preferences[0]) {
-            navigation.navigate("Home");
+            navigation.replace("Home");
           } else {
-            navigation.navigate("Preferences");
+            navigation.replace("Preferences");
           }
         }}
       />

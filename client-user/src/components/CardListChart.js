@@ -11,8 +11,7 @@ export default function CardListChart({ item }) {
 
   const increaseQuantity = () => {
     const newArr = CartItems.map((el, i) => {
-      // console.log(el);
-      if (i + 1 === +item.id) {
+      if (+el.id === +item.id) {
         return {
           ...CartItems[i],
           quantity: el.quantity + 1,
@@ -22,7 +21,6 @@ export default function CardListChart({ item }) {
       }
     });
     cartItemsVar(newArr);
-    console.log("masuk ke increased");
   };
 
   const deleteCartItem = () => {
@@ -32,17 +30,23 @@ export default function CardListChart({ item }) {
 
   const decreaseQuantity = () => {
     const newArr = CartItems.map((el, i) => {
-      if (i + 1 === +item.id) {
-        return {
-          ...CartItems[i],
-          quantity: el.quantity - 1,
-        };
+      if (+el.id === +item.id) {
+        if (el.quantity === 1) {
+          return {
+            ...CartItems[i],
+            quantity: 1,
+          };
+        } else {
+          return {
+            ...CartItems[i],
+            quantity: el.quantity - 1,
+          };
+        }
       } else {
         return el;
       }
     });
     cartItemsVar(newArr);
-    console.log("masuk ke decreased");
   };
 
   return (
@@ -82,6 +86,7 @@ export default function CardListChart({ item }) {
           </Pressable>
         </View>
       </View>
+      <View></View>
     </View>
   );
 }

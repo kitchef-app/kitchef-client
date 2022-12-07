@@ -55,7 +55,7 @@ export default function OrderScreen({ navigation }) {
     //   <Text>Ini order screen</Text>
     // </View>
     <ScrollView>
-      <View className="flex-1">
+      <View className="flex-1 py-2">
         {data &&
           data?.getInvoiceUser?.map((orderList, index) => (
             <CardOrderList
