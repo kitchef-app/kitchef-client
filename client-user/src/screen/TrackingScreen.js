@@ -10,7 +10,6 @@ import { useQuery } from "@apollo/client";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GET_USER } from '../queries/users';
 
-AsyncStorage
 export default function Tracking({navigation, route}) {
   const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
   const [region, setRegion] = useState({});
