@@ -6,6 +6,7 @@ import HomeNavigator from "./HomeNavigator";
 import CartNavigator from "./CartNavigator";
 import ChatScreen from "../screen/ChatScreen";
 import NotificationScreen from "../screen/NotificationScreen";
+import { StyleSheet } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -16,17 +17,22 @@ export default function BottomTabNavigator({ navigation }) {
         tabBarHideOnKeyboard: true,
         keyboardHidesTabBar: true,
         headerShown: false,
+        tabBarStyle: styles.tabBarStyle,
         tabBarIcon: ({ color, size, focused }) => {
           let iconName;
           color = COLORS.primary;
           if (route.name === "HomeNavigator") {
-            iconName = focused ? "home" : "home-outline";
+            iconName = "home";
+            color = focused ? COLORS.primary : COLORS.inactiveTab;
           } else if (route.name === "Notification") {
-            iconName = focused ? "notifications" : "notifications-outline";
+            iconName = "notifications";
+            color = focused ? COLORS.primary : COLORS.inactiveTab;
           } else if (route.name === "CartNavigator") {
-            iconName = focused ? "cart" : "cart-outline";
+            iconName = "cart";
+            color = focused ? COLORS.primary : COLORS.inactiveTab;
           } else if (route.name === "AccountNavigator") {
-            iconName = focused ? "person" : "person-outline";
+            iconName = "person";
+            color = focused ? COLORS.primary : COLORS.inactiveTab;
           }
           return <Icon name={iconName} size={22} color={color} />;
         },
@@ -65,9 +71,9 @@ export default function BottomTabNavigator({ navigation }) {
   );
 }
 
-//styling tab bar
-// const styles = StyleSheet.create({
-//   tabBarStyle: {
-//     borderTop: 1
-//   }
-// })
+// styling tab bar
+const styles = StyleSheet.create({
+  tabBarStyle: {
+    borderTop: 1,
+  },
+});
