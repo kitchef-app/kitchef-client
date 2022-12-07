@@ -16,6 +16,16 @@ export const POST_LOGIN = gql`
     }
   }
 `;
+export const POST_LOGIN_DRIVER = gql`
+  mutation Mutation($driverLogin: LoginForm) {
+    loginDriver(driverLogin: $driverLogin) {
+      access_token
+      email
+      role
+      id
+    }
+  }
+`;
 
 export const GET_USER = gql`
   query GetUserById($id: Int) {
@@ -25,9 +35,9 @@ export const GET_USER = gql`
       fullName
       email
       location {
-      type
-      coordinates
-    }
+        type
+        coordinates
+      }
     }
   }
 `;
