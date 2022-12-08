@@ -93,7 +93,7 @@ const Toast = () => {
       style={[
         {
           position: "absolute",
-          bottom: "4%",
+          bottom: "10%",
           left: "4%",
           right: "4%",
           backgroundColor: colors[messageType],

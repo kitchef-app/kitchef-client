@@ -80,7 +80,7 @@ export default function DetailRecipe({ navigation, route }) {
           </View>
           <View className="mt-6">
             <Text className="text-lg ml-4 font-bold">
-              Beli Bahan dan Perlengkapan
+              Alat dan Perlengkapan
             </Text>
           </View>
           <View className="flex-col mt-4">

@@ -37,6 +37,7 @@ export default function Tracking({ route, navigation }) {
 
   const { InvoiceId, UserId, DriverId, isDelivered } = route.params;
   console.log(route.params, "route params dari tracking");
+  console.log();
   // const InvoiceId = 1
   // const UserId = 2
 

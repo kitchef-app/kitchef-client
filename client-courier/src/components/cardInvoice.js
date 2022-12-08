@@ -53,13 +53,13 @@ export function CardInvoice(route) {
   const getID = async () => {
     const id_user = await AsyncStorage.getItem("id");
     const id = Number(id_user);
-    setId(id)
+    setId(id);
     return id;
-  }
+  };
 
   useEffect(() => {
-    getID()
-  }, [])
+    getID();
+  }, []);
 
   const { loading, error, data, refetch } = useQuery(INVOICE_DRIVER, {
     variables: { driverId: 0 },
@@ -70,7 +70,7 @@ export function CardInvoice(route) {
   // console.log(allUser);
   useFocusEffect(
     useCallback(() => {
-      refetch({ driverId: 1});
+      refetch({ driverId: 1 });
       // refetch({ driverId: id});
     }, [id])
   );
@@ -90,14 +90,14 @@ export function CardInvoice(route) {
               InvoiceId: item.id,
               UserId: item.UserId,
               DriverId: item.DriverId,
-              isDelivered: item.isDelivered
+              isDelivered: item.isDelivered,
             })
           }
         >
-          <View className="mx-auto bg-orange-50 border-solid border-2 border-orange-200  w-full mt-5 rounded-md shadow-lg">
+          <View className="mx-auto bg-white border-solid border-2 border-orange-200  w-full mt-5 rounded-md shadow-lg">
             <View className="h-10 w-80 mx-auto">
               <Text className="text-xl font-semibold mt-4 text-orange-400">
-                {item.createdAt.slice(0, 10) + "-ORDER-" + item.id}
+                HCK51-KTCF-ORDR-{item.id}
               </Text>
             </View>
             <View className="border-t-1 "></View>
@@ -149,7 +149,19 @@ export function CardInvoice(route) {
                     uri: "https://cdn-icons-png.flaticon.com/512/7615/7615749.png",
                   }}
                 />
-                <Text className="text-sm">Jalan Kecap Abadi Nan Jaya</Text>
+                {allUser?.getUserAll?.map((user, index) => {
+                  // console.log(user.id);
+                  // console.log(item.UserId);
+                  if (String(user.id) === String(item.UserId)) {
+                    // console.log("lontong");
+                    // console.log(user.fullName);
+                    return (
+                      <View className="mx-4" key={index}>
+                        <Text className="text-sm mx-4">{user.address}</Text>
+                      </View>
+                    );
+                  }
+                })}
               </View>
             </View>
           </View>

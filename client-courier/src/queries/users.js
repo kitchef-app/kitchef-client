@@ -34,6 +34,7 @@ export const GET_USER = gql`
       phoneNumber
       fullName
       email
+      address
       location {
         type
         coordinates

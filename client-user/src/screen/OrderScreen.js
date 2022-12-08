@@ -11,6 +11,9 @@ import Loading from "../components/Loading";
 
 export default function OrderScreen({ navigation }) {
   const [userId, setUser] = useState([]);
+  const { loading, error, data } = useQuery(GET_ORDER_LIST, {
+    variables: { userId },
+  });
 
   const getData = async () => {
     const access_token = await AsyncStorage.getItem("access_token");
@@ -27,34 +30,17 @@ export default function OrderScreen({ navigation }) {
 
   // console.log(userId, "ini id user order");
   // const userId = 2;
-  const { loading, error, data } = useQuery(GET_ORDER_LIST, {
-    variables: { userId },
-  });
-
-  if (loading) {
-    <Loading />;
-  }
 
   useEffect(() => {
     getData();
     getID();
   }, []);
 
-  console.log(data, "order");
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
-    // <View
-    //   style={{
-    //     flex: 1,
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     backgroundColor: COLORS.backgroundWhite,
-    //   }}
-    // >
-    //   <Image
-    //     source={require("../assets/logo/logo_full_vertical_32_white.png")}
-    //   />
-    //   <Text>Ini order screen</Text>
-    // </View>
     <ScrollView>
       <View className="flex-1 py-2">
         {data &&

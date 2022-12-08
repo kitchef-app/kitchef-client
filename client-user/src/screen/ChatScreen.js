@@ -77,7 +77,7 @@ export default function ChatScreen({ route }) {
 
   const other = {
     // id: data?.getInvoiceById?.DriverId, // KIRIM VIA PARAMS AJAAAA
-    id: 'driver-1', // KIRIM VIA PARAMS AJAAAA
+    id: `driver-${driverId}`, // KIRIM VIA PARAMS AJAAAA
     // id: {
     //   expoPushToken: '123',
     //   id: data?.getInvoiceById?.DriverId
@@ -85,7 +85,7 @@ export default function ChatScreen({ route }) {
     name: "Driver",
     // email: 'alice@example.com',
     photoUrl:
-      "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+      "https://cdn.discordapp.com/attachments/1047453282253164559/1050303731658403840/avatar-driver.png",
     // welcomeMessage: 'Hey there! How are you? :-)',
     role: "default",
     // custom: {
@@ -96,18 +96,18 @@ export default function ChatScreen({ route }) {
   const me = {
     // id: user?.getUserById?._id,
     // id: +uId,
-    id: `user-1`,
-    name: 'Customer', //hardcode aja wkwk
+    id: `user-${userId}`,
+    name: "Customer", //hardcode aja wkwk
     // email: 'Sebastian@example.com',
     photoUrl:
-      "https://st3.depositphotos.com/6672868/13701/v/600/depositphotos_137014128-stock-illustration-user-profile-icon.jpg",
+      "https://cdn.discordapp.com/attachments/1047453282253164559/1050303731314479104/avatar-user.png",
     // welcomeMessage: 'Hey, how can I help? https://google.com',
     role: "default",
     custom: {
       // receiverId: data?.getInvoiceById?.DriverId, // KIRIM VIA PARAMS AJAAAA
-      receiverId: '2', // KIRIM VIA PARAMS AJAAAA
-      role: 'courier'
-    }
+      receiverId: "2", // KIRIM VIA PARAMS AJAAAA
+      role: "courier",
+    },
   };
 
   const conversationBuilder = TalkRn.getConversationBuilder(

@@ -7,6 +7,8 @@ export const COLORS = {
   inactiveTab: "#94A3B8",
   backgroundWhite: "#f8fafc",
   slate100: "#f1f5f9",
+  secondGradient: "#F06334",
+  thirdGradient: "#F06D42",
 };
 
 export const SIZES = {

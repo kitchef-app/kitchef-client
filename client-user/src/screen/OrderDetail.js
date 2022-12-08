@@ -7,13 +7,26 @@ import { GET_DETAIL_INVOICE } from "../queries/invoice";
 import Loading from "../components/Loading";
 import { idr } from "../helpers/idrFormatter";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function OrderDetail({ navigation, route }) {
   const { invoiceId } = route.params;
   const { status } = route.params;
   const { userId } = route.params;
   const { driverId } = route.params;
+
+  const [ongkir, setOngkir] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const ongkir = await AsyncStorage.getItem("ongkir");
+    setOngkir(+ongkir);
+  };
+
+  console.log(route, "<< rout dari order detail");
 
   console.log("Masuk ke order detail");
 
@@ -25,13 +38,11 @@ export default function OrderDetail({ navigation, route }) {
     navigation.setOptions({ title: `HCK51-KTCF-ORDR-${invoiceId}` });
   });
 
-  if (loading) {
-    <Loading />;
+  if (error) {
+    return <Text>error</Text>;
   }
 
-  if (error) {
-    <Text>error</Text>;
-  }
+  console.log(data?.getInvoiceProducts);
 
   let sumSubTotal = data?.getInvoiceProducts?.reduce(
     (accumulator, currentValue) =>
@@ -41,22 +52,13 @@ export default function OrderDetail({ navigation, route }) {
 
   let shippingCost = 2500;
 
-  let all_total = sumSubTotal + shippingCost;
+  let all_total = sumSubTotal + ongkir;
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
-    // <View
-    //   style={{
-    //     flex: 1,
-    //     justifyContent: "center",
-    //     alignItems: "center",
-    //     backgroundColor: COLORS.backgroundWhite,
-    //   }}
-    // >
-    //   <Image
-    //     source={require("../assets/logo/logo_full_vertical_32_white.png")}
-    //   />
-    //   <Text>Ini order screen</Text>
-    // </View>
     <>
       <ScrollView
         vertical
@@ -82,10 +84,10 @@ export default function OrderDetail({ navigation, route }) {
               </Text>
             </View>
             <View className="flex flex-row justify-between px-4 mt-2 mb-2">
-              <Text className="text-base">Ongkir Kirim</Text>
+              <Text className="text-base">Ongkos Kirim</Text>
               <Text className="text-base">
                 {" "}
-                {idr(shippingCost).substring(0, idr(shippingCost).length - 3)}
+                {idr(ongkir).substring(0, idr(ongkir).length - 3)}
               </Text>
             </View>
             <View className="border mr-4 ml-4 mt-2 border-dashed border-1 border-slate-300"></View>

@@ -64,7 +64,7 @@ export default function CartScreen({ navigation }) {
     cart.cartItems.map((e) => {
       let obj = {
         ProductId: +e.id,
-        total: e.price * e.quantity,
+        total: e.quantity,
       };
       newcart.push(obj);
     });
@@ -158,22 +158,31 @@ export default function CartScreen({ navigation }) {
                   </Text>
                 </View>
               </View>
-              <View className="mx-auto mt-4 mb-2">
-                <Icon name="ellipsis-vertical-outline" size={20} />
-              </View>
-              <View className=" border mx-4 py-2 rounded-lg border-slate-200 shadow-lg  shadow-neutral-100 mt-4">
-                <View className="flex-row">
-                  <View className="my-auto mx-4">
-                    <Icon name="location-outline" size={20} color="orange" />
+
+              {id ? (
+                <>
+                  <View className=" border mx-4 py-2 rounded-lg bg-white border-orange-300 shadow-lg  shadow-neutral-100 mt-4">
+                    <View className="flex-row">
+                      <View className="my-auto mx-4">
+                        <Icon
+                          name="location-outline"
+                          size={20}
+                          color="orange"
+                        />
+                      </View>
+                      <Text className="text-lg font-bold">
+                        {data?.getUserById?.fullName} Home
+                      </Text>
+                    </View>
+                    <View className="py-2">
+                      <Text className="text-sm mx-4 break-words">
+                        {data?.getUserById?.address}
+                      </Text>
+                    </View>
                   </View>
-                  <Text className="text-lg font-bold">{data?.getUserById?.fullName} Home</Text>
-                </View>
-                <View className="py-2">
-                  <Text className="text-sm mx-4 break-words">
-                  {data?.getUserById?.address}
-                  </Text>
-                </View>
-              </View>
+                </>
+              ) : null}
+
               <View className="flex bg-white h-max mt-4 ml-4 mr-4 mb-4 rounded-lg py-2 border border-slate-200 shadow-lg  shadow-neutral-100">
                 <View className="px-4">
                   <Text className="text-lg font-medium">

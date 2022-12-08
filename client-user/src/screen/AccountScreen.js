@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Pressable,
   ScrollView,
+  StatusBar,
 } from "react-native";
 import { COLORS } from "../constants/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -178,7 +179,7 @@ export default function AccountScreen({ navigation }) {
           <Image
             className="h-24 rounded-full w-24 mx-auto my-auto"
             source={{
-              uri: "https://www.shareicon.net/data/512x512/2016/05/24/770117_people_512x512.png",
+              uri: "https://cdn.discordapp.com/attachments/1047453282253164559/1050303731314479104/avatar-user.png",
             }}
           />
 

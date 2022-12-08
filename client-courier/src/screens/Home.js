@@ -3,40 +3,39 @@ import { Pressable } from "react-native";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { CardInvoice } from "../components/cardInvoice";
 // push notif
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
-import axios from 'axios';
+import * as Device from "expo-device";
+import * as Notifications from "expo-notifications";
+import axios from "axios";
 import { useEffect, useState, useRef } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
 
 // push notif
 async function registerForPushNotificationsAsync() {
   let token;
   if (Device.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
+    if (existingStatus !== "granted") {
       const { status } = await Notifications.requestPermissionsAsync();
       finalStatus = status;
     }
-    if (finalStatus !== 'granted') {
-      alert('Failed to get push token for push notification!');
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
     // console.log(token);
   } else {
-    alert('Must use physical device for Push Notifications');
+    alert("Must use physical device for Push Notifications");
   }
 
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
+  if (Platform.OS === "android") {
+    Notifications.setNotificationChannelAsync("default", {
+      name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
+      lightColor: "#FF231F7C",
     });
   }
 
@@ -53,42 +52,43 @@ export default function Home({ navigation }) {
   const getID = async () => {
     const id_user = await AsyncStorage.getItem("id");
     const id = Number(id_user);
-    setId(id)
-    return id
-  }
-// push notif
+    setId(id);
+    return id;
+  };
+  // push notif
   useEffect(() => {
-    getID()
-    .then((id) => {
-    registerForPushNotificationsAsync()
-    .then((token) => {
-      console.log(token, "ini token ========================");
-      console.log(id, "ini ID HABIS TOKEN");
-      // hit endpoint utk update user utk simpen expopushnotif (token)
-      axios({
-        method: 'patch',
-        url: `${baseUrl}/drivers/${id}`,
-        data: {
-          token
-        }
-      }).then(data => console.log('berhasil ngepatch'));
-      // setExpoPushToken(token) // kayaknya gak perlu
+    getID().then((id) => {
+      registerForPushNotificationsAsync().then((token) => {
+        console.log(token, "ini token ========================");
+        console.log(id, "ini ID HABIS TOKEN");
+        // hit endpoint utk update user utk simpen expopushnotif (token)
+        axios({
+          method: "patch",
+          url: `${baseUrl}/drivers/${id}`,
+          data: {
+            token,
+          },
+        }).then((data) => console.log("berhasil ngepatch"));
+        // setExpoPushToken(token) // kayaknya gak perlu
+      });
     });
-    })
-   
 
     // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+    notificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        setNotification(notification);
+      });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+    responseListener.current =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log(response);
+      });
 
     return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(
+        notificationListener.current
+      );
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
@@ -101,6 +101,7 @@ export default function Home({ navigation }) {
           width: "100%",
           // alignItems: "center",
           // marginLeft: 5,
+          backgroundColor: "white",
           padding: 10,
           justifyContent: "center",
         }}
@@ -114,7 +115,7 @@ export default function Home({ navigation }) {
           }}
         ></View>
 
-        <CardInvoice/>
+        <CardInvoice />
       </View>
       {/* <ScrollView>
         <View className="flex-1">
@@ -241,7 +242,7 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
