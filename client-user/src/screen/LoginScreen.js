@@ -56,24 +56,25 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View className="bg-white h-full">
-      <View className="flex-col my-auto">
-        {/* <Image
+      <View className="flex-col py-24">
+        <Image
           className="mx-auto mb-4"
           source={require("../assets/logo/Logo_72.png")}
-        ></Image> */}
+        ></Image>
         <Text className="text-4xl mx-auto font-extrabold">Log In</Text>
         <Text className="mx-auto font-extralight mt-[4] mb-6">
           Please login to continue using our app
         </Text>
-        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+        <Text className="mx-6 mt-3">Email</Text>
+        <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
           <TextInput
             className="my-auto pl-4 text-base"
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
           />
         </View>
-
-        <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+        <Text className="mx-6 mt-3">Password</Text>
+        <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
           <TextInput
             className="my-auto pl-4 text-base"
             placeholder="Password"
@@ -81,9 +82,9 @@ export default function LoginScreen({ navigation }) {
             onChangeText={(password) => setPassword(password)}
           />
         </View>
-
+        
         <Pressable onPress={() => submitLogin()}>
-          <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+          <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-md">
             <Text className="text-white font-medium text-base mx-auto ">
               Login
             </Text>

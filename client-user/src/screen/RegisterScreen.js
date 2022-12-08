@@ -14,7 +14,7 @@ import { COLORS } from "../constants/theme";
 import { useMutation } from "@apollo/client";
 import { POST_REGISTER } from "../queries/users";
 import MapView, { Marker } from "react-native-maps";
-import MapViewDirections from 'react-native-maps-directions';
+import MapViewDirections from "react-native-maps-directions";
 import Geocoder from "react-native-geocoding";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { calculateOngkir } from "../helpers/ongkirCalculator";
@@ -22,7 +22,7 @@ import { calculateOngkir } from "../helpers/ongkirCalculator";
 // import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 export default function LoginScreen({ navigation }) {
-  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI";
   const [mapRegion, setmapRegion] = useState({
     latitude: -6.260826,
     longitude: 106.7815368,
@@ -30,8 +30,8 @@ export default function LoginScreen({ navigation }) {
   const hacktivReg = {
     latitude: -6.260826,
     longitude: 106.7815368,
-  }
-  const [distance, setDistance] = useState(0)
+  };
+  const [distance, setDistance] = useState(0);
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -50,8 +50,8 @@ export default function LoginScreen({ navigation }) {
   // const latitude = address.lat
   // const longitude = address.lng
   // console.log(latitude, longitude, "latlongg");
- 
-  const GMAPS_API_KEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI"
+
+  const GMAPS_API_KEY = "AIzaSyAw99RzBxkw-upCWfK5gVURlEMRzTn3pOI";
 
   const handleSubmit = () => {
     console.log(location);
@@ -63,8 +63,8 @@ export default function LoginScreen({ navigation }) {
         let address = json.results[0].geometry.location;
         setmapRegion({ latitude: address.lat, longitude: address.lng });
         console.log(address);
-        setLatitude(address.lat)
-        setLongitude(address.lng)
+        setLatitude(address.lat);
+        setLongitude(address.lng);
         console.log(latitude, longitude, "latlongg");
       })
       .catch((error) => console.warn(error));
@@ -73,35 +73,38 @@ export default function LoginScreen({ navigation }) {
   // <Text>-6.268507218164185, 106.7808981976766</Text>
   return (
     <View className="bg-white h-full">
-      <View className="flex-col my-auto">
+      <View className="flex-col my-auto py-4">
         <ScrollView>
           <Text className="text-3xl mx-auto font-extrabold">Sign Up</Text>
           <Text className="mx-auto font-extralight mt-[4] mb-6">
             Please login to continue using our app
           </Text>
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Full Name</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Full Name"
               onChangeText={(fullName) => setFullName(fullName)}
             />
           </View>
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Username</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Username"
               onChangeText={(username) => setUsername(username)}
             />
           </View>
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Email</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Email"
               onChangeText={(email) => setEmail(email)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Password</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Password"
@@ -109,24 +112,24 @@ export default function LoginScreen({ navigation }) {
               onChangeText={(password) => setPassword(password)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Phone Number</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Phone Number"
               onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Address</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Address"
               onChangeText={(address) => setAddress(address)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Location</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               // style={{ ...styles.TextInput }}
@@ -137,7 +140,7 @@ export default function LoginScreen({ navigation }) {
               value={location}
             />
           </View>
-          <View className="w-[300] h-[150] mx-auto mt-3">
+          <View className="w-[300] h-[150] mx-auto mt-3 rounded-md">
             <MapView
               style={styles.map}
               showsUserLocation={true}
@@ -149,16 +152,22 @@ export default function LoginScreen({ navigation }) {
                 longitudeDelta: 0.01,
               }}
             >
-                <MapViewDirections
+              <MapViewDirections
                 origin={mapRegion}
                 destination={hacktivReg}
                 onReady={async (result) => {
-                      console.log(`Distance: ${result.distance} km`)
-                      console.log(`Duration: ${result.duration} min.`)
-                      // setDistance(result.distance)
-                      await AsyncStorage.setItem("distance", result.distance.toString());
-                      await AsyncStorage.setItem("ongkir", calculateOngkir(result.distance).toString());
-                      // console.log(result.distance.toString(), calculateOngkir(result.distance).toString());
+                  console.log(`Distance: ${result.distance} km`);
+                  console.log(`Duration: ${result.duration} min.`);
+                  // setDistance(result.distance)
+                  await AsyncStorage.setItem(
+                    "distance",
+                    result.distance.toString()
+                  );
+                  await AsyncStorage.setItem(
+                    "ongkir",
+                    calculateOngkir(result.distance).toString()
+                  );
+                  // console.log(result.distance.toString(), calculateOngkir(result.distance).toString());
                 }}
                 apikey={GOOGLE_MAPS_APIKEY}
                 strokeWidth={3}
@@ -177,9 +186,8 @@ export default function LoginScreen({ navigation }) {
         </Pressable> */}
 
           <Pressable
-            onPress={() =>
-              {
-                registerUser({
+            onPress={() => {
+              registerUser({
                 variables: {
                   userInput: {
                     address,
@@ -192,10 +200,10 @@ export default function LoginScreen({ navigation }) {
                     username,
                   },
                 },
-              })}
-            }
+              });
+            }}
           >
-            <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+            <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-md">
               <Text className="text-white font-medium text-base mx-auto ">
                 Register
               </Text>
@@ -219,7 +227,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center", 
+    alignItems: "center",
     justifyContent: "center",
   },
 
@@ -273,6 +281,7 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     marginBottom: 10,
+    borderRadius: 40,
   },
   marker: {
     ...StyleSheet.absoluteFillObject,
