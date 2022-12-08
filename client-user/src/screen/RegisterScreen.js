@@ -74,35 +74,38 @@ export default function LoginScreen({ navigation }) {
   // <Text>-6.268507218164185, 106.7808981976766</Text>
   return (
     <View className="bg-white h-full">
-      <View className="flex-col my-auto">
+      <View className="flex-col my-auto py-4">
         <ScrollView>
           <Text className="text-3xl mx-auto font-extrabold">Sign Up</Text>
           <Text className="mx-auto font-extralight mt-[4] mb-6">
             Please login to continue using our app
           </Text>
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Full Name</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Full Name"
               onChangeText={(fullName) => setFullName(fullName)}
             />
           </View>
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Username</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Username"
               onChangeText={(username) => setUsername(username)}
             />
           </View>
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Email</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Email"
               onChangeText={(email) => setEmail(email)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Password</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Password"
@@ -110,24 +113,24 @@ export default function LoginScreen({ navigation }) {
               onChangeText={(password) => setPassword(password)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Phone Number</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Phone Number"
               onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Address</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               placeholder="Address"
               onChangeText={(address) => setAddress(address)}
             />
           </View>
-
-          <View className="bg-white h-[45] rounded-3xl text-left mx-6 mb-2 mt-3 border border-gray-400">
+          <Text className="mx-6 mt-3">Location</Text>
+          <View className="bg-white h-[45] rounded-md text-left mx-6 mb-2 mt-1 border border-gray-400">
             <TextInput
               className="my-auto pl-4 text-base"
               // style={{ ...styles.TextInput }}
@@ -138,7 +141,7 @@ export default function LoginScreen({ navigation }) {
               value={location}
             />
           </View>
-          <View className="w-[300] h-[150] mx-auto mt-3">
+          <View className="w-[300] h-[150] mx-auto mt-3 rounded-md">
             <MapView
               style={styles.map}
               showsUserLocation={true}
@@ -201,7 +204,7 @@ export default function LoginScreen({ navigation }) {
               });
             }}
           >
-            <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-3xl">
+            <View className="h-auto mx-6 p-3 mt-2 bg-[#F05A2A] rounded-md">
               <Text className="text-white font-medium text-base mx-auto ">
                 Register
               </Text>
@@ -279,6 +282,7 @@ const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
     marginBottom: 10,
+    borderRadius: 40,
   },
   marker: {
     ...StyleSheet.absoluteFillObject,

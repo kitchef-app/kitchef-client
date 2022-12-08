@@ -119,7 +119,7 @@ export default function HomeScreen({ navigation }) {
             </Text>
 
             <View className="flex-1 mx-4">
-              <View className="flex-wrap flex-row mt-2 mb-4 mx-auto">
+              <View className="flex-wrap flex-row mt-4">
                 {category?.getCategory?.map((category, index) => (
                   <CardCategory
                     category={category}
