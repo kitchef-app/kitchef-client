@@ -16,9 +16,6 @@ export default function CartNavigator() {
             unmountOnBlur: true,
             title: "Keranjang",
             headerTitleAlign: "center",
-            headerBackgroundContainerStyle: {
-              borderBottomColor: "red",
-            },
             headerStyle: {
               elevation: 100,
             },

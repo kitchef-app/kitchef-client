@@ -1,7 +1,4 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HeaderBackButton } from "@react-navigation/elements";
-import LoginScreen from "../screen/LoginScreen";
-import RegisterScreen from "../screen/RegisterScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
 import SplashScreen from "../screen/SplashScreen";
 import OnboardingScreen from "../screen/OnboardingScreen";

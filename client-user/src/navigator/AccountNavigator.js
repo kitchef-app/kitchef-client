@@ -55,7 +55,18 @@ export default function AccountNavigator({ navigation }) {
             component={LoginScreen}
             options={{ headerShown: false }}
           />
-          <Account.Screen name="Register" component={RegisterScreen} />
+          <Account.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{
+              unmountOnBlur: true,
+              title: "",
+              headerTitleAlign: "center",
+              headerStyle: {
+                elevation: 100,
+              },
+            }}
+          />
         </>
       )}
     </Account.Navigator>
