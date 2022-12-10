@@ -1,61 +1,99 @@
+import { useQuery } from "@apollo/client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
-import { View, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
-import { SIZES } from "../constants/theme";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import Loading from "../components/Loading";
+import { COLORS, SIZES } from "../constants/theme";
+import { GET_CATEGORY } from "../queries/recipe";
 
 export default function PreferencesScreen({ navigation }) {
+  console.log("Ini masuk ke prefer");
   const [categories, setCategories] = useState([]);
+  const { loading, error, data } = useQuery(GET_CATEGORY);
 
-  const options = ["Kategori 1", "Kategori 2", "Kategori 3"];
+  if (loading) {
+    return <Loading />;
+  }
+
+  console.log(categories, "< preferences");
+
+  const options = data?.getCategory;
 
   function chooseCategory(selectedCategory) {
-    if (categories.includes(selectedCategory)) {
+    console.log(+selectedCategory, "category");
+    if (categories.includes(+selectedCategory)) {
       setCategories(
-        categories.filter((category) => category !== selectedCategory)
+        categories.filter((category) => category !== +selectedCategory)
       );
       return categories;
     }
-    setCategories((categories) => categories.concat(selectedCategory));
+    setCategories((categories) => categories.concat(+selectedCategory));
   }
 
-  console.log(categories);
+  function submitPreferences() {
+    const preferences = JSON.stringify(categories);
+    AsyncStorage.setItem("preferences", preferences);
+    navigation.replace("Home");
+  }
 
   return (
     <View style={styles.container}>
       <Text
         style={{
-          fontSize: SIZES.h2,
+          fontSize: SIZES.h1,
           fontWeight: "bold",
+          paddingTop: 32,
+          lineHeight: 28,
         }}
       >
-        Pilih preferensi kategori masakan kesukaanmu
+        Kategori masakan apa yang kamu suka?
       </Text>
-      <View style={styles.options}>
-        {options.map((option) => (
-          <View key={option} style={styles.categories}>
-            <TouchableOpacity
-              style={styles.checkBox}
-              onPress={() => chooseCategory(option)}
-            >
-              {categories.includes(option) && (
-                <Text style={styles.check}>✓</Text>
+      <Text className="text-slate-400 text-md pt-4">
+        Pilih kategori masakan kesukaanmu
+      </Text>
+      <View className="w-full pt-4">
+        {options?.map((option, index) => (
+          <Pressable
+            onPress={() => chooseCategory(+option.id)}
+            key={index}
+            className="h-auto w-full p-3 mt-2 border border-slate-300 rounded-xl flex-row items-center"
+          >
+            <View className="w-6 h-6 border border-slate-300 rounded-md mr-2">
+              {categories?.includes(+option.id) && (
+                <View className="h-6 w-6 bg-[#F05A2A] rounded-md items-center justify-center">
+                  <Icon name="checkmark" size={24} color="#fff" />
+                </View>
               )}
-            </TouchableOpacity>
-            <Text style={styles.categoriesName}>{option}</Text>
-          </View>
+            </View>
+            <Text className="text-slate-500">{option.name}</Text>
+          </Pressable>
         ))}
       </View>
-      <Button
-        buttonStyle={{
-          borderRadius: 0,
-          marginLeft: 0,
-          marginRight: 0,
-          marginBottom: 0,
-        }}
-        title="Simpan"
-        onPress={() => {
-          navigation.navigate("Home");
-        }}
-      />
+      {!categories[0] ? (
+        <Pressable className="w-full pt-6">
+          <View className="h-auto w-full p-3 mt-2 bg-[#bbbbbb] rounded-md">
+            <Text className="text-white font-medium text-base mx-auto ">
+              Simpan
+            </Text>
+          </View>
+        </Pressable>
+      ) : (
+        <Pressable onPress={() => submitPreferences()} className="w-full pt-6">
+          <View className="h-auto w-full p-3 mt-2 bg-[#F05A2A] rounded-md">
+            <Text className="text-white font-medium text-base mx-auto ">
+              Simpan
+            </Text>
+          </View>
+        </Pressable>
+      )}
     </View>
   );
 }
@@ -63,29 +101,7 @@ export default function PreferencesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  options: {
-    alignSelf: "flex-start",
-    marginLeft: 40,
-  },
-  categories: {
-    flexDirection: "row",
-    marginVertical: 7,
-  },
-  categoriesName: {
-    textTransform: "capitalize",
-    fontSize: SIZES.h4,
-  },
-  check: {
-    alignSelf: "center",
-  },
-  checkBox: {
-    width: 25,
-    height: 25,
-    borderWidth: 2,
-    borderColor: "green",
-    marginRight: 5,
+    backgroundColor: "#fff",
+    paddingHorizontal: 20,
   },
 });

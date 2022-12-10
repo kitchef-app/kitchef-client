@@ -10,15 +10,20 @@ export const POST_PAYMENT = gql`
 `;
 
 export const POST_INVOICE = gql`
-  mutation AddInvoice($invoiceInput: InvoiceForm) {
+  mutation Mutation($invoiceInput: InvoiceForm) {
     addInvoice(invoiceInput: $invoiceInput) {
-      InvoiceId
+      id
+      UserId
+      DriverId
+      total
+      subTotal
+      shippingCost
     }
   }
 `;
 
 export const PUT_CHANGE_STATUS_INVOICE = gql`
-  mutation ChangeStatusInvoice($invoiceId: Int) {
-    changeStatusInvoice(InvoiceId: $invoiceId)
+  mutation ChangeStatusInvoice($userId: Int, $invoiceId: Int) {
+    changeStatusInvoice(UserId: $userId, InvoiceId: $invoiceId)
   }
 `;

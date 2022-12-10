@@ -3,6 +3,10 @@ import { COLORS } from "../constants/theme";
 import { WebView } from "react-native-webview";
 import { useMutation } from "@apollo/client";
 import { PUT_CHANGE_STATUS_INVOICE } from "../queries/payment";
+import { cartItemsVar } from "../cache/cache";
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Loading from "../components/Loading";
 
 export default function MidtransPaymentScreen({ navigation, route }) {
   const {
@@ -16,12 +20,26 @@ export default function MidtransPaymentScreen({ navigation, route }) {
     DriverId,
     invoiceId,
   } = route.params;
-  // console.log(route.params, "Dari midtrans payment screen");
 
-  console.log(invoiceId, "Invoice id dari midtranspayment screen");
+  const [id, setId] = useState([]);
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const id = await AsyncStorage.getItem("id");
+    setId(+id);
+  };
+
+  // console.log(invoiceId, "Invoice id dari midtranspayment screen");
   const [changeStatusInvoice, { loading, error, data }] = useMutation(
     PUT_CHANGE_STATUS_INVOICE
   );
+
+  if (loading) {
+    return <Loading />;
+  }
 
   const uri = `
   <html>
@@ -83,11 +101,21 @@ export default function MidtransPaymentScreen({ navigation, route }) {
         if (event.nativeEvent.data == "Paid") {
           changeStatusInvoice({
             variables: {
-              invoiceId,
+              invoiceId: +invoiceId,
+              userId: +id,
             },
           })
             .then((res) => {
-              navigation.navigate("HomeNavigator");
+              cartItemsVar([]);
+              navigation.jumpTo("AccountNavigator", {
+                screen: "OrderDetail",
+                params: {
+                  invoiceId: +invoiceId,
+                  userId: +id,
+                  driverId: DriverId,
+                  status: "Sudah Dibayar",
+                },
+              });
             })
             .catch((err) =>
               console.log(err, "ini err dari change status invoice")

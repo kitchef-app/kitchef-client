@@ -1,10 +1,14 @@
-import { Dimensions, View } from "react-native";
+import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("screen");
 
 export const COLORS = {
-  primary: "#FF7629",
-  black: "#333333",
-  backgroundWhite: "#FEFEFE",
+  primary: "#F05A2A",
+  black: "#767676",
+  inactiveTab: "#94A3B8",
+  backgroundWhite: "#f8fafc",
+  slate100: "#f1f5f9",
+  secondGradient: "#F06334",
+  thirdGradient: "#F06D42",
 };
 
 export const SIZES = {

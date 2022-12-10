@@ -2,6 +2,8 @@ import { View, Image, StatusBar } from "react-native";
 import { useEffect } from "react";
 import { COLORS } from "../constants/theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// import LinearGradient from "react-native-linear-gradient";
+import { LinearGradient } from "expo-linear-gradient";
 
 export default function SplashScreen({ navigation }) {
   useEffect(() => {
@@ -21,19 +23,17 @@ export default function SplashScreen({ navigation }) {
 
   return (
     <>
-      <StatusBar style="light" backgroundColor="#FF7629" />
-      <View
+      <StatusBar style="light" backgroundColor="#ED4009" />
+      <LinearGradient
+        colors={["#ED4009", COLORS.primary]}
         style={{
           flex: 1,
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: COLORS.primary,
         }}
       >
-        <Image
-          source={require("../assets/logo/logo_full_vertical_32_white.png")}
-        />
-      </View>
+        <Image source={require("../assets/logo/logo-splash-4.png")} />
+      </LinearGradient>
     </>
   );
 }

@@ -5,16 +5,18 @@ import { ApolloProvider } from "@apollo/client";
 import AuthStackNavigator from "./src/navigator/AuthStackNavigator";
 import { COLORS } from "./src/constants/theme";
 import client from "./src/config/apollo";
+import Toast from "./src/components/Toast";
 
 export default function App() {
   return (
     <ApolloProvider client={client}>
+      <Toast />
       <NavigationContainer>
-        <SafeAreaProvider>
-          <SafeAreaView style={styles.container}>
-            <AuthStackNavigator />
-          </SafeAreaView>
-        </SafeAreaProvider>
+        {/* <SafeAreaProvider> */}
+        <SafeAreaView style={styles.container}>
+          <AuthStackNavigator />
+        </SafeAreaView>
+        {/* </SafeAreaProvider> */}
       </NavigationContainer>
     </ApolloProvider>
   );

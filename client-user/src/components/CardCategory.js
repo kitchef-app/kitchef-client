@@ -1,16 +1,26 @@
-import { Image, Text, View } from "react-native";
+import { Image, Text, View, Pressable } from "react-native";
 
-export default function CardCategory() {
+export default function CardCategory({ navigation, category }) {
   return (
-    <View className="w-[110] mt-4 rounded-lg">
-      <Image
-        className="w-[110] h-[110] rounded-lg"
-        // style={styles.image}
-        source={{
-          uri: "https://laku.in/wp-content/uploads/2021/08/bg-3-300x295.jpg",
-        }}
-      />
-      <Text className="text-center mt-2 font-bold">Apapun</Text>
+    <View className="w-28 mx-auto rounded-lg mb-6">
+      <Pressable
+        onPress={() =>
+          navigation.navigate("ListRecipe", {
+            categoryName: category.name,
+            categoryId: category.id,
+          })
+        }
+      >
+        <Image
+          className="w-full h-[100] rounded-md"
+          source={{
+            uri: category.imageUrl,
+          }}
+        />
+        <Text className="text-left mt-1 font-medium text-md text-gray-900">
+          {category.name}
+        </Text>
+      </Pressable>
     </View>
   );
 }
