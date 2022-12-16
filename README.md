@@ -19,8 +19,14 @@
 
 Kitchef lets you cook with ease. Now you don’t need to worry about the hassle of finding the ingredients you need from multiple store, everything from handling your purchase to the shipment of your order, we’ll take care of it, so you can just focus on cooking.
 
-## Features
+## Demo
+https://user-images.githubusercontent.com/36260766/208173023-eca06675-59ef-47bc-b213-0324c60b433f.mp4
 
+## Live Demo
+* Customer App: [Customer](https://expo.dev/@yossyadirta/client-user?serviceType=c)
+* Driver App: [Driver](https://expo.dev/@yossyadirta/client-courier?serviceType)
+
+## Features
 ### Customer Side
 
 - Login and Register
@@ -62,8 +68,6 @@ Kitchef lets you cook with ease. Now you don’t need to worry about the hassle 
 ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
 ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
-
-## Live Demo
 
 ## Authors
 
